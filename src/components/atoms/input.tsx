@@ -7,7 +7,7 @@ const Input: React.FC<InputProps> = ({ ...props }) => {
       h="62px"
       bg="text.gray150"
       borderRadius="6px"
-      focusBorderColor="#BDBDBD"
+      _focus={{ outline: "none" }}
       border="none"
       {...props}
     />

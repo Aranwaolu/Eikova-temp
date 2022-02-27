@@ -65,7 +65,7 @@ const SigninPage: React.FC = () => {
           textAlign="center"
           mt="12px"
         >
-          Pictures are memories that shoudn’t be lost
+          Pictures are memories that shoudn’t be lost.
         </Text>
       </VStack>
     </Flex>
