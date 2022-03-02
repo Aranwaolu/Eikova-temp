@@ -11,6 +11,8 @@ const HomeBanner: React.FunctionComponent<IHomeBannerProps> = (props) => {
     <Box
       background="linear-gradient(rgba(36, 13, 73, 0.54), rgba(36, 13, 73, 0.54)), url(/assets/images/header-bg.png)"
       backdropFilter="blur(20px)"
+      pos="relative"
+      zIndex="9"
     >
       <NavigationBar />
       <Text
