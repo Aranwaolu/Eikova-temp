@@ -15,23 +15,23 @@ const DownloadIcon: React.FunctionComponent = () => {
       <path
         d="M24.4101 19.1792V22.6664C24.4101 23.1288 24.2264 23.5723 23.8994 23.8993C23.5724 24.2263 23.1289 24.41 22.6665 24.41H10.4614C9.99893 24.41 9.55545 24.2263 9.22846 23.8993C8.90147 23.5723 8.71777 23.1288 8.71777 22.6664V19.1792"
         stroke="white"
-        stroke-width="1.74359"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.74359"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M12.2051 14.8203L16.5641 19.1793L20.923 14.8203"
         stroke="white"
-        stroke-width="1.74359"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.74359"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M16.564 19.1793V8.71777"
         stroke="white"
-        stroke-width="1.74359"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.74359"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <defs>
         <filter
@@ -41,9 +41,9 @@ const DownloadIcon: React.FunctionComponent = () => {
           width="40.9744"
           height="40.9744"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feGaussianBlur in="BackgroundImage" stdDeviation="1.74359" />
           <feComposite
             in2="SourceAlpha"

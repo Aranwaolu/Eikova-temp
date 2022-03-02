@@ -92,7 +92,7 @@ const PictureModal: React.FunctionComponent<IPictureModalProps> = ({
           </Text>
           <Grid w="75%" mx="auto" templateColumns="repeat(2, 1fr)" gap="22px">
             {relatedImages.map((image) => (
-              <PictureFrame imageLink={image} />
+              <PictureFrame key={image} imageLink={image} />
             ))}
           </Grid>
         </Box>

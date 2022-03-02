@@ -21,16 +21,16 @@ const CloseModalIcon: React.FunctionComponent = (props) => {
         <path
           d="M13 1L1 13"
           stroke="#AD7F33"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M1 1L13 13"
           stroke="#AD7F33"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     </Flex>

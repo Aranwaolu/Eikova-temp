@@ -17,7 +17,7 @@ const Logo: React.FunctionComponent = (props) => {
         rx="12.8379"
         fill="#8F8F8F"
         stroke="white"
-        stroke-width="1.71173"
+        strokeWidth="1.71173"
       />
       <rect
         opacity="0.8"
@@ -28,7 +28,7 @@ const Logo: React.FunctionComponent = (props) => {
         rx="12.8379"
         fill="#FFEED1"
         stroke="white"
-        stroke-width="1.71173"
+        strokeWidth="1.71173"
       />
       <rect
         opacity="0.8"
@@ -39,7 +39,7 @@ const Logo: React.FunctionComponent = (props) => {
         rx="12.8379"
         fill="#8F8F8F"
         stroke="white"
-        stroke-width="1.71173"
+        strokeWidth="1.71173"
       />
     </svg>
   );

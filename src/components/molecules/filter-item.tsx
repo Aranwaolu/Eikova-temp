@@ -36,9 +36,9 @@ const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
             <path
               d="M1 4.25L4.25 0.999999L7.5 4.25"
               stroke="white"
-              stroke-width="0.928572"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="0.928572"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </Box>
@@ -58,6 +58,7 @@ const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
           <Stack direction="column" pt="14px">
             {options.map((option) => (
               <Radio
+                key={option.value}
                 value={option.value}
                 colorScheme="yellow"
                 size="sm"

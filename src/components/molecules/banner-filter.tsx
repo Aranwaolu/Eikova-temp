@@ -17,6 +17,7 @@ const BannerFilter: React.FunctionComponent<IBannerFilterProps> = (props) => {
     <Flex justifyContent="center">
       {filterValues.map((value, index) => (
         <Text
+          key={value}
           color="White"
           borderBottom={index === activeIndex ? "5px solid" : "none"}
           borderColor="text.primary"

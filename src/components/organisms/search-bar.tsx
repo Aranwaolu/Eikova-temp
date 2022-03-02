@@ -8,13 +8,14 @@ import {
 } from "@chakra-ui/react";
 import Input from "../atoms/input";
 import Button from "../atoms/button";
-import FilterBox from "./filter-box";
+import SearchBarFilter from "./search-bar-filter";
 
 interface ISearchBarProps {}
 
 const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
   const [showFilter, setShowFilter] = useState(false);
   const filterRef = useRef<any>();
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (filterRef.current !== null) {
@@ -28,6 +29,7 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
   return (
     <Box pos="relative" maxW="856px" mx="auto" ref={filterRef}>
       <Flex h="58px">
@@ -54,9 +56,9 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
             <path
               d="M13.0909 5.64551H4.90909L8.18182 9.51551V12.191L9.81818 13.0091V9.51551L13.0909 5.64551Z"
               stroke="#7B4B36"
-              stroke-width="0.818182"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="0.818182"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
           <Text mr="22px" ml="8px" lineHeight="14px" fontWeight="400">
@@ -72,9 +74,9 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
             <path
               d="M7.5 1L4.25 4.25L0.999999 1"
               stroke="black"
-              stroke-width="0.928572"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="0.928572"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </svg>
         </ChakraButton>
@@ -94,16 +96,16 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
             <path
               d="M6.33333 11.6667C9.27885 11.6667 11.6667 9.27885 11.6667 6.33333C11.6667 3.38781 9.27885 1 6.33333 1C3.38781 1 1 3.38781 1 6.33333C1 9.27885 3.38781 11.6667 6.33333 11.6667Z"
               stroke="#A0A0A0"
-              stroke-width="1.33333"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.33333"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
             <path
               d="M12.9996 13.0001L10.0996 10.1001"
               stroke="#A0A0A0"
-              stroke-width="1.33333"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="1.33333"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             />
           </Icon>
 
@@ -134,7 +136,7 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
         zIndex="99"
         display={showFilter ? "block" : "none"}
       >
-        <FilterBox />
+        <SearchBarFilter />
       </Box>
     </Box>
   );
