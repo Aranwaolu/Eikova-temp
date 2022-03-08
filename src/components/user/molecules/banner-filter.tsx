@@ -18,7 +18,7 @@ const BannerFilter: React.FunctionComponent<IBannerFilterProps> = (props) => {
       {filterValues.map((value, index) => (
         <Text
           key={value}
-          color="White"
+          color="white"
           borderBottom={index === activeIndex ? "5px solid" : "none"}
           borderColor="text.primary"
           mr="40px"

@@ -1,8 +1,9 @@
 import { Router, Switch, Route, Redirect } from "react-router-dom";
-import SigninPage from "../components/pages/signin";
-import HomePage from "../components/pages/index";
+import SigninPage from "../components/user/pages/signin";
+import HomePage from "../components/user/pages/index";
 import { createBrowserHistory } from "history";
-import SearchPage from "../components/pages/search";
+import SearchPage from "../components/user/pages/search";
+import Dashboard from "../components/admin/pages/dashboard";
 
 const history = createBrowserHistory();
 
@@ -15,6 +16,7 @@ const AppRouter = () => {
           <Route path="/" component={HomePage} exact={true} />
           <Route path="/signin" component={SigninPage} exact={true} />
           <Route path="/search" component={SearchPage} exact={true} />
+          <Route path="/dashboard" component={Dashboard} exact={true} />
           {/* <Redirect to="/not-found" /> */}
         </Switch>
       </>

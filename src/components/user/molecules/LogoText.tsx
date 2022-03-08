@@ -5,11 +5,11 @@ import Logo from "../atoms/logo";
 interface ILogoTextProps {
   big?: boolean;
 }
-const LogoText: React.FC<ILogoTextProps> = ({ big }) => {
+const LogoText: React.FC<ILogoTextProps> = ({ big=false }) => {
   return (
     <HStack>
       <Box w={big ? "auto" : "28px"} __css={{ svg: { width: "100%" } }}>
-        <Logo />
+        <Logo big={big} />
       </Box>
       <Text
         fontSize={big ? "78.46px" : "30.15px"}
