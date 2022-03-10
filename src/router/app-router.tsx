@@ -4,6 +4,7 @@ import HomePage from "../components/user/pages/index";
 import { createBrowserHistory } from "history";
 import SearchPage from "../components/user/pages/search";
 import Dashboard from "../components/admin/pages/dashboard";
+import Upload from "../components/admin/pages/upload";
 
 const history = createBrowserHistory();
 
@@ -17,6 +18,7 @@ const AppRouter = () => {
           <Route path="/signin" component={SigninPage} exact={true} />
           <Route path="/search" component={SearchPage} exact={true} />
           <Route path="/dashboard" component={Dashboard} exact={true} />
+          <Route path="/upload" component={Upload} exact={true} />
           {/* <Redirect to="/not-found" /> */}
         </Switch>
       </>
