@@ -5,6 +5,7 @@ import { createBrowserHistory } from "history";
 import SearchPage from "../components/user/pages/search";
 import Dashboard from "../components/admin/pages/dashboard";
 import Upload from "../components/admin/pages/upload";
+import UploadDetails from "../components/admin/pages/upload-details";
 
 const history = createBrowserHistory();
 
@@ -19,6 +20,11 @@ const AppRouter = () => {
           <Route path="/search" component={SearchPage} exact={true} />
           <Route path="/dashboard" component={Dashboard} exact={true} />
           <Route path="/upload" component={Upload} exact={true} />
+          <Route
+            path="/upload-details"
+            component={UploadDetails}
+            exact={true}
+          />
           {/* <Redirect to="/not-found" /> */}
         </Switch>
       </>

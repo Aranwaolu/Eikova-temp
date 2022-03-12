@@ -1,7 +1,6 @@
 import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import { useContext } from "react";
 import { PictureFilesContext } from "../../../contexts/pictures-files-context";
-import Button from "../../user/atoms/button";
 import ContinueButton from "../atoms/continue-button";
 
 interface IAddMoreUploadsProps {}

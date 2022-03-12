@@ -1,9 +1,12 @@
+import { useHistory } from "react-router-dom";
 import Button from "../../user/atoms/button";
 
 interface IContinueButtonProps {
   text?: string;
 }
 const ContinueButton: React.FC<IContinueButtonProps> = ({ text }) => {
+  const history = useHistory();
+
   return (
     <Button
       display="flex"
@@ -14,6 +17,10 @@ const ContinueButton: React.FC<IContinueButtonProps> = ({ text }) => {
       fontWeight="500"
       mt="20px"
       __css={{ svg: { ml: "16px" } }}
+      onClick={() => {
+        history.push("/upload-details");
+        window.scrollTo(0,0)
+      }}
     >
       {text ? text : "Continue with details"}
       <svg

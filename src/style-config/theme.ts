@@ -5,7 +5,8 @@ const colors = {
         primary: '#AD7F33',
         secondary: "#FFEED1",
         gray100: '#A0A0A0',
-        gray150: '#EAEAEA'
+        gray150: '#EAEAEA',
+        gray200: "#8F8F8F"
     },
 };
 
