@@ -1,29 +1,54 @@
 import { Box, Input, Text } from "@chakra-ui/react";
-import { useRef, useState } from "react";
+import { useContext } from "react";
+import { PictureFilesContext } from "../../../contexts/pictures-files-context";
 
 interface IDragDropProps {}
 
 const DragDrop: React.FunctionComponent<IDragDropProps> = (props) => {
-  const dropRef = useRef<any>();
-  const [files, setFiles] = useState([""]);
-
+  const { pictures, setPictureFiles } = useContext(PictureFilesContext);
+  const dragOnDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    event.preventDefault();
+    let fileList = Array.from(event.dataTransfer.files);
+    fileList = fileList.filter(
+      (file) =>
+        (file.type === "image/jpeg" ||
+          file.type === "image/jpg" ||
+          file.type === "image/png") &&
+        file.size < 5e6
+    );
+    const length = pictures.files?.length || 0;
+    if (fileList.length <= 10 - length) {
+      setPictureFiles(fileList);
+    } else {
+      alert("You can only upload a maximum of 10 pictures at a time");
+    }
+  };
+  const dragOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const length = pictures.files?.length || 0;
+    if (e.target.files && e.target.files.length <= 10 - length) {
+      let fileList = Array.from(e.target.files);
+      fileList = fileList.filter(
+        (file) =>
+          (file.type === "image/jpeg" ||
+            file.type === "image/jpg" ||
+            file.type === "image/png") &&
+          file.size < 5e6
+      );
+      setPictureFiles(fileList);
+    } else {
+      alert("You can only upload a maximum of 10 pictures at a time");
+    }
+  };
   return (
     <>
       <Box
-        ref={dropRef}
         onDragOver={(event) => {
           event.stopPropagation();
           event.preventDefault();
           event.dataTransfer.dropEffect = "copy";
         }}
-        onDrop={(event) => {
-          event.stopPropagation();
-          event.preventDefault();
-          const fileList = event.dataTransfer.files;
-          console.log(fileList);
-        }}
-        // as="label"
-        // htmlFor="pictures-upload"
+        onDrop={dragOnDrop}
         display="block"
         mt="48px"
         border="1px dashed #8F8F8F"
@@ -38,10 +63,8 @@ const DragDrop: React.FunctionComponent<IDragDropProps> = (props) => {
           id="pictures-upload"
           type="file"
           multiple={true}
-          value={files}
-          onChange={(e) => {
-            console.log(e.target.files);
-          }}
+          accept="image/*"
+          onChange={dragOnChange}
         />
         <svg
           width="120"
@@ -70,7 +93,15 @@ const DragDrop: React.FunctionComponent<IDragDropProps> = (props) => {
           fontSize="24px"
           fontWeight="500"
         >
-          Drag and drop up to 10 images, or Browse
+          Drag and drop up to 10 images, or{" "}
+          <Text
+            as="label"
+            htmlFor="pictures-upload"
+            color="text.primary"
+            cursor="pointer"
+          >
+            Browse
+          </Text>
         </Text>
         <Text textAlign="center" color="text.gray100" mt="8px" fontSize="18px">
           Supported files formats: png and jpg. Max 5MB each

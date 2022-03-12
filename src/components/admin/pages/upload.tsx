@@ -1,17 +1,22 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import AdminNav from "../organisms/admin-nav";
 import { Box, Flex } from "@chakra-ui/react";
 import Button from "../../user/atoms/button";
 import UploadedPicturesGrid from "../templates/uploded-pictures-grid";
+import EmptyUpload from "../templates/empty-upload";
+import { PictureFilesContext } from "../../../contexts/pictures-files-context";
+import ContinueButton from "../atoms/continue-button";
 
 const Upload: React.FC = () => {
+  const { pictures } = useContext(PictureFilesContext);
+
   useEffect(() => {
     document.title = "Upload pictures - Eikova";
   }, []);
   return (
     <>
       <AdminNav />
-      <Box px="100px" pt="80px">
+      <Box px="100px" pt="80px" pb="150px">
         <Flex justifyContent="space-between">
           <Button
             variant="primary"
@@ -50,8 +55,16 @@ const Upload: React.FC = () => {
             </Button>
           </Flex>
         </Flex>
-        {/* <EmptyUpload /> */}
-        <UploadedPicturesGrid />
+        {pictures.files !== null && pictures.files.length > 0 ? (
+          <UploadedPicturesGrid />
+        ) : (
+          <EmptyUpload />
+        )}
+        {pictures.files !== null && pictures.files.length === 10 ? (
+          <ContinueButton />
+        ) : (
+          ""
+        )}
       </Box>
     </>
   );
