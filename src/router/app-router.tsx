@@ -3,9 +3,9 @@ import SigninPage from "../components/user/pages/signin";
 import HomePage from "../components/user/pages/index";
 import { createBrowserHistory } from "history";
 import SearchPage from "../components/user/pages/search";
-import Dashboard from "../components/admin/pages/dashboard";
-import Upload from "../components/admin/pages/upload";
-import UploadDetails from "../components/admin/pages/upload-details";
+import Dashboard from "../components/contributor/pages/dashboard";
+import Upload from "../components/contributor/pages/upload";
+import UploadDetails from "../components/contributor/pages/upload-details";
 
 const history = createBrowserHistory();
 

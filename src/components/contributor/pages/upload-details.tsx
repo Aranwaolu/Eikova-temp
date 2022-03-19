@@ -64,16 +64,23 @@ const UploadDetails: React.FC = () => {
             _placeholder={{ color: "text.gray200" }}
             _focus={{ outline: "none" }}
           />
-          <Img w="100%" mt="48px" src={pictures.links ? pictures.links[0] : ""} />
-          <Text
+          <Img
+            w="100%"
+            mt="48px"
+            src={pictures.links ? pictures.links[0] : ""}
+          />
+          <Input
             fontSize="24px"
             fontWeight="500"
             px="30px"
             color="text.gray200"
             mt="48px"
-          >
-            Input the image description here
-          </Text>
+            placeholder="Input the image title"
+            border="none"
+            // color="text.gray200"
+            _placeholder={{ color: "text.gray200" }}
+            _focus={{ outline: "none" }}
+          />
           <ImageDetailInput
             title="Tags"
             sideNote="(Minimum 10)"
