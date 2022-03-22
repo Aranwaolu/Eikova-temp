@@ -5,8 +5,7 @@ interface IContinueButtonProps {
   text?: string;
 }
 const ContinueButton: React.FC<IContinueButtonProps> = ({ text }) => {
-  const history = useHistory();
-
+  const history = useHistory();  
   return (
     <Button
       display="flex"
@@ -19,7 +18,7 @@ const ContinueButton: React.FC<IContinueButtonProps> = ({ text }) => {
       __css={{ svg: { ml: "16px" } }}
       onClick={() => {
         history.push("/upload-details");
-        window.scrollTo(0,0)
+        window.scrollTo(0, 0);        
       }}
     >
       {text ? text : "Continue with details"}

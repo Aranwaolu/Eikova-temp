@@ -1,18 +1,20 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, RouteProps } from "react-router-dom";
 
-interface ProtectedRouteProps {
+interface ProtectedRouteProps extends RouteProps {
   isAuthenticated: boolean;
   component: React.FC;
+  redirectPath: string;
 }
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   isAuthenticated,
   component: Component,
+  redirectPath,
   ...rest
 }) => {
   return isAuthenticated ? (
     <Route component={Component} exact={true} {...rest} />
   ) : (
-    <Redirect to="/signin" />
+    <Redirect to={redirectPath} />
   );
 };
 export default ProtectedRoute;
