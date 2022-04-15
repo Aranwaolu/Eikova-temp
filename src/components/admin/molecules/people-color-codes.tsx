@@ -11,15 +11,14 @@ const PeopleColorCodes: React.FC = () => {
 					alignItems='center'
 					mr='26px'
 				>
-					<span
-						style={{
-							height: '16px',
-							width: '16px',
-							backgroundColor: '#FFCE7C',
-							borderRadius: '20px',
-							marginRight: '9px',
-						}}
-					></span>
+					<Box
+						as='span'
+						height='16px'
+						width='16px'
+						backgroundColor='#FFCE7C'
+						borderRadius='20px'
+						marginRight='9px'
+					></Box>
 					Admin
 				</Box>
 				<Box
@@ -29,15 +28,14 @@ const PeopleColorCodes: React.FC = () => {
 					alignItems='center'
 					mr='26px'
 				>
-					<span
-						style={{
-							height: '16px',
-							width: '16px',
-							backgroundColor: '#FFEED1',
-							borderRadius: '20px',
-							marginRight: '9px',
-						}}
-					></span>
+					<Box
+						as='span'
+						height='16px'
+						width='16px'
+						backgroundColor='#FFEED1'
+						borderRadius='20px'
+						marginRight='9px'
+					></Box>
 					Contributor
 				</Box>
 				<Box
@@ -47,15 +45,14 @@ const PeopleColorCodes: React.FC = () => {
 					alignItems='center'
 					mr='26px'
 				>
-					<span
-						style={{
-							height: '16px',
-							width: '16px',
-							backgroundColor: '#E3E3E3',
-							borderRadius: '20px',
-							marginRight: '9px',
-						}}
-					></span>
+					<Box
+						as='span'
+						height='16px'
+						width='16px'
+						backgroundColor='#E3E3E3'
+						borderRadius='20px'
+						marginRight='9px'
+					></Box>
 					User
 				</Box>
 			</Box>
