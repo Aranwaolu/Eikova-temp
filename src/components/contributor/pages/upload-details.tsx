@@ -1,20 +1,42 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import AdminNav from "../organisms/admin-nav";
-import { Box, Flex, Img, Input, Text } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Button from "../../user/atoms/button";
 import { PictureFilesContext } from "../../../contexts/pictures-files-context";
-import ImageDetailInput from "../molecules/image-detail-input";
+import UploadArrow from "../molecules/upload-arrows";
+import UploadDetailsForm from "../organisms/upload-details-form";
+import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
 
 const UploadDetails: React.FC = () => {
   const { pictures } = useContext(PictureFilesContext);
+  const { picturesDetails } = useContext(PicturesDetailsContext);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [enablePublish, setEnablePublish] = useState(false);
 
   useEffect(() => {
     document.title = "Upload pictures - Eikova";
   }, []);
+
+  useEffect(() => {
+    picturesDetails.forEach((details) => {
+      if (
+        details.date &&
+        details.description &&
+        details.location &&
+        details.meeting &&
+        details.tags &&
+        details.title
+      ) {
+        setEnablePublish(true);
+      } else {
+        setEnablePublish(false);
+      }
+    });
+  }, [picturesDetails]);
   return (
     <>
       <AdminNav />
-      <Box px="100px" pt="80px" pb="150px">
+      <Box mx="100px" pt="80px" pb="150px" pos="relative">
         <Flex justifyContent="space-between">
           <Button
             variant="primary"
@@ -47,110 +69,38 @@ const UploadDetails: React.FC = () => {
               h="53px"
               fontSize="18px"
               fontWeight="500"
-              opacity="0.5"
+              opacity={enablePublish ? "1" : "0.5"}
+              // disabled={!enablePublish}
+              onClick={() => {
+                console.log(picturesDetails);
+              }}
             >
-              Publish now
+              Publish All Images
             </Button>
           </Flex>
         </Flex>
-        <Box maxW="850px" mx="auto" mt="50px">
-          <Input
-            placeholder="Input the image title"
-            px="30px"
-            fontSize="36px"
-            fontWeight="700"
-            border="none"
-            // color="text.gray200"
-            _placeholder={{ color: "text.gray200" }}
-            _focus={{ outline: "none" }}
+        {pictures.files && pictures.files.length > 1 && (
+          <UploadArrow
+            nextDisable={
+              pictures.files && activeIndex >= pictures.files.length - 1
+            }
+            onNexClick={() => {
+              if (pictures.files && activeIndex < pictures.files.length - 1) {
+                setActiveIndex(activeIndex + 1);
+              }
+            }}
+            prevDisable={activeIndex === 0}
+            onPrevClick={() => {
+              if (activeIndex > 0) {
+                setActiveIndex(activeIndex - 1);
+              }
+            }}
           />
-          <Img
-            w="100%"
-            mt="48px"
-            src={pictures.links ? pictures.links[0] : ""}
-          />
-          <Input
-            fontSize="24px"
-            fontWeight="500"
-            px="30px"
-            color="text.gray200"
-            mt="48px"
-            placeholder="Input the image title"
-            border="none"
-            // color="text.gray200"
-            _placeholder={{ color: "text.gray200" }}
-            _focus={{ outline: "none" }}
-          />
-          <ImageDetailInput
-            title="Tags"
-            sideNote="(Minimum 10)"
-            suggestions={[
-              "Bible",
-              "Rev",
-              "Kayode",
-              "Sitting",
-              "Praying",
-              "Stood",
-            ]}
-          />
-          <ImageDetailInput
-            title="Meeting"
-            placeholder="Add meeting..."
-            sideNote="(Minimum 1)"
-            suggestions={["SOS", "PM", "LSC", "BECON", "WTV", "ANAMNESIS"]}
-          />
-          <ImageDetailInput
-            title="Location"
-            placeholder="Add location..."
-            suggestions={[
-              "KOSOFE",
-              "NOIC",
-              "FAITH PLAZA",
-              "TEA HOUSE",
-              "GBAGADA",
-              "OTHERS",
-            ]}
-          />
-          <ImageDetailInput
-            title="Date"
-            sideNote="(Year & Month)"
-            type="date"
-            suggestions={[
-              "KOSOFE",
-              "NOIC",
-              "FAITH PLAZA",
-              "TEA HOUSE",
-              "GBAGADA",
-              "OTHERS",
-            ]}
-          />
-          <ImageDetailInput
-            title="Ministers of the Word"
-            sideNote="(Select 1 Minimum)"
-            placeholder="Add ministers..."
-            suggestions={[
-              "Rev Kayode Oyegoke",
-              "Rev (Mrs) Helen Oyegoke",
-              "Pst Emeka Egwuchukwu",
-            ]}
-          />
-          <ImageDetailInput
-            title="Song Minister"
-            sideNote="(Select 1 Minimum)"
-            placeholder="Add ministers..."
-            suggestions={[
-              "Bro Lanre Awosika",
-              "Sis Ola Oseni",
-              "Bro Yomi",
-              "Pst Alfred",
-              "Sis Maria",
-              "Sis Favour",
-            ]}
-          />
-          <Button variant="primary" mt="95px" fontSize="18px" fontWeight="500">
-            Publish now
-          </Button>
-        </Box>
+        )}
+        <UploadDetailsForm
+          pictureLink={pictures.links ? pictures.links[activeIndex] : ""}
+          activeIndex={activeIndex}
+        />
       </Box>
     </>
   );

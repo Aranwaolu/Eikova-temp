@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Text, Input, Flex } from "@chakra-ui/react";
 import Tag from "../atoms/tag";
 
@@ -8,6 +8,8 @@ interface IImageDetailInputProps {
   type?: string;
   placeholder?: string;
   suggestions: string[];
+  value: string;
+  setValue: (v: string) => void;
 }
 
 const ImageDetailInput: React.FunctionComponent<IImageDetailInputProps> = ({
@@ -16,9 +18,13 @@ const ImageDetailInput: React.FunctionComponent<IImageDetailInputProps> = ({
   type,
   suggestions,
   placeholder,
+  value,
+  setValue,
 }) => {
-  const [value, setValue] = useState({ string: "", array: [""] });
-
+  const [valueLocal, setValueLocal] = useState({ array: [""] });
+  useEffect(() => {
+    setValueLocal({ array: [...Array.from(new Set(value.split(",")))] });
+  }, [value]);
   return (
     <Box mt="48px">
       <Text fontSize="24px" fontWeight="500" mb="16px">
@@ -42,28 +48,28 @@ const ImageDetailInput: React.FunctionComponent<IImageDetailInputProps> = ({
         type={type ? type : "text"}
         px="24px"
         fontSize="18px"
-        value={value.string}
+        value={value}
         onChange={(e) => {
-          setValue({
-            string: e.target.value,
+          setValue(e.target.value);
+          setValueLocal({
             array: [...Array.from(new Set(e.target.value.split(",")))],
           });
         }}
       />
       <Flex flexWrap="wrap" gap="10px">
-        {value.array[0]
-          ? value.array.map((tag, index) =>
+        {valueLocal.array[0]
+          ? valueLocal.array.map((tag, index) =>
               tag && tag.replace(/\s/g, "").length ? (
                 <Tag
                   key={tag + index}
                   tag={tag}
                   onTagClick={() => {
-                    const newArray = value.array;
+                    const newArray = valueLocal.array;
                     newArray.splice(index, 1);
-                    setValue({
-                      string: newArray.join(","),
+                    setValueLocal({
                       array: newArray,
                     });
+                    setValue(newArray.join(","));
                   }}
                 />
               ) : (
