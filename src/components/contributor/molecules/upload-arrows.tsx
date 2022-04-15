@@ -15,12 +15,15 @@ const UploadArrow: React.FC<IUploadArrowProps> = ({
   return (
     <Flex>
       <Box
-        pos="absolute"
-        left="0"
-        top="240px"
+        pos="fixed"
+        left="100px"
+        top="444px"
         opacity={prevDisable ? "0.5" : "1"}
         css={{ svg: { transform: "rotate(180deg)" } }}
-        onClick={onPrevClick}
+        onClick={() => {
+          onPrevClick();
+          window.scrollTo(0, 0);
+        }}
         cursor="pointer"
       >
         <svg
@@ -39,11 +42,14 @@ const UploadArrow: React.FC<IUploadArrowProps> = ({
         </svg>
       </Box>
       <Box
-        pos="absolute"
-        right="0"
-        top="240px"
+        pos="fixed"
+        right="100px"
+        top="444px"
         opacity={nextDisable ? "0.5" : "1"}
-        onClick={onNexClick}
+        onClick={() => {
+          onNexClick();
+          window.scrollTo(0, 0);
+        }}
         cursor="pointer"
       >
         <svg
