@@ -1,9 +1,12 @@
-import { Text, Flex, VStack, Checkbox } from "@chakra-ui/react";
+import { Text, Flex, VStack, Checkbox, Spinner } from "@chakra-ui/react";
 import Input from "../atoms/input";
 import Button from "../atoms/button";
 import LogoText from "../molecules/LogoText";
+import { useSignIn } from "../../../hooks";
 
 const SigninPage: React.FC = () => {
+  const { setEmail, setPassword, handleSignIn, error, isSigningIn } =
+    useSignIn();
   return (
     <Flex>
       <VStack minW="40%" px="77px" justifyContent="center">
@@ -15,11 +18,22 @@ const SigninPage: React.FC = () => {
             Welcome back to Eikova, please enter your details.
           </Text>
           <Input
-            placeholder="Username"
+            placeholder="Email"
+            type="email"
+            name="email"
             isRequired
             mb={"24px"}
             _placeholder={{ color: "text.gray100", fontSize: "18px" }}
             fontSize="18px"
+            _focus={{
+              outline: "none",
+              boxShadow: "0px 4px 4px rgba(173, 127, 51, 0.1)",
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #AD7F33",
+            }}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <Input
             isRequired
@@ -28,6 +42,15 @@ const SigninPage: React.FC = () => {
             type="password"
             fontSize="18px"
             _placeholder={{ color: "text.gray100", fontSize: "18px" }}
+            _focus={{
+              outline: "none",
+              boxShadow: "0px 4px 4px rgba(173, 127, 51, 0.1)",
+              backgroundColor: "#FFFFFF",
+              border: "1px solid #AD7F33",
+            }}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
           <Checkbox
             iconColor="#4F4F4F"
@@ -38,12 +61,27 @@ const SigninPage: React.FC = () => {
             mb="48px"
             iconSize="20px"
             _focus={{ outline: "none" }}
-            // width="20px"
           >
             Remember for 7 days
           </Checkbox>
-          <Button variant="primary" type="submit" fontSize="18px">
-            Login
+          {error && (
+            <Text mb="16px" color="red">
+              {error}
+            </Text>
+          )}
+          <Button
+            display="flex"
+            gap="20px"
+            variant="primary"
+            type="submit"
+            fontSize="18px"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSignIn();
+            }}
+          >
+            {isSigningIn ? "Please wait" : "Login"}
+            {isSigningIn && <Spinner />}
           </Button>
         </form>
       </VStack>
@@ -52,7 +90,6 @@ const SigninPage: React.FC = () => {
         justifyContent="center"
         minH="100vh"
         w="100%"
-        // background="linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(/assets/images/signin-bg.png), url(Login-Poster-series.jpg)"
         bgImage="url(/assets/images/signin-bg.png), url(Login-Poster-series.jpg)"
         bgSize="cover"
       >
