@@ -4,10 +4,13 @@ import LandingFilter from "../molecules/landing-filter";
 import HomeBanner from "../templates/home-banner";
 import PictureGrid from "../templates/picture-grid";
 import Button from "../atoms/button";
+import { getUserFromLocal } from "../../../utils";
 
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
+  // console.log(getUserFromLocal());
+  
   return (
     <>
       <HomeBanner />

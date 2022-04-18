@@ -1,26 +1,23 @@
-// import jwt from "jwt-decode";
+import jwt from "jwt-decode";
+interface IUser {
+  token: string;
+  isLoggedIn: boolean;
+  details: { name: string; role: string; email: string };
+}
 
-// Work in progress
 const getUserFromLocal = () => {
-  const localObject = JSON.parse(localStorage.getItem("eikova-tk")|| "");
-  interface IUser {
-    token: string;
-    isLoggedIn: boolean;
-    details: { username: string; role: string; id: number };
-  }
+  const localObject = JSON.parse(localStorage.getItem("eikova-tk") || "");
 
   const user: IUser = {
-    token: localStorage.getItem("eikova-tk") || "",
-    isLoggedIn: !!localStorage.getItem("eikova-tk"),
-    details: {
-      username: "",
-      role: "",
-      id: 0,
-    },
-    //   details: !localStorage.getItem("tyrannus-tk") ? {
-    //     Username: "",
-    //     Id: 0
-    //   } : jwt(localStorage.getItem("tyrannus-tk") || "")
+    token: localObject.token,
+    isLoggedIn: !!localObject.token,
+    details: !localObject.token
+      ? {
+          name: "",
+          role: "",
+          email: "",
+        }
+      : jwt(localObject.token),
   };
   return { ...user };
 };

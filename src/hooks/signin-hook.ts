@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { userSignIn } from "../services/auth";
 import { saveUserToLocal } from "../utils";
 
@@ -7,6 +8,7 @@ const useSignIn = () => {
   const [password, setPassword] = useState("");
   const [isSigningIn, setisSigningIn] = useState(false);
   const [error, setError] = useState("");
+  const history = useHistory();
   const handleSignIn = () => {
     setError("");
     if (email === "" || password === "") {
@@ -15,9 +17,11 @@ const useSignIn = () => {
     setisSigningIn(true);
     userSignIn({ email, password })
       .then((res) => {
+        console.log(res.data);
         // Save token to local storage
-        saveUserToLocal(res.data.token);
+        saveUserToLocal(res.data.tokens);
         // Save to user context setUser(getUserFromLocal())
+        history.push("/");
       })
       .catch((err) => {
         setisSigningIn(false);
