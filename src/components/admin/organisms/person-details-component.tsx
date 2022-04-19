@@ -4,6 +4,8 @@ import StatusDropdown from '../molecules/status-dropdown'
 
 interface PersonProps {
 	person: Person
+	isChecked?: boolean
+	handleCheckbox: (e?: any, person?: Person) => void
 }
 
 interface Person {
@@ -28,12 +30,12 @@ const profileIconLettersStyle = (enabled: boolean) => ({
 	color: '#AD7F33',
 })
 
-const handleCheckbox = (person: Person) => {
-	console.log(person)
-}
+// const handleCheckbox = (e: any, person?: Person) => {
+// 	console.log(person)
+// }
 
-const PersonDetailsComponents: React.FC<PersonProps> = ({ person }) => {
-	const [checkboxValue, setCheckboxValue] = useState(false)
+const PersonDetailsComponents: React.FC<PersonProps> = ({ person, isChecked, handleCheckbox }) => {
+	// const [checkboxValue, setCheckboxValue] = useState(false)
 
 	// let profileIconNames = person.username.split(' ')
 	let profileIconNames = 'Eo I'.split(' ')
@@ -50,12 +52,11 @@ const PersonDetailsComponents: React.FC<PersonProps> = ({ person }) => {
 				h='62px'
 				color='#A0A0A0'
 				p='23px 25px 23px 16px'
-				borderBottom='1px solid #E8E8E8'
 			>
 				<Flex w='80px' direction='row' justify='space-between' align='center'>
 					<Checkbox
-						checked={checkboxValue}
-						onChange={() => handleCheckbox(person)}
+						isChecked={isChecked}
+						onChange={(e) => handleCheckbox(e)}
 						_focus={{ outline: 'none' }}
 					></Checkbox>
 					<span

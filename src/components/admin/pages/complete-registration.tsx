@@ -3,11 +3,6 @@ import Input from '../../user/atoms/input'
 import Button from '../../user/atoms/button'
 import LogoText from '../../user/molecules/LogoText'
 import CustomDropdown from '../organisms/custom-dropdown'
-import { useState } from 'react'
-
-interface ItemHoverProp {
-	hover: boolean
-}
 
 const defaultValueStyles = (hover: boolean) => ({
 	display: 'flex',
@@ -25,8 +20,6 @@ const defaultValueStyles = (hover: boolean) => ({
 })
 
 const CompleteRegistration: React.FC = () => {
-	const [hover, setHover] = useState(false)
-
 	return (
 		<Flex>
 			<VStack minW='40%' px='78px' display='flex' alignItems='center' justifyContent='center' w='960px'>
@@ -68,7 +61,20 @@ const CompleteRegistration: React.FC = () => {
 							cursor: 'pointer',
 						}}
 						defaultValue='Select department'
-						defaultValueStyle={() => defaultValueStyles(hover)}
+						defaultValueStyle={{
+							display: 'flex',
+							flexDirection: 'row',
+							justifyContent: 'space-between',
+							alignItems: 'center',
+							position: 'relative',
+							width: '100%',
+							background: '#EAEAEA',
+							borderRadius: '6px',
+							height: '60px',
+							color: '#686868',
+							fontSize: '18px',
+							padding: '0 20px',
+						}}
 						dropdownIcon={true}
 						dropdownMenu={['Online Publiciy', 'this', 'will', 'be', 'fetched']}
 						dropdownMenuStyle={{

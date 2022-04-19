@@ -10,7 +10,7 @@ interface Props {
 	faIconColor?: string
 	containerStyle: object
 	defaultValue: string
-	defaultValueStyle: Function
+	defaultValueStyle: object
 	defaultValueIcon?: IconObject
 	handleCustomState: (e: any) => void
 	dropdownMenu: Array<string>
@@ -37,7 +37,6 @@ const CustomDropdown: React.FC<Props> = ({
 	dropdownIcon,
 }) => {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-	const [hover, setHover] = useState(false)
 
 	const ref = useDetectClickOutside({ onTriggered: () => setIsDropdownOpen(false) })
 
@@ -48,9 +47,7 @@ const CustomDropdown: React.FC<Props> = ({
 					onClick={() => {
 						setIsDropdownOpen(!isDropdownOpen)
 					}}
-					style={defaultValueStyle({ hover })}
-					onPointerOver={() => setHover(true)}
-					onPointerOut={() => setHover(false)}
+					style={defaultValueStyle}
 					_focus={{ outline: 'none' }}
 				>
 					{defaultValueIcon && defaultValueIcon.iconUsed && (

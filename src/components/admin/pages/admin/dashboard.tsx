@@ -1,5 +1,6 @@
 import AdminNav from '../../../contributor/organisms/admin-nav'
 import {
+	Box,
 	Button as ChakraButton,
 	Checkbox,
 	CheckboxGroup,
@@ -31,8 +32,13 @@ interface Person {
 	status: string
 }
 
+const defineCheckboxArray = (people: any) => {
+	people.map(() => false)
+}
+
 const Dashboard: React.FC = () => {
 	const [people, setPeople] = useState<Person[]>([])
+	const [checkedItems, setCheckedItems] = useState([false])
 
 	const { isOpen: isAddAdminOpen, onOpen: onAddAdminOpen, onClose: onAddAdminClose } = useDisclosure()
 	const {
@@ -55,9 +61,14 @@ const Dashboard: React.FC = () => {
 	}
 
 	useEffect(() => {
-		document.title = 'Admin Dashboad - Eikova'
+		document.title = 'Superadmin Dashboad - Eikova'
 		getUsers()
 	}, [])
+
+	useEffect(() => {
+		setCheckedItems(Array(people.length).fill(false))
+		console.log(checkedItems)
+	}, [people])
 
 	const handleAddPeopleItemClick = (e: string) => {
 		if (e === 'admin') {
@@ -68,6 +79,9 @@ const Dashboard: React.FC = () => {
 			onAddContributorModalOpen()
 		}
 	}
+
+	const allChecked = checkedItems.every(Boolean)
+	const isIndeterminate = checkedItems.some(Boolean) && !allChecked
 
 	return (
 		<>
@@ -133,7 +147,14 @@ const Dashboard: React.FC = () => {
 						p='23px 40px 23px 30px'
 						mb='8px'
 					>
-						<Checkbox w='80px' _focus={{ outline: 'none' }}></Checkbox>
+						<Checkbox
+							w='80px'
+							_focus={{ outline: 'none' }}
+							isChecked={allChecked}
+							isIndeterminate={isIndeterminate}
+							onChange={(e) => setCheckedItems(checkedItems.map(() => e.target.checked))}
+						></Checkbox>
+
 						<Text w='130px' fontWeight='700'>
 							Username
 						</Text>
@@ -164,8 +185,27 @@ const Dashboard: React.FC = () => {
 					>
 						{people &&
 							people.length > 0 &&
-							people.map((person) => (
-								<PersonDetailsComponents key={person.id} person={person} />
+							people.map((person, index) => (
+								<Box
+									w='100%'
+									margin='0'
+									borderBottom='1px solid #E8E8E8'
+									_last={{ borderBottom: 'none' }}
+									key={person.id}
+								>
+									<PersonDetailsComponents
+										isChecked={checkedItems[index]}
+										handleCheckbox={(e) => {
+											setCheckedItems(
+												checkedItems.map((item, idx) =>
+													index === idx ? e.target.checked : item
+												)
+											)
+										}}
+										key={person.id}
+										person={person}
+									/>
+								</Box>
 							))}
 					</Flex>
 				</Flex>
