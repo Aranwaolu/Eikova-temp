@@ -6,3 +6,9 @@ export const getAllPhotos = (page: number) => {
     headers: { Authorization: `Bearer ${getUserFromLocal().token}` },
   });
 };
+
+export const searchPhotos = (query: string) => {  
+  return request.get(`/photos/search?query=${query}`, {
+    headers: { Authorization: `Bearer ${getUserFromLocal().token}` },
+  });
+};

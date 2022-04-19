@@ -10,9 +10,15 @@ import Input from "../atoms/input";
 import Button from "../atoms/button";
 import SearchBarFilter from "./search-bar-filter";
 
-interface ISearchBarProps {}
+interface ISearchBarProps {
+  onSearchValueChange: React.Dispatch<React.SetStateAction<string>>;
+  onSearch: () => void;
+}
 
-const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
+const SearchBar: React.FunctionComponent<ISearchBarProps> = ({
+  onSearchValueChange,
+  onSearch,
+}) => {
   const [showFilter, setShowFilter] = useState(false);
   const filterRef = useRef<any>();
 
@@ -32,7 +38,13 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
 
   return (
     <Box pos="relative" maxW="856px" mx="auto" ref={filterRef}>
-      <Flex h="58px">
+      <Flex
+        as="form"
+        h="58px"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <ChakraButton
           w="145px"
           h="100%"
@@ -116,6 +128,10 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
             fontSize="14px"
             _placeholder={{ color: "text.gray100", fontSize: "14px" }}
             borderRadius="0px 4px 4px 0px"
+            onChange={(e) => {
+              e.preventDefault();
+              onSearchValueChange(e.target.value);
+            }}
           />
         </Box>
 
@@ -126,6 +142,8 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = (props) => {
           ml="5px"
           borderRadius="4px"
           variant="primary"
+          type="submit"
+          onClick={onSearch}
         >
           Search
         </Button>

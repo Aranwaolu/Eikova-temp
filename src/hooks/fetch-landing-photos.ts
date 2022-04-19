@@ -29,13 +29,14 @@ const useFetchLandingPhotos = () => {
           setReachedPageLimit(true);
         }
         setLoading(false);
-        console.log(photos);
+        console.log(res.data.photos);
         
       })
       .catch((err) => {
         console.log(err);
         setError("An error occurred, please try again");
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
   const loadMore = () => {
     if (photos.totalPages > pageNumber) {
