@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, Tag as ChakraTag } from '@chakra-ui/react'
+import { Tag as ChakraTag } from '@chakra-ui/react'
 
 interface ItagProps {
 	tag: string

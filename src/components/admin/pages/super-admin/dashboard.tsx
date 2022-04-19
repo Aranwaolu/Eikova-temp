@@ -3,7 +3,6 @@ import {
 	Box,
 	Button as ChakraButton,
 	Checkbox,
-	CheckboxGroup,
 	Flex,
 	Image,
 	Img,
@@ -30,10 +29,6 @@ interface Person {
 	department: string
 	role: string
 	status: string
-}
-
-const defineCheckboxArray = (people: any) => {
-	people.map(() => false)
 }
 
 const Dashboard: React.FC = () => {
