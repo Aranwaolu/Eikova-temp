@@ -16,16 +16,16 @@ const LandingFilterNext: React.FunctionComponent = () => {
       <path
         d="M26 32H38"
         stroke="#7B4B36"
-        stroke-width="1.71429"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.71429"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M32 26L38 32L32 38"
         stroke="#7B4B36"
-        stroke-width="1.71429"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.71429"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <defs>
         <filter
@@ -35,9 +35,9 @@ const LandingFilterNext: React.FunctionComponent = () => {
           width="62.4286"
           height="62.4286"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
