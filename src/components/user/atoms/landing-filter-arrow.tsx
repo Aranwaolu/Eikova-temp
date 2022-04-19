@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import * as React from 'react'
 
 const LandingFilterNext: React.FunctionComponent = () => {
   return (
@@ -68,4 +67,4 @@ const LandingFilterNext: React.FunctionComponent = () => {
   );
 };
 
-export default LandingFilterNext;
+export default LandingFilterNext
