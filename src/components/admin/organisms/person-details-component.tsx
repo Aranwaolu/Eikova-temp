@@ -1,97 +1,86 @@
-import { useState } from 'react'
-import { Checkbox, Flex, Img, Text } from '@chakra-ui/react'
-import StatusDropdown from '../molecules/status-dropdown'
+import { Checkbox, Flex, Img, Text } from "@chakra-ui/react";
+import StatusDropdown from "../molecules/status-dropdown";
 
 interface PersonProps {
-	person: Person
+  person: Person;
+  isChecked?: boolean;
+  handleCheckbox: (e?: any, person?: Person) => void;
 }
 
 interface Person {
-	username: string
-	email: string
-	department: string
-	role: string
-	status: string
+  username: string;
+  email: string;
+  department: string;
+  role: string;
+  status: string;
 }
 
-const profileIconLettersStyle = (enabled: boolean) => ({
-	height: '40px',
-	width: '40px',
-	backgroundColor: enabled ? '#FFEED1' : '#f4f4f4',
-	borderRadius: '20px',
-	display: 'flex',
-	flexDirection: 'row',
-	justifyContent: 'center',
-	alignItems: 'center',
-	fontSize: '18px',
-	lineHeight: '23px',
-	color: '#AD7F33',
-})
+const PersonDetailsComponents: React.FC<PersonProps> = ({
+  person,
+  isChecked,
+  handleCheckbox,
+}) => {
+  // const [checkboxValue, setCheckboxValue] = useState(false)
 
-const handleCheckbox = (person: Person) => {
-	console.log(person)
-}
+  let profileIconNames = "Eo I".split(" ");
+  let profileIconLetters = profileIconNames[0][0] + profileIconNames[1][0];
 
-const PersonDetailsComponents: React.FC<PersonProps> = ({ person }) => {
-	const [checkboxValue, setCheckboxValue] = useState(false)
+  return (
+    <>
+      <Flex
+        w="100%"
+        margin="0"
+        direction="row"
+        justify="space-between"
+        align="center"
+        h="62px"
+        color="#A0A0A0"
+        p="23px 25px 23px 16px"
+      >
+        <Flex w="80px" direction="row" justify="space-between" align="center">
+          <Checkbox
+            isChecked={isChecked}
+            onChange={(e) => handleCheckbox(e)}
+            _focus={{ outline: "none" }}
+          ></Checkbox>
+          <span
+            style={{
+              height: "40px",
+              width: "40px",
+              backgroundColor:
+                person.status === "active" ? "#FFEED1" : "#f4f4f4",
+              borderRadius: "20px",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: "18px",
+              lineHeight: "23px",
+              color: "#AD7F33",
+            }}
+          >
+            {profileIconLetters}
+          </span>
+        </Flex>
+        <Text w="130px">{person.username}</Text>
+        <Text w="200px">{person.email}</Text>
+        <Text w="140px">{person.department}</Text>
+        <Text w="120px">{person.role}</Text>
 
-	// let profileIconNames = person.username.split(' ')
-	let profileIconNames = 'Eo I'.split(' ')
-	let profileIconLetters = profileIconNames[0][0] + profileIconNames[1][0]
+        <StatusDropdown
+          status={person.status || "default"}
+          handleCustomState={(e) => {
+            console.log(e);
+          }}
+        />
 
-	return (
-		<>
-			<Flex
-				w='100%'
-				margin='0'
-				direction='row'
-				justify='space-between'
-				align='center'
-				h='62px'
-				color='#A0A0A0'
-				p='23px 25px 23px 16px'
-				borderBottom='1px solid #E8E8E8'
-			>
-				<Flex w='80px' direction='row' justify='space-between' align='center'>
-					<Checkbox
-						checked={checkboxValue}
-						onChange={() => handleCheckbox(person)}
-						_focus={{ outline: 'none' }}
-					></Checkbox>
-					<span
-						style={{
-							height: '40px',
-							width: '40px',
-							backgroundColor: person.status === 'active' ? '#FFEED1' : '#f4f4f4',
-							borderRadius: '20px',
-							display: 'flex',
-							flexDirection: 'row',
-							justifyContent: 'center',
-							alignItems: 'center',
-							fontSize: '18px',
-							lineHeight: '23px',
-							color: '#AD7F33',
-						}}
-					>
-						{profileIconLetters}
-					</span>
-				</Flex>
-				<Text w='130px'>{person.username}</Text>
-				<Text w='200px'>{person.email}</Text>
-				<Text w='140px'>{person.department}</Text>
-				<Text w='120px'>{person.role}</Text>
+        <Img
+          src="/assets/images/svg_icons/menu_icon.svg"
+          _hover={{ cursor: "pointer" }}
+        />
+      </Flex>
+    </>
+  );
+};
 
-				<StatusDropdown
-					status={person.status || 'default'}
-					handleCustomState={(e) => {
-						console.log(e)
-					}}
-				/>
-
-				<Img src='/assets/images/svg_icons/menu_icon.svg' _hover={{ cursor: 'pointer' }} />
-			</Flex>
-		</>
-	)
-}
-
-export default PersonDetailsComponents
+export default PersonDetailsComponents;
