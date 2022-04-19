@@ -11,7 +11,7 @@ const PictureFrame: React.FunctionComponent<IPictureFrameProps> = ({
 }) => {
   return (
     <Box borderRadius="4px" overflow="hidden" pos="relative">
-      <Img w="100%" src={imageLink} pos="relative" />
+      <Img w="100%" h="268px" objectFit="cover" src={imageLink} pos="relative" />
       <Box
         height="100%"
         width="100%"

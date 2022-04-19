@@ -1,11 +1,13 @@
-import * as React from "react";
+import { useContext } from "react";
 import { Box, Flex, HStack, Img, Text } from "@chakra-ui/react";
 import LogoText from "../molecules/LogoText";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../../contexts/user-context";
 
 interface INavigationBarProps {}
 
 const NavigationBar: React.FunctionComponent<INavigationBarProps> = (props) => {
+  const { user } = useContext(UserContext);  
   return (
     <Flex as="nav" justifyContent="space-between" pt="16px" px="27px">
       <Link to="/">
@@ -22,10 +24,10 @@ const NavigationBar: React.FunctionComponent<INavigationBarProps> = (props) => {
         />
         <Box>
           <Text fontSize="14px" color="white">
-            Samson
+            {user.details.name}
           </Text>
           <Text fontSize="12px" color="white">
-            User
+            {user.details.role}
           </Text>
         </Box>
       </HStack>

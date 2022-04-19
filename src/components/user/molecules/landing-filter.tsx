@@ -34,6 +34,7 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = (props) => {
       <Flex alignItems="center" transform={`translateX(-${translate}rem)`}>
         {filterValues.map((value, index) => (
           <Box
+            key={index + value}
             mr={activeIndex === index ? "23px" : "30px"}
             fontSize="12px"
             fontWeight={activeIndex === index ? "500" : "400"}

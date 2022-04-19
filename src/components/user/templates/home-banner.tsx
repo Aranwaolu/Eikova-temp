@@ -1,12 +1,18 @@
-import * as React from "react";
+import { useState } from "react";
 import { Box, Spacer, Text } from "@chakra-ui/react";
 import NavigationBar from "../organisms/nav";
 import SearchBar from "../organisms/search-bar";
 import BannerFilter from "../molecules/banner-filter";
+import { useHistory } from "react-router-dom";
 
 interface IHomeBannerProps {}
 
 const HomeBanner: React.FunctionComponent<IHomeBannerProps> = (props) => {
+  const [searchValue, setSearchValue] = useState("");
+  const history = useHistory();
+  const onSearch = () => {
+    history.push(`/search?query=${searchValue}`);
+  };
   return (
     <Box
       background="linear-gradient(rgba(36, 13, 73, 0.54), rgba(36, 13, 73, 0.54)), url(/assets/images/header-bg.png)"
@@ -39,7 +45,7 @@ const HomeBanner: React.FunctionComponent<IHomeBannerProps> = (props) => {
       >
         great was the company of those that published it.
       </Text>
-      <SearchBar />
+      <SearchBar onSearchValueChange={setSearchValue} onSearch={onSearch} />
       <Spacer mt="68px" />
       <BannerFilter />
     </Box>
