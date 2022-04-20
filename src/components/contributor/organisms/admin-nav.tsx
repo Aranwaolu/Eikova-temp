@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Box, Button, Flex, Img, Link, Text } from "@chakra-ui/react";
 import LogoText from "../../user/molecules/LogoText";
 import NavSvg from "../atoms/nav-svg";
 import UploadIcon from "../atoms/upload-icon";
 import { useHistory } from "react-router-dom";
+import { UserContext } from "../../../contexts/user-context";
 
 const AdminNav: React.FunctionComponent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
   const history = useHistory();
+  const { user } = useContext(UserContext);
   return (
     <Flex
       flexDir="column"
@@ -51,8 +53,8 @@ const AdminNav: React.FunctionComponent = (props) => {
             src="/assets/images/user.png"
           />
           <Box>
-            <Text color="white">Tamuno</Text>
-            <Text color="#A09D9D">Contributor</Text>
+            <Text color="white">{user.details.name}</Text>
+            <Text color="#A09D9D">{user.details.role}</Text>
           </Box>
         </Flex>
         <Button

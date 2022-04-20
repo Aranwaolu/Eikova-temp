@@ -1,9 +1,25 @@
 import { Box, Button as ChakraButton } from "@chakra-ui/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const PeopleNavBar: React.FC = () => {
+interface IPeopleNavBarProps {
+  setRole?: React.Dispatch<React.SetStateAction<string>>;
+}
+const PeopleNavBar: React.FC<IPeopleNavBarProps> = ({ setRole }) => {
   const [activeTab, setActiveTab] = useState(0);
+  useEffect(() => {
+    if (setRole) {
+      if (activeTab === 0) {
+        setRole("");
+      } else if (activeTab === 1) {
+        setRole("contributor");
+      } else if (activeTab === 2) {
+        setRole("admin");
+      } else if (activeTab === 3) {
+        setRole("user");
+      }
+    }
+  }, [setRole, activeTab]);
   return (
     <>
       <Box
@@ -25,6 +41,7 @@ const PeopleNavBar: React.FC = () => {
             setActiveTab(0);
           }}
           _focus={{ outline: "none" }}
+          _hover={{ bgColor: "text.gray100", border: "1px solid text.primary" }}
         >
           All
         </ChakraButton>
@@ -42,6 +59,7 @@ const PeopleNavBar: React.FC = () => {
             setActiveTab(1);
           }}
           _focus={{ outline: "none" }}
+          _hover={{ bgColor: "text.gray100", border: "1px solid text.primary" }}
         >
           Contributors
         </ChakraButton>
@@ -59,6 +77,7 @@ const PeopleNavBar: React.FC = () => {
             setActiveTab(2);
           }}
           _focus={{ outline: "none" }}
+          _hover={{ bgColor: "text.gray100", border: "1px solid text.primary" }}
         >
           Admins
         </ChakraButton>
@@ -75,6 +94,7 @@ const PeopleNavBar: React.FC = () => {
             setActiveTab(3);
           }}
           _focus={{ outline: "none" }}
+          _hover={{ bgColor: "text.gray100", border: "1px solid text.primary" }}
         >
           Users
         </ChakraButton>
