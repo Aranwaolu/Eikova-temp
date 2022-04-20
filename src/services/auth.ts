@@ -32,7 +32,7 @@ export const addContributor = (reqBody: IUserInvite) => {
 
 export const addUser = (reqBody: IUserInvite) => {
   return request.post(
-    `auth/invite`,
+    `auth/user/invite`,
     { ...reqBody, role: "user" },
     {
       headers: { Authorization: `Bearer ${getUserFromLocal().token}` },

@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { addContributor } from "../services/auth";
+import { addUser } from "../services/auth";
 
-const useAddContributor = () => {
+const useAddUser = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const handleInviteContrinutor = (onSuccess: () => void) => {
+  const handleInviteUser = (onSuccess: () => void) => {
     if (!!email && !!username) {
       setLoading(true);
       setError("");
-      addContributor({ email, username })
+      addUser({ email, username })
         .then((res) => {
           setLoading(false);
           if (res.status === 200) {
@@ -33,6 +33,6 @@ const useAddContributor = () => {
       setError("Please add a username and email");
     }
   };
-  return { setEmail, setUsername, loading, error, handleInviteContrinutor, email, username };
+  return { setEmail, setUsername, loading, error, handleInviteUser, email, username };
 };
-export default useAddContributor;
+export default useAddUser;

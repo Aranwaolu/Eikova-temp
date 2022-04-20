@@ -144,7 +144,7 @@ const AddAdminModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 border: "1px solid #AD7F33",
                 bgColor: "white",
               }}
-              onClick={() => handleInviteAdminClick()}
+              onClick={handleInviteAdminClick}
             >
               {loading ? "Inviting admin" : "Invite Admin"}
               {loading && <Spinner />}

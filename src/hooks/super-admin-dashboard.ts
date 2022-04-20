@@ -28,6 +28,11 @@ const useSuperAdminDashboard = () => {
     onOpen: onAddContributorModalOpen,
     onClose: onAddContributorModalClose,
   } = useDisclosure();
+  const {
+    isOpen: isAddUserModalOpen,
+    onOpen: onAddUserModalOpen,
+    onClose: onAddUserModalClose,
+  } = useDisclosure();
 
   const {
     isOpen: isInviteSentModalOpen,
@@ -57,7 +62,7 @@ const useSuperAdminDashboard = () => {
     if (e === "admin") {
       onAddAdminOpen();
     } else if (e === "user") {
-      onInviteSentModalOpen();
+      onAddUserModalOpen();
     } else if (e === "contributor") {
       onAddContributorModalOpen();
     }
@@ -79,6 +84,8 @@ const useSuperAdminDashboard = () => {
     onAddContributorModalClose,
     isInviteSentModalOpen,
     onInviteSentModalClose,
+    isAddUserModalOpen,
+    onAddUserModalClose,
     setRole,
     loading,
     error,

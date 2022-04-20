@@ -4,6 +4,7 @@ import useAdminSignIn from "./admin-signin";
 import useSuperAdminDashboard from "./super-admin-dashboard";
 import useAddContributor from "./add-contributor";
 import useAddAdmin from "./add-admin";
+import useAddUser from "./add-user";
 
 export {
   useSignIn,
@@ -12,4 +13,5 @@ export {
   useSuperAdminDashboard,
   useAddContributor,
   useAddAdmin,
+  useAddUser,
 };

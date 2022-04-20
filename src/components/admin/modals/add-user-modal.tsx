@@ -10,7 +10,7 @@ import {
   Text,
   Spinner,
 } from "@chakra-ui/react";
-import { useAddContributor } from "../../../hooks";
+import { useAddUser } from "../../../hooks";
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,20 +18,16 @@ interface ModalProps {
   onSuccess: () => void;
 }
 
-const AddContributorModal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  onSuccess,
-}) => {
+const AddUserModal: React.FC<ModalProps> = ({ isOpen, onClose, onSuccess }) => {
   const {
     setEmail,
     setUsername,
     loading,
     error,
-    handleInviteContrinutor,
+    handleInviteUser,
     email,
     username,
-  } = useAddContributor();
+  } = useAddUser();
   return (
     <>
       <Modal
@@ -75,7 +71,7 @@ const AddContributorModal: React.FC<ModalProps> = ({
               color="#262626"
               mb="8px"
             >
-              Add Contributor
+              Add User
             </Text>
 
             <Text
@@ -85,7 +81,7 @@ const AddContributorModal: React.FC<ModalProps> = ({
               color="#A0A0A0"
               mb="15px"
             >
-              A contributor can upload and edit image parameters only
+              A user can search and download images
             </Text>
 
             <Box borderBottom="1px solid #E8E8E8" width="100%" mb="18px"></Box>
@@ -155,10 +151,10 @@ const AddContributorModal: React.FC<ModalProps> = ({
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
-                handleInviteContrinutor(onSuccess);
+                handleInviteUser(onSuccess);
               }}
             >
-              {loading ? "Inviting contributor" : "Invite Contributor"}
+              {loading ? "Inviting User" : "Invite User"}
               {loading && <Spinner />}
             </ChakraButton>
 
@@ -168,7 +164,7 @@ const AddContributorModal: React.FC<ModalProps> = ({
               lineHeight="19px"
               color="#A0A0A0"
             >
-              A mail will be sent to this user for verification
+              A mail containing passcode will be sent to this user.
             </Text>
           </ModalBody>
         </ModalContent>
@@ -177,4 +173,4 @@ const AddContributorModal: React.FC<ModalProps> = ({
   );
 };
 
-export default AddContributorModal;
+export default AddUserModal;

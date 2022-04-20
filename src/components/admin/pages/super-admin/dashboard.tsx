@@ -1,13 +1,9 @@
 import AdminNav from "../../../contributor/organisms/admin-nav";
-import {
-  Button as ChakraButton,
-  Flex,
-  Image,
-  Text,
-} from "@chakra-ui/react";
+import { Button as ChakraButton, Flex, Image, Text } from "@chakra-ui/react";
 
 import PeopleColorCodes from "../../molecules/people-color-codes";
 import AddAdminModal from "../../modals/add-admin-modal";
+import AddUserModal from "../../modals/add-user-modal";
 import InviteSentModal from "../../modals/invite-sent-modal";
 import AddContributorModal from "../../modals/add-contributor-modal";
 import PeopleNavBar from "../../molecules/people-nav-bar";
@@ -30,6 +26,8 @@ const Dashboard: React.FC = () => {
     onAddContributorModalClose,
     isInviteSentModalOpen,
     onInviteSentModalClose,
+    isAddUserModalOpen,
+    onAddUserModalClose,
     setRole,
     loading,
     error,
@@ -99,6 +97,11 @@ const Dashboard: React.FC = () => {
       <AddContributorModal
         isOpen={isAddContributorModalOpen}
         onClose={onAddContributorModalClose}
+        onSuccess={onInviteSentModalOpen}
+      />
+      <AddUserModal
+        isOpen={isAddUserModalOpen}
+        onClose={onAddUserModalClose}
         onSuccess={onInviteSentModalOpen}
       />
       <InviteSentModal
