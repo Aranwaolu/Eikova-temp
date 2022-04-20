@@ -63,7 +63,7 @@ const InviteSentModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               lineHeight="21px"
               color="#666666"
             >
-              User has been invited as an admin
+              User has been invited.
             </Text>
           </ModalBody>
         </ModalContent>

@@ -82,7 +82,6 @@ const Dashboard: React.FC = () => {
         </Text>
         <Flex w="100%" direction="row" justify="space-between" align="center">
           <PeopleNavBar setRole={setRole} />
-
           <PeopleColorCodes />
         </Flex>
         <DashboardTable
@@ -100,6 +99,7 @@ const Dashboard: React.FC = () => {
       <AddContributorModal
         isOpen={isAddContributorModalOpen}
         onClose={onAddContributorModalClose}
+        onSuccess={onInviteSentModalOpen}
       />
       <InviteSentModal
         isOpen={isInviteSentModalOpen}

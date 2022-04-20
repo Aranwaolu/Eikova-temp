@@ -8,21 +8,23 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
+  Spinner,
 } from "@chakra-ui/react";
+import { useAddContributor } from "../../../hooks";
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onSuccess: () => void;
 }
 
-const AddContributorModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const handleFullNameInputChange = (e: any) => {
-    console.log(e.target.value);
-  };
-  const handleEmailInputChange = () => {
-    console.log("here");
-  };
-
+const AddContributorModal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  onSuccess,
+}) => {
+  const { setEmail, setUsername, loading, error, handleInviteContrinutor } =
+    useAddContributor();
   return (
     <>
       <Modal
@@ -47,6 +49,10 @@ const AddContributorModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         >
           <ModalCloseButton _focus={{ outline: "none" }} />
           <ModalBody
+            as="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
             display="flex"
             flexDirection="column"
             justifyContent="flex-start"
@@ -88,7 +94,6 @@ const AddContributorModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             </Text>
 
             <Input
-              onChange={handleFullNameInputChange}
               placeholder="Full Name"
               height="60px"
               backgroundColor="#EAEAEA"
@@ -96,9 +101,16 @@ const AddContributorModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               fontSize="18px"
               lineHeight="23px"
               marginBottom="24px"
+              onChange={(e) => {
+                setUsername(e.target.value);
+              }}
             />
             <Input
-              onChange={handleEmailInputChange}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              type="email"
+              name="email"
               placeholder="Email"
               height="60px"
               backgroundColor="#EAEAEA"
@@ -106,10 +118,14 @@ const AddContributorModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               fontSize="18px"
               lineHeight="23px"
             />
-
+            {!!error && (
+              <Text color="red" mt="16px">
+                {error}
+              </Text>
+            )}
             <ChakraButton
               display="flex"
-              flexDirection="row"
+              gap="20px"
               justifyContent="center"
               alignItems="center"
               borderRadius="6px"
@@ -122,8 +138,19 @@ const AddContributorModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               h="60px"
               w="100%"
               _focus={{ outline: "none" }}
+              _hover={{
+                color: "text.primary",
+                border: "1px solid #AD7F33",
+                bgColor: "white",
+              }}
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
+                handleInviteContrinutor(onSuccess);
+              }}
             >
-              Invite Contributor
+              {loading ? "Inviting contributor" : "Invite Contributor"}
+              {loading && <Spinner />}
             </ChakraButton>
 
             <Text
