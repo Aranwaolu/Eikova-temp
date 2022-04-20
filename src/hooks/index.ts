@@ -3,6 +3,7 @@ import useFetchLandingPhotos from "./fetch-landing-photos";
 import useAdminSignIn from "./admin-signin";
 import useSuperAdminDashboard from "./super-admin-dashboard";
 import useAddContributor from "./add-contributor";
+import useAddAdmin from "./add-admin";
 
 export {
   useSignIn,
@@ -10,4 +11,5 @@ export {
   useAdminSignIn,
   useSuperAdminDashboard,
   useAddContributor,
+  useAddAdmin,
 };

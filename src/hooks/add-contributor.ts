@@ -8,8 +8,9 @@ const useAddContributor = () => {
   const [error, setError] = useState("");
 
   const handleInviteContrinutor = (onSuccess: () => void) => {
-    setLoading(true);
     if (!!email && !!username) {
+      setLoading(true);
+      setError("");
       addContributor({ email, username })
         .then((res) => {
           setLoading(false);
@@ -29,7 +30,6 @@ const useAddContributor = () => {
           }
         });
     } else {
-      setLoading(false);
       setError("Please add a username and email");
     }
   };

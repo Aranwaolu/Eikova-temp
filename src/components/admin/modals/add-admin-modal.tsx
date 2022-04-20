@@ -8,9 +8,9 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
-  useDisclosure,
+  Spinner,
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useAddAdmin } from "../../../hooks";
 import InviteSentModal from "../modals/invite-sent-modal";
 
 interface ModalProps {
@@ -19,34 +19,15 @@ interface ModalProps {
 }
 
 const AddAdminModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
-  const [personObject, setPersonObject] = useState({
-    fullName: "",
-    email: "",
-    department: "",
-    role: "",
-  });
-
   const {
-    isOpen: isInviteSentModalOpen,
-    onOpen: onInviteSentModalOpen,
-    onClose: onInviteSentModalClose,
-  } = useDisclosure();
-
-  const handleFullNameInputChange = (e: any) => {
-    setPersonObject((prevState) => ({
-      ...prevState,
-      fullName: e.target.value,
-    }));
-  };
-  const handleEmailInputChange = (e: any) => {
-    setPersonObject((prevState) => ({ ...prevState, email: e.target.value }));
-  };
-
-  const handleInviteAdminClick = () => {
-    console.log(personObject);
-    onClose();
-    onInviteSentModalOpen();
-  };
+    loading,
+    error,
+    isInviteSentModalOpen,
+    onInviteSentModalClose,
+    handleUsernameInputChange,
+    handleEmailInputChange,
+    handleInviteAdminClick,
+  } = useAddAdmin(onClose);
 
   return (
     <>
@@ -72,6 +53,10 @@ const AddAdminModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         >
           <ModalCloseButton _focus={{ outline: "none" }} />
           <ModalBody
+            as="form"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
             display="flex"
             flexDirection="column"
             justifyContent="flex-start"
@@ -113,7 +98,7 @@ const AddAdminModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             </Text>
 
             <Input
-              onChange={handleFullNameInputChange}
+              onChange={handleUsernameInputChange}
               placeholder="Full Name"
               height="60px"
               backgroundColor="#EAEAEA"
@@ -125,16 +110,22 @@ const AddAdminModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
             <Input
               onChange={handleEmailInputChange}
               placeholder="Email"
+              type="email"
+              name="email"
               height="60px"
               backgroundColor="#EAEAEA"
               borderRadius="6px"
               fontSize="18px"
               lineHeight="23px"
             />
-
+            {!!error && (
+              <Text color="red" mt="16px">
+                {error}
+              </Text>
+            )}
             <ChakraButton
               display="flex"
-              flexDirection="row"
+              gap="20px"
               justifyContent="center"
               alignItems="center"
               borderRadius="6px"
@@ -147,9 +138,16 @@ const AddAdminModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               h="60px"
               w="100%"
               _focus={{ outline: "none" }}
+              type="submit"
+              _hover={{
+                color: "text.primary",
+                border: "1px solid #AD7F33",
+                bgColor: "white",
+              }}
               onClick={() => handleInviteAdminClick()}
             >
-              Invite Admin
+              {loading ? "Inviting admin" : "Invite Admin"}
+              {loading && <Spinner />}
             </ChakraButton>
 
             <Text

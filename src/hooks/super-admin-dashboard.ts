@@ -36,7 +36,7 @@ const useSuperAdminDashboard = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    document.title = "Superadmin Dashboad - Eikova";
+    document.title = "Admin Dashboad - Eikova";
     setLoading(true);
     getAllUsers(role)
       .then((res) => {
