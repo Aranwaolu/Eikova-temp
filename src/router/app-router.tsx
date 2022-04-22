@@ -15,6 +15,7 @@ import SuperAdminDashboard from "../components/admin/pages/super-admin/dashboard
 import AdminDashboard from "../components/admin/pages/admin/dashboard";
 import CompleteRegistration from "../components/admin/pages/complete-registration";
 import { UserContext } from "../contexts/user-context";
+import AdminSigninPage from "../components/contributor/pages/admin-signin";
 
 const history = createBrowserHistory();
 
@@ -36,48 +37,69 @@ const AppRouter = () => {
       }));
       setPictureDetails(defaultDetails);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pictures]);
-
+  // Check subdomain
+  const host = window.location.host;
+  const subdomain = host.split(".")[0];
   return (
     <Router history={history}>
       <>
         {/* <ScrollToTop /> */}
-        <Switch>
-          <ProtectedRoute
-            isAuthenticated={user.isLoggedIn}
-            redirectPath="/signin"
-            path="/"
-            component={HomePage}
-            exact={true}
-          />
-          <Route path="/signin" component={SigninPage} exact={true} />
-          <Route path="/search" component={SearchPage} exact={true} />
-          <Route path="/dashboard" component={Dashboard} exact={true} />
-          <Route path="/upload" component={Upload} exact={true} />
-          <ProtectedRoute
-            isAuthenticated={!!pictures.files}
-            path="/upload-details"
-            redirectPath="/upload"
-            component={UploadDetails}
-            exact={true}
-          />
-          <Route
-            path="/super-admin/dashboard"
-            component={SuperAdminDashboard}
-            exact={true}
-          />
-          <Route
-            path="/admin/dashboard"
-            component={AdminDashboard}
-            exact={true}
-          />
-          <Route
-            path="/admin/complete-registration"
-            component={CompleteRegistration}
-            exact={true}
-          />
-          {/* <Redirect to="/not-found" /> */}
-        </Switch>
+        {subdomain === "admin" && (
+          <Switch>
+            <ProtectedRoute
+              isAuthenticated={user.isLoggedIn}
+              redirectPath="/signin"
+              path="/"
+              component={SuperAdminDashboard}
+              exact={true}
+            />
+            <Route path="/signin" component={AdminSigninPage} exact={true} />
+            <Route
+              path="/complete-registration"
+              component={CompleteRegistration}
+              exact={true}
+            />
+            {/* <Redirect to="/not-found" /> */}
+          </Switch>
+        )}
+        {subdomain === "contrinutor" && (
+          <Switch>
+            <ProtectedRoute
+              isAuthenticated={user.isLoggedIn}
+              redirectPath="/signin"
+              path="/"
+              component={Dashboard}
+              exact={true}
+            />
+            <Route path="/signin" component={SigninPage} exact={true} />
+            <Route path="/dashboard" component={Dashboard} exact={true} />
+            <Route path="/upload" component={Upload} exact={true} />
+            <ProtectedRoute
+              isAuthenticated={!!pictures.files}
+              path="/upload-details"
+              redirectPath="/upload"
+              component={UploadDetails}
+              exact={true}
+            />
+            {/* <Redirect to="/not-found" /> */}
+          </Switch>
+        )}
+        {subdomain !== "admin" && subdomain !== "contrinutor" && (
+          <Switch>
+            <ProtectedRoute
+              isAuthenticated={user.isLoggedIn}
+              redirectPath="/signin"
+              path="/"
+              component={HomePage}
+              exact={true}
+            />
+            <Route path="/signin" component={SigninPage} exact={true} />
+            <Route path="/search" component={SearchPage} exact={true} />
+            {/* <Redirect to="/not-found" /> */}
+          </Switch>
+        )}
       </>
     </Router>
   );

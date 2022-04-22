@@ -5,8 +5,8 @@ interface IUser {
   details: { name: string; role: string; email: string };
 }
 
-const getUserFromLocal = () => {
-  const localObject = JSON.parse(localStorage.getItem("eikova-tk") || "");
+const getUserFromLocal = () => {  
+  const localObject = JSON.parse(localStorage.getItem("eikova-tk") || "{}");
 
   const user: IUser = {
     token: localObject.token,

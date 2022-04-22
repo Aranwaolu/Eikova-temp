@@ -86,7 +86,7 @@ const Dashboard: React.FC = () => {
     <>
       <AdminNav />
 
-      <Flex
+      {/* <Flex
         px="100px"
         pt="62px"
         pb="174px"
@@ -235,7 +235,7 @@ const Dashboard: React.FC = () => {
       <InviteSentModal
         isOpen={isInviteSentModalOpen}
         onClose={onInviteSentModalClose}
-      />
+      /> */}
     </>
   );
 };
