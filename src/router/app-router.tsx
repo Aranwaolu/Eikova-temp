@@ -12,7 +12,6 @@ import { PictureFilesContext } from "../contexts/pictures-files-context";
 import { PicturesDetailsContext } from "../contexts/pictures-details-context";
 
 import SuperAdminDashboard from "../components/admin/pages/super-admin/dashboard";
-import AdminDashboard from "../components/admin/pages/admin/dashboard";
 import CompleteRegistration from "../components/admin/pages/complete-registration";
 import { UserContext } from "../contexts/user-context";
 import AdminSigninPage from "../components/contributor/pages/admin-signin";
@@ -64,7 +63,7 @@ const AppRouter = () => {
             {/* <Redirect to="/not-found" /> */}
           </Switch>
         )}
-        {subdomain === "contrinutor" && (
+        {subdomain === "contributor" && (
           <Switch>
             <ProtectedRoute
               isAuthenticated={user.isLoggedIn}
@@ -86,7 +85,7 @@ const AppRouter = () => {
             {/* <Redirect to="/not-found" /> */}
           </Switch>
         )}
-        {subdomain !== "admin" && subdomain !== "contrinutor" && (
+        {subdomain !== "admin" && subdomain !== "contributor" && (
           <Switch>
             <ProtectedRoute
               isAuthenticated={user.isLoggedIn}
