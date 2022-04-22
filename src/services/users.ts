@@ -6,3 +6,7 @@ export const getAllUsers = (role?: string) => {
     headers: { Authorization: `Bearer ${getUserFromLocal().token}` },
   });
 };
+
+export const updateUserStatus = (userID: string) => {
+  return request.patch(`users/${userID}/status`)
+}

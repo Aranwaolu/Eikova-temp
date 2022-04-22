@@ -64,22 +64,16 @@ const AppRouter = () => {
             {/* <Redirect to="/not-found" /> */}
           </Switch>
         )}
-        {subdomain !== "admin" && (
+        {subdomain === "contrinutor" && (
           <Switch>
             <ProtectedRoute
               isAuthenticated={user.isLoggedIn}
               redirectPath="/signin"
               path="/"
-              component={HomePage}
+              component={Dashboard}
               exact={true}
             />
             <Route path="/signin" component={SigninPage} exact={true} />
-            <Route
-              path="/admin-signin"
-              component={AdminSigninPage}
-              exact={true}
-            />
-            <Route path="/search" component={SearchPage} exact={true} />
             <Route path="/dashboard" component={Dashboard} exact={true} />
             <Route path="/upload" component={Upload} exact={true} />
             <ProtectedRoute
@@ -89,26 +83,20 @@ const AppRouter = () => {
               component={UploadDetails}
               exact={true}
             />
+            {/* <Redirect to="/not-found" /> */}
+          </Switch>
+        )}
+        {subdomain !== "admin" && subdomain !== "contrinutor" && (
+          <Switch>
             <ProtectedRoute
-              isAuthenticated={
-                user.details.role === "superadmin" ||
-                user.details.role === "admin"
-              }
-              redirectPath="/admin-signin"
-              path="/super-admin/dashboard"
-              component={SuperAdminDashboard}
+              isAuthenticated={user.isLoggedIn}
+              redirectPath="/signin"
+              path="/"
+              component={HomePage}
               exact={true}
             />
-            <Route
-              path="/admin/dashboard"
-              component={AdminDashboard}
-              exact={true}
-            />
-            <Route
-              path="/admin/complete-registration"
-              component={CompleteRegistration}
-              exact={true}
-            />
+            <Route path="/signin" component={SigninPage} exact={true} />
+            <Route path="/search" component={SearchPage} exact={true} />
             {/* <Redirect to="/not-found" /> */}
           </Switch>
         )}

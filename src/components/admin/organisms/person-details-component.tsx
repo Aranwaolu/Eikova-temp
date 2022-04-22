@@ -8,6 +8,7 @@ interface PersonProps {
 }
 
 interface Person {
+  id: string;
   username: string;
   email: string;
   department: string;
@@ -22,7 +23,7 @@ const PersonDetailsComponents: React.FC<PersonProps> = ({
 }) => {
   // const [checkboxValue, setCheckboxValue] = useState(false)
 
-  const profileIconNames = person.username?.split(" ") || ["U"];
+  const profileIconNames = person.username?.split(" ") || [person.email[0]];
 
   const profileIconLetters =
     profileIconNames.length > 1
@@ -95,6 +96,7 @@ const PersonDetailsComponents: React.FC<PersonProps> = ({
           status={person.status || "default"}
           handleCustomState={(e) => {
             console.log(e);
+            console.log(person.id);
           }}
         />
 
