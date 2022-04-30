@@ -2,11 +2,8 @@ import { getUserFromLocal } from "../utils";
 import { request } from "./index";
 import { IUserInvite, IUserLogin } from "./types";
 
-export const userSignIn = (reqBody: IUserLogin) => {
-  return request.post(`auth/user/login`, reqBody);
-};
 
-export const adminSignIn = (reqBody: IUserLogin) => {
+export const signIn = (reqBody: IUserLogin) => {
   return request.post(`auth/login`, reqBody);
 };
 
