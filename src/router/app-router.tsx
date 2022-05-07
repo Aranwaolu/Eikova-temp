@@ -7,7 +7,7 @@ import AdminRoutes from "./admin-route";
 import ContributorRoutes from "./contributor-routes";
 import UserRoutes from "./user-routes";
 
-const history = createBrowserHistory();
+const history = createBrowserHistory()
 
 const AppRouter = () => {
   const { pictures } = useContext(PictureFilesContext);
@@ -43,4 +43,4 @@ const AppRouter = () => {
   );
 };
 
-export default AppRouter;
+export default AppRouter
