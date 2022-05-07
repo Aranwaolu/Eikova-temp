@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/user-context";
-import { adminSignIn } from "../services/auth";
+import { signIn } from "../services/auth";
 import { getUserFromLocal, saveUserToLocal } from "../utils";
 
 const useAdminSignIn = () => {
@@ -17,7 +17,7 @@ const useAdminSignIn = () => {
       return setError("Please fill in your email and password!");
     }
     setisSigningIn(true);
-    adminSignIn({ email, password })
+    signIn({ email, password })
       .then((res) => {
         console.log(res.data);
         // Save token to local storage

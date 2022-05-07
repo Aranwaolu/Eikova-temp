@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { UserContext } from "../contexts/user-context";
-import { userSignIn } from "../services/auth";
+import { signIn } from "../services/auth";
 import { getUserFromLocal, saveUserToLocal } from "../utils";
 
 const useSignIn = () => {
@@ -17,19 +17,26 @@ const useSignIn = () => {
       return setError("Please fill in your email and password!");
     }
     setisSigningIn(true);
-    userSignIn({ email, password })
+    signIn({ email, password })
       .then((res) => {
-        console.log(res.data);
         // Save token to local storage
-        saveUserToLocal(res.data.tokens);
+        console.log(res.data);
+        if (res.data.tokens.access) {
+          saveUserToLocal(res.data.tokens.access.token);
+        } else {
+          saveUserToLocal(res.data.tokens);
+        }
         setUser(getUserFromLocal());
         history.push("/");
+        console.log(getUserFromLocal());
       })
       .catch((err) => {
         setisSigningIn(false);
         if (err.response?.status >= 400 && err.response?.status < 500) {
           setError(err.response.data.message);
         } else {
+          console.log();
+
           setError("An error occurred please try again");
         }
       });

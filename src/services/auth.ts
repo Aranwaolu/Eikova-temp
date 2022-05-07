@@ -2,13 +2,9 @@ import { getUserFromLocal } from '../utils'
 import { request } from './index'
 import { IUserInvite, IUserLogin } from './types'
 
-export const userSignIn = (reqBody: IUserLogin) => {
-	return request.post(`auth/user/login`, reqBody)
-}
-
-export const adminSignIn = (reqBody: IUserLogin) => {
-	return request.post(`auth/login`, reqBody)
-}
+export const signIn = (reqBody: IUserLogin) => {
+  return request.post(`auth/login`, reqBody);
+};
 
 export const addAdmin = (reqBody: IUserInvite) => {
 	return request.post(
@@ -49,3 +45,7 @@ export const resendInvite = (email: string) => {
 		}
 	)
 }
+
+export const verifyInvite = (token: string) => {
+  return request.post(`/auth/verify-invite?token=${token}`);
+};
