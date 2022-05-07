@@ -20,16 +20,23 @@ const useSignIn = () => {
     signIn({ email, password })
       .then((res) => {
         // Save token to local storage
-        saveUserToLocal(res.data.tokens);
+        console.log(res.data);
+        if (res.data.tokens.access) {
+          saveUserToLocal(res.data.tokens.access.token);
+        } else {
+          saveUserToLocal(res.data.tokens);
+        }
         setUser(getUserFromLocal());
         history.push("/");
-        console.log(getUserFromLocal())
+        console.log(getUserFromLocal());
       })
       .catch((err) => {
         setisSigningIn(false);
         if (err.response?.status >= 400 && err.response?.status < 500) {
           setError(err.response.data.message);
         } else {
+          console.log();
+
           setError("An error occurred please try again");
         }
       });

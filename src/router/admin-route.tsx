@@ -10,21 +10,20 @@ interface IAdminRoutesProps {}
 
 const AdminRoutes: React.FunctionComponent<IAdminRoutesProps> = (props) => {
   const { user } = useContext(UserContext);
-
+  const isAuthenticated =
+    user.details.role === "admin" || user.details.role === "superadmin";
   return (
     <Switch>
       <ProtectedRoute
-        isAuthenticated={
-          user.details.role === "admin" || user.details.role === "superadmin"
-        }
+        isAuthenticated={isAuthenticated}
         redirectPath="/signin"
         path="/"
         component={SuperAdminDashboard}
         exact={true}
       />
-      <Route path="/signin" component={AdminSigninPage} exact={true} />
+      <ProtectedRoute isAuthenticated={!isAuthenticated} redirectPath="/" path="/signin" component={AdminSigninPage} exact={true} />
       <Route
-        path="/complete-registration"
+        path="/verify-invite"
         component={CompleteRegistration}
         exact={true}
       />

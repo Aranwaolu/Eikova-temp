@@ -2,7 +2,6 @@ import { getUserFromLocal } from "../utils";
 import { request } from "./index";
 import { IUserInvite, IUserLogin } from "./types";
 
-
 export const signIn = (reqBody: IUserLogin) => {
   return request.post(`auth/login`, reqBody);
 };
@@ -35,4 +34,8 @@ export const addUser = (reqBody: IUserInvite) => {
       headers: { Authorization: `Bearer ${getUserFromLocal().token}` },
     }
   );
+};
+
+export const verifyInvite = (token: string) => {
+  return request.post(`/auth/verify-invite?token=${token}`);
 };

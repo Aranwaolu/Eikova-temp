@@ -5,7 +5,8 @@ import ProtectedRoute from "./protected-route";
 import Dashboard from "../components/contributor/pages/dashboard";
 import Upload from "../components/contributor/pages/upload";
 import UploadDetails from "../components/contributor/pages/upload-details";
-import SigninPage from "../components/user/pages/signin";
+import AdminSigninPage from "../components/contributor/pages/admin-signin";
+import CompleteRegistration from "../components/admin/pages/complete-registration";
 import { PictureFilesContext } from "../contexts/pictures-files-context";
 
 interface IContributorRoutesProps {}
@@ -15,19 +16,41 @@ const ContributorRoutes: React.FunctionComponent<IContributorRoutesProps> = (
 ) => {
   const { user } = useContext(UserContext);
   const { pictures } = useContext(PictureFilesContext);
+  const isAuthenticated =
+    // user.isLoggedIn &&
+    user.details.role === "contributor" ||
+    user.details.role === "admin" ||
+    user.details.role === "superadmin";
 
   return (
     <Switch>
+      <Route path="/signin" component={AdminSigninPage} exact={true} />
+      <Route
+        path="/verify-invite"
+        component={CompleteRegistration}
+        exact={true}
+      />
       <ProtectedRoute
-        isAuthenticated={user.details.role === "contributor"}
+        isAuthenticated={isAuthenticated}
         redirectPath="/signin"
         path="/"
         component={Dashboard}
         exact={true}
       />
-      <Route path="/signin" component={SigninPage} exact={true} />
-      <Route path="/dashboard" component={Dashboard} exact={true} />
-      <Route path="/upload" component={Upload} exact={true} />
+      <ProtectedRoute
+        isAuthenticated={isAuthenticated}
+        redirectPath="/signin"
+        path="/dashboard"
+        component={Dashboard}
+        exact={true}
+      />
+      <ProtectedRoute
+        isAuthenticated={isAuthenticated}
+        redirectPath="/signin"
+        path="/upload"
+        component={Upload}
+        exact={true}
+      />
       <ProtectedRoute
         isAuthenticated={!!pictures.files}
         path="/upload-details"
