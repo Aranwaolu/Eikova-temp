@@ -1,15 +1,16 @@
 import { useContext, useState } from "react";
-import { Box, Button, Flex, Img, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Img, Link, Text } from "@chakra-ui/react";
 import LogoText from "../../user/molecules/LogoText";
 import NavSvg from "../atoms/nav-svg";
 import UploadIcon from "../atoms/upload-icon";
-import { useHistory } from "react-router-dom";
 import { UserContext } from "../../../contexts/user-context";
 
 const AdminNav: React.FunctionComponent = (props) => {
   const [activeTab, setActiveTab] = useState(0);
-  const history = useHistory();
   const { user } = useContext(UserContext);
+  // Check subdomain
+  const host = window.location.host;
+  const subdomain = host.split(".")[0];
   return (
     <Flex
       flexDir="column"
@@ -57,23 +58,27 @@ const AdminNav: React.FunctionComponent = (props) => {
             <Text color="#A09D9D">{user.details.role}</Text>
           </Box>
         </Flex>
-        <Button
+        <Link
           bgColor="text.secondary"
           h="55px"
           w="219px"
           display="flex"
+          gap="13px"
           borderRadius="4px"
           alignItems="center"
           justifyContent="center"
-          __css={{ svg: { mr: "13px" } }}
+          _hover={{ textDecor: "none" }}
           zIndex="2"
-          onClick={() => {
-            history.push("/upload");
-          }}
+          target={subdomain === "admin" ? "_blank" : ""}
+          href={
+            subdomain === "admin"
+              ? "http://contributor." + host.split(".")[1] + "/upload"
+              : "/upload"
+          }
         >
           <UploadIcon />
           Upload Image
-        </Button>
+        </Link>
       </Flex>
       <Flex>
         <Text
