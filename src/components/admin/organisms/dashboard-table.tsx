@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Spinner, Checkbox, Img, Skeleton } from '@chakra-ui/react'
+import { Box, Flex, Text, Checkbox, Img, Skeleton } from '@chakra-ui/react'
 import PersonDetailsComponents from './person-details-component'
 
 interface Person {
