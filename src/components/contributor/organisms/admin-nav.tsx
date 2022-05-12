@@ -5,7 +5,7 @@ import NavSvg from "../atoms/nav-svg";
 import UploadIcon from "../atoms/upload-icon";
 import { UserContext } from "../../../contexts/user-context";
 
-const AdminNav: React.FunctionComponent = (props) => {
+const AdminNav: React.FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState(0);
   const { user } = useContext(UserContext);
   // Check subdomain

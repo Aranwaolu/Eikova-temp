@@ -7,7 +7,7 @@ export const getAllPhotos = (page: number) => {
   });
 };
 
-export const searchPhotos = (query: string) => {  
+export const searchPhotos = (query: string) => {
   return request.get(`/photos/search?query=${query}`, {
     headers: { Authorization: `Bearer ${getUserFromLocal().token}` },
   });
