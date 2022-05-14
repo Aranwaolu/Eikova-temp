@@ -8,6 +8,7 @@ import UploadDetails from "../components/contributor/pages/upload-details";
 import AdminSigninPage from "../components/contributor/pages/admin-signin";
 import CompleteRegistration from "../components/admin/pages/complete-registration";
 import { PictureFilesContext } from "../contexts/pictures-files-context";
+import EditPhoto from "../components/contributor/pages/edit";
 
 interface IContributorRoutesProps {}
 
@@ -56,6 +57,13 @@ const ContributorRoutes: React.FunctionComponent<IContributorRoutesProps> = (
         path="/upload-details"
         redirectPath="/upload"
         component={UploadDetails}
+        exact={true}
+      />
+      <ProtectedRoute
+        isAuthenticated={isAuthenticated}
+        path="/edit/:image"
+        redirectPath="/upload"
+        component={EditPhoto}
         exact={true}
       />
       {/* <Redirect to="/not-found" /> */}

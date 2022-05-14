@@ -3,20 +3,73 @@ import { Box, Button as ChakraButton, Text } from "@chakra-ui/react";
 import DashboardGrid from "../organisms/dashboard-grid";
 import Button from "../../user/atoms/button";
 import { useEffect, useState } from "react";
+import {
+  useFetchContributorPhotos,
+  useFetchLandingPhotos,
+} from "../../../hooks";
 
 const Dashboard: React.FC = () => {
-  const images = [
-    "/assets/images/picture-card-1.png",
-    "/assets/images/picture-card-2.png",
-    "/assets/images/picture-card-3.png",
-    "/assets/images/picture-card-4.png",
-    "/assets/images/picture-card-3.png",
-    "/assets/images/picture-card-4.png",
-    "/assets/images/picture-card-3.png",
-    "/assets/images/picture-card-4.png",
-    "/assets/images/picture-card-3.png",
+  const { photos, loading, error, loadMore, reachedPageLimit } =
+    useFetchLandingPhotos();
+  const {
+    contributorPhotos,
+    contributorLoading,
+    contributorError,
+    contributorLoadMore,
+    contributorReachedPageLimit,
+  } = useFetchContributorPhotos();
+  const placeholderPhotos = [
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
+    {
+      url: "/assets/images/picture-card-1.png",
+      thumbnail: "/assets/images/picture-card-1.png",
+      id: "",
+      user: { username: "" },
+    },
   ];
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState<"all" | "contributions">("all");
+
   useEffect(() => {
     document.title = "Dashboad - Eikova";
   }, []);
@@ -32,37 +85,70 @@ const Dashboard: React.FC = () => {
         </Text>
         <ChakraButton
           mr="24px"
-          bgColor={activeTab === 0 ? "text.primary" : ""}
+          bgColor={activeTab === "all" ? "text.primary" : ""}
           fontWeight="500"
           fontSize="18px"
-          color={activeTab === 0 ? "white" : "#8F8F8F"}
+          color={activeTab === "all" ? "white" : "#8F8F8F"}
           h="47px"
-          border={activeTab === 0 ? "" : "1px solid #8F8F8F"}
+          border={activeTab === "all" ? "" : "1px solid #8F8F8F"}
           w="85px"
           onClick={() => {
-            setActiveTab(0);
+            setActiveTab("all");
           }}
         >
           All
         </ChakraButton>
         <ChakraButton
-          color={activeTab === 1 ? "white" : "#8F8F8F"}
-          border={activeTab === 1 ? "" : "1px solid #8F8F8F"}
+          color={activeTab === "contributions" ? "white" : "#8F8F8F"}
+          border={activeTab === "contributions" ? "" : "1px solid #8F8F8F"}
           h="47px"
           w="213px"
           fontWeight="500"
-          bgColor={activeTab === 1 ? "text.primary" : ""}
+          bgColor={activeTab === "contributions" ? "text.primary" : ""}
           fontSize="18px"
           onClick={() => {
-            setActiveTab(1);
+            setActiveTab("contributions");
           }}
         >
           My Contributions
         </ChakraButton>
-        <DashboardGrid images={images} />
-        <Button variant="primary" h="54px">
-          LOAD MORE
-        </Button>
+        {activeTab === "all" ? (
+          <>
+            {error && <p>{error}</p>}
+            <DashboardGrid
+              category={activeTab}
+              loading={loading}
+              images={loading ? placeholderPhotos : photos.results}
+            />
+            {!reachedPageLimit && !loading ? (
+              <Button variant="primary" h="54px" onClick={loadMore}>
+                LOAD MORE
+              </Button>
+            ) : (
+              ""
+            )}
+          </>
+        ) : (
+          <>
+            {contributorError && <p>{contributorError}</p>}
+            <DashboardGrid
+              category={activeTab}
+              loading={contributorLoading}
+              images={
+                contributorLoading
+                  ? placeholderPhotos
+                  : contributorPhotos.results
+              }
+            />
+            {!contributorReachedPageLimit && !contributorLoading ? (
+              <Button variant="primary" h="54px" onClick={contributorLoadMore}>
+                LOAD MORE
+              </Button>
+            ) : (
+              ""
+            )}
+          </>
+        )}
       </Box>
     </>
   );

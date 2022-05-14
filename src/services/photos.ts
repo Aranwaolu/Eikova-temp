@@ -1,9 +1,12 @@
-import request from './index'
+import request from "./index";
 
-export const getAllPhotos = (page: number) => {
-	return request.get(`photos/?sortBy=latest&page=${page}`)
-}
+export const getAllPhotos = (page: number) =>
+  request.get(`photos/?populate=user&sortBy=latest&page=${page}`);
 
-export const searchPhotos = (query: string) => {
-	return request.get(`/photos/search?query=${query}`)
-}
+export const getPhoto = (photoId: string) => request.get(`photos/${photoId}`);
+
+export const searchPhotos = (query: string) =>
+  request.get(`/photos/search?query=${query}`);
+
+export const getContributorPhotos = (userId: string) =>
+  request.get(`/photos/user-contributions/${userId}`);

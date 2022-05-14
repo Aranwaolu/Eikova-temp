@@ -28,8 +28,8 @@ const Tag: React.FunctionComponent<ItagProps> = ({ tag, onTagClick }) => {
 					d='M8.0007 8.02561L11.496 11.5209M4.50537 11.5209L8.0007 8.02561L4.50537 11.5209ZM11.496 4.53027L8.00004 8.02561L11.496 4.53027ZM8.00004 8.02561L4.50537 4.53027L8.00004 8.02561Z'
 					stroke='#8F8F8F'
 					strokeWidth='1.5'
-					stroke-linecap='round'
-					stroke-linejoin='round'
+					strokeLinecap='round'
+					strokeLinejoin='round'
 				/>
 			</svg>
 		</ChakraTag>

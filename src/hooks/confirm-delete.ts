@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { deleteUser } from '../services/users'
 
-const useAddUser = () => {
+const useConfirmDelete = () => {
 	const [userID, setUserID] = useState('')
 	const [loading, setLoading] = useState(false)
 
@@ -24,4 +24,4 @@ const useAddUser = () => {
 	}
 	return { setUserID, loading, handleDeleteUser, userID }
 }
-export default useAddUser
+export default useConfirmDelete

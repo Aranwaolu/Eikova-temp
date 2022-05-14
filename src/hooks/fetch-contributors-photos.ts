@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllPhotos } from "../services/photos";
 
-const useFetchLandingPhotos = () => {
+const useFetchContributorPhotos = () => {
   const defaulValue = {
     limit: 0,
     page: 0,
@@ -9,39 +9,44 @@ const useFetchLandingPhotos = () => {
     totalResults: 0,
     results: [{ thumbnail: "", url: "", id: "", user: { username: "" } }],
   };
-  const [photos, setPhotos] = useState(defaulValue);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [contributorPhotos, setPhotos] = useState(defaulValue);
+  const [contributorLoading, setLoading] = useState(true);
+  const [contributorError, setError] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const [reachedPageLimit, setReachedPageLimit] = useState(false);
+  const [contributorReachedPageLimit, setReachedPageLimit] = useState(false);
   useEffect(() => {
     getAllPhotos(pageNumber)
       .then((res) => {
         if (pageNumber > 1) {
           setPhotos({
             ...res.data.photos,
-            results: [...photos.results, ...res.data.photos.results],
+            results: [...contributorPhotos.results, ...res.data.photos.results],
           });
         } else {
           setPhotos(res.data.photos);
         }
-        if (photos.totalPages <= pageNumber) {
+        if (contributorPhotos.totalPages <= pageNumber) {
           setReachedPageLimit(true);
         }
         setLoading(false);
       })
       .catch((err) => {
-        setError("An error occurred, please try again");
-        setLoading(false);
+        setError("An contributorError occurred, please try again");
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
-  const loadMore = () => {
-    if (photos.totalPages > pageNumber) {
+  const contributorLoadMore = () => {
+    if (contributorPhotos.totalPages > pageNumber) {
       setPageNumber(pageNumber + 1);
     }
   };
-  return { photos, loading, error, loadMore, reachedPageLimit };
+  return {
+    contributorPhotos,
+    contributorLoading,
+    contributorError,
+    contributorLoadMore,
+    contributorReachedPageLimit,
+  };
 };
 
-export default useFetchLandingPhotos;
+export default useFetchContributorPhotos;
