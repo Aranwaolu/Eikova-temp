@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Box, Icon } from '@chakra-ui/react'
+import { Box, Flex, Icon } from '@chakra-ui/react'
 
 import { useDetectClickOutside } from 'react-detect-click-outside'
 
@@ -20,16 +20,7 @@ const PersonOptionsDropdown: React.FC<IPersonOptionsDropdownProps> = ({ status, 
 
 	return (
 		<>
-			<Box
-				style={{
-					display: 'flex',
-					flexDirection: 'column',
-					justifyContent: 'space-between',
-					alignItems: 'flex-start',
-					position: 'relative',
-				}}
-				ref={ref}
-			>
+			<Flex direction='column' justify='space-between' align='flex-start' position='relative' ref={ref}>
 				<svg
 					onClick={() => {
 						setIsDropdownOpen(!isDropdownOpen)
@@ -52,37 +43,42 @@ const PersonOptionsDropdown: React.FC<IPersonOptionsDropdownProps> = ({ status, 
 
 				{isDropdownOpen && (
 					<Box
-						style={{
-							position: 'absolute',
-							width: '140px',
-							padding: '0 10px',
-							right: '0',
-							top: '20px',
-							background: '#FFFFFF',
-							boxShadow: '2px 4px 20px rgba(0, 0, 0, 0.15)',
-							borderRadius: '0px 0px 6px 6px',
-							display: 'flex',
-							flexDirection: 'column',
-							justifyContent: 'space-between',
-							alignItems: 'flex-start',
-							zIndex: '99',
-							overflow: 'hidden',
-						}}
+						position='absolute'
+						width='140px'
+						padding='0'
+						right='0'
+						top='20px'
+						background='#FFFFFF'
+						boxShadow='2px 4px 20px rgba(0, 0, 0, 0.15)'
+						borderRadius='0px 0px 6px 6px'
+						display='flex'
+						flexDirection='column'
+						justifyContent='space-between'
+						alignItems='flex-start'
+						zIndex='99'
+						overflow='hidden'
 					>
 						{status !== 'active' &&
 							dropdownMenu.map((item, index) => {
 								return (
 									<Box
-										style={{
-											width: '100%',
-											textTransform: 'capitalize',
-											cursor: 'pointer',
-											padding: '6px 10px',
-											color: item === 'delete' ? '#f5302a' : '#A0A0A0',
+										width='100%'
+										textTransform='capitalize'
+										cursor='pointer'
+										padding='6px 20px'
+										position='relative'
+										color={item === 'delete' ? '#f5302a' : '#A0A0A0'}
+										_hover={{ background: '#FFEED1' }}
+										_after={{
+											content: `''`,
+											background: '#E8E8E8',
+											position: 'absolute',
+											bottom: 0,
+											left: '50%',
+											height: '1px',
+											width: '85%',
+											marginLeft: 'calc(-85% /2)',
 										}}
-										borderBottom='1px solid #E8E8E8'
-										_hover={{ background: 'aliceblue' }}
-										_last={{ borderBottom: 'none' }}
 										key={index}
 										onClick={() => {
 											setIsDropdownOpen(false)
@@ -95,7 +91,7 @@ const PersonOptionsDropdown: React.FC<IPersonOptionsDropdownProps> = ({ status, 
 							})}
 					</Box>
 				)}
-			</Box>
+			</Flex>
 		</>
 	)
 }

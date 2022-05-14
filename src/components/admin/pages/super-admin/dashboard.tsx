@@ -11,6 +11,7 @@ import AddPersonDropdown from '../../molecules/add-person-dropdown'
 import { useSuperAdminDashboard } from '../../../../hooks/'
 import DashboardTable from '../../organisms/dashboard-table'
 import Pagination from '../../molecules/pagination'
+import AddCategoryDropdown from '../../molecules/add-category-dropdown'
 
 const Dashboard: React.FC = () => {
 	const {
@@ -35,6 +36,7 @@ const Dashboard: React.FC = () => {
 		setPage,
 		totalPages,
 		refetchUsers,
+		handleClickAddCategory,
 	} = useSuperAdminDashboard()
 	return (
 		<>
@@ -53,33 +55,18 @@ const Dashboard: React.FC = () => {
 				</Text>
 				<Flex mt='30px' direction='row' justify='space-between' align='center'>
 					<AddPersonDropdown handleCustomState={handleAddPeopleItemClick} />
-					<ChakraButton
-						display='flex'
-						flexDirection='row'
-						justifyContent='center'
-						alignItems='center'
-						p='15px 30px'
-						borderRadius='5px'
-						bgColor='#EAEAEA'
-						fontWeight='500'
-						fontSize='18px'
-						lineHeight='23px'
-						color='#262626'
-						h='60px'
-						onClick={onInviteSentModalOpen}
-						_focus={{ outline: 'none' }}
-					>
-						<Image src='/assets/images/svg_icons/user_add.svg' mr='16px' />
-						Add Category
-					</ChakraButton>
+					<AddCategoryDropdown />
 				</Flex>
+
 				<Text fontSize='24px' lineHeight='31px' color='#262626' mt='43px' mb='26px'>
 					Your People
 				</Text>
+
 				<Flex w='100%' direction='row' justify='space-between' align='center'>
 					<PeopleNavBar setRole={setRole} setPage={setPage} />
 					<PeopleColorCodes />
 				</Flex>
+
 				<DashboardTable
 					allChecked={allChecked}
 					isIndeterminate={isIndeterminate}
