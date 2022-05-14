@@ -2,10 +2,10 @@ import jwt from "jwt-decode";
 interface IUser {
   token: string;
   isLoggedIn: boolean;
-  details: { name: string; role: string; email: string };
+  details: { name: string; role: string; email: string; sub: string };
 }
 
-const getUserFromLocal = () => {  
+const getUserFromLocal = () => {
   const localObject = JSON.parse(localStorage.getItem("eikova-tk") || "{}");
 
   const user: IUser = {
@@ -16,6 +16,7 @@ const getUserFromLocal = () => {
           name: "",
           role: "",
           email: "",
+          sub: "",
         }
       : jwt(localObject.token),
   };

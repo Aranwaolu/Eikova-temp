@@ -56,34 +56,38 @@ const ImageDetailInput: React.FunctionComponent<IImageDetailInputProps> = ({
           });
         }}
       />
-      <Flex flexWrap="wrap" gap="10px">
-        {valueLocal.array[0]
-          ? valueLocal.array.map((tag, index) =>
-              tag && tag.replace(/\s/g, "").length ? (
-                <Tag
-                  key={tag + index}
-                  tag={tag}
-                  onTagClick={() => {
-                    const newArray = valueLocal.array;
-                    newArray.splice(index, 1);
-                    setValueLocal({
-                      array: newArray,
-                    });
-                    setValue(newArray.join(","));
-                  }}
-                />
-              ) : (
-                ""
+      {type !== "date" && title !== "Location" && (
+        <Flex flexWrap="wrap" gap="10px">
+          {valueLocal.array[0]
+            ? valueLocal.array.map((tag, index) =>
+                tag && tag.replace(/\s/g, "").length ? (
+                  <Tag
+                    key={tag + index}
+                    tag={tag}
+                    onTagClick={() => {
+                      const newArray = valueLocal.array;
+                      newArray.splice(index, 1);
+                      setValueLocal({
+                        array: newArray,
+                      });
+                      setValue(newArray.join(","));
+                    }}
+                  />
+                ) : (
+                  ""
+                )
               )
-            )
-          : ""}
-      </Flex>
-      <Text fontSize="18px" mt="8px">
-        Suggested:{" "}
-        <Text as="span" color="text.primary">
-          {suggestions.join(", ")}
+            : ""}
+        </Flex>
+      )}
+      {title !== "Date" && (
+        <Text fontSize="18px" mt="8px">
+          Suggested:{" "}
+          <Text as="span" color="text.primary">
+            {suggestions.join(", ")}
+          </Text>
         </Text>
-      </Text>
+      )}
     </Box>
   );
 };

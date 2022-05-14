@@ -5,6 +5,7 @@ import useSuperAdminDashboard from "./super-admin-dashboard";
 import useAddContributor from "./add-contributor";
 import useAddAdmin from "./add-admin";
 import useAddUser from "./add-user";
+import useFetchContributorPhotos from "./fetch-contributors-photos";
 
 export {
   useSignIn,
@@ -14,4 +15,5 @@ export {
   useAddContributor,
   useAddAdmin,
   useAddUser,
+  useFetchContributorPhotos,
 };
