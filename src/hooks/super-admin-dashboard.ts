@@ -82,6 +82,10 @@ const useSuperAdminDashboard = () => {
 		}
 	}
 
+	const handleClickAddCategory = () => {
+		console.log('here')
+	}
+
 	const allChecked = checkedItems.every(Boolean)
 	const isIndeterminate = checkedItems.some(Boolean) && !allChecked
 	return {
@@ -106,6 +110,7 @@ const useSuperAdminDashboard = () => {
 		setPage,
 		totalPages,
 		refetchUsers,
+		handleClickAddCategory,
 	}
 }
 export default useSuperAdminDashboard

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Box,
   Flex,
@@ -8,6 +9,10 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 import PersonDetailsComponents from "./person-details-component";
+=======
+import { Box, Flex, Text, Checkbox, Img, Skeleton } from '@chakra-ui/react'
+import PersonDetailsComponents from './person-details-component'
+>>>>>>> 30ee8a3ee8383ebab42176ce811052bfc3db15fd
 
 interface Person {
   id: string;

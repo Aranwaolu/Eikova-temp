@@ -6,6 +6,7 @@ import useAddContributor from "./add-contributor";
 import useAddAdmin from "./add-admin";
 import useAddUser from "./add-user";
 import useFetchContributorPhotos from "./fetch-contributors-photos";
+import useConfirmDelete from "./confirm-delete";
 
 export {
   useSignIn,
@@ -16,4 +17,5 @@ export {
   useAddAdmin,
   useAddUser,
   useFetchContributorPhotos,
+  useConfirmDelete,
 };
