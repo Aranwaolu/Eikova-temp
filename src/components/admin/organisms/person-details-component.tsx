@@ -1,8 +1,9 @@
-import { Box, Checkbox, Flex, Text, useToast } from '@chakra-ui/react'
+import { Box, Checkbox, Flex, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import PersonOptionsDropdown from '../molecules/person-options-dropdown'
 import StatusDropdown from '../molecules/status-dropdown'
 import { deleteUser, updateUserStatus } from '../../../services/users'
 import { resendInvite } from '../../../services/auth'
+import ConfirmDeleteModal from '../modals/confrim-delete-modal'
 
 interface PersonProps {
 	person: Person
@@ -27,6 +28,11 @@ const PersonDetailsComponents: React.FC<PersonProps> = ({
 	handleChange,
 }) => {
 	const toast = useToast()
+	const {
+		isOpen: isConfirmDeleteOpen,
+		onOpen: onConfirmDeleteOpen,
+		onClose: oneConfirmDeleteClose,
+	} = useDisclosure()
 
 	const profileIconNames = person.username?.split(' ') || [person.email[0]]
 
@@ -76,17 +82,18 @@ const PersonDetailsComponents: React.FC<PersonProps> = ({
 				})
 				.catch((err) => console.error(err))
 		} else if (event === 'delete') {
-			deleteUser(person.id)
-				.then((res) => {
-					toast({
-						title: `User Deleted`,
-						status: 'success',
-						duration: 2000,
-						isClosable: false,
-					})
-					handleChange()
-				})
-				.catch((err) => console.error(err))
+			onConfirmDeleteOpen()
+			// deleteUser(person.id)
+			// 	.then((res) => {
+			// 		toast({
+			// 			title: `User Deleted`,
+			// 			status: 'success',
+			// 			duration: 2000,
+			// 			isClosable: false,
+			// 		})
+			// 		handleChange()
+			// 	})
+			// 	.catch((err) => console.error(err))
 		}
 	}
 
@@ -154,6 +161,15 @@ const PersonDetailsComponents: React.FC<PersonProps> = ({
 					}}
 				/>
 			</Flex>
+
+			<ConfirmDeleteModal
+				userID={person.id}
+				isOpen={isConfirmDeleteOpen}
+				onClose={oneConfirmDeleteClose}
+				onSuccess={() => {
+					oneConfirmDeleteClose()
+				}}
+			/>
 		</>
 	)
 }
