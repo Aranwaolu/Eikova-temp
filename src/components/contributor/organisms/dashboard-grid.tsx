@@ -28,8 +28,8 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
   const history = useHistory();
   return (
     <Grid templateColumns="repeat(4, 1fr)" mt="36px" mb="40px" gap="20px">
-      {images.map((image) => (
-        <Skeleton isLoaded={!loading}>
+      {images.map((image, index) => (
+        <Skeleton key={image.thumbnail + index} isLoaded={!loading}>
           <Box
             key={image.thumbnail}
             pos="relative"
@@ -87,25 +87,25 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                     <path
                       d="M15.4651 6.94632H11.7261C8.65111 6.94632 6.72311 9.12332 6.72311 12.2053V20.5193C6.72311 23.6013 8.64211 25.7783 11.7261 25.7783H20.5501C23.6351 25.7783 25.5541 23.6013 25.5541 20.5193V16.4913"
                       stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M12.8006 15.0782L20.2736 7.60521C21.2046 6.67521 22.7136 6.67521 23.6446 7.60521L24.8616 8.82221C25.7926 9.75321 25.7926 11.2632 24.8616 12.1932L17.3526 19.7022C16.9456 20.1092 16.3936 20.3382 15.8176 20.3382H12.0716L12.1656 16.5582C12.1796 16.0022 12.4066 15.4722 12.8006 15.0782Z"
                       stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <path
                       d="M19.138 8.75981L23.704 13.3258"
                       stroke="white"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     />
                     <defs>
                       <filter
@@ -115,10 +115,10 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                         width="38.4986"
                         height="38.4986"
                         filterUnits="userSpaceOnUse"
-                        color-interpolation-filters="sRGB"
+                        colorInterpolationFilters="sRGB"
                       >
                         <feFlood
-                          flood-opacity="0"
+                          floodOpacity="0"
                           result="BackgroundImageFix"
                         />
                         <feGaussianBlur
@@ -219,8 +219,8 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                       strokeLinejoin="round"
                     />
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M9.30062 11.0779L16.7736 3.60488C17.7046 2.67488 19.2136 2.67488 20.1446 3.60488L21.3616 4.82188C22.2926 5.75288 22.2926 7.26288 21.3616 8.19288L13.8526 15.7019C13.4456 16.1089 12.8936 16.3379 12.3176 16.3379H8.57162L8.66562 12.5579C8.67962 12.0019 8.90662 11.4719 9.30062 11.0779Z"
                       stroke="white"
                       strokeWidth="1.5"

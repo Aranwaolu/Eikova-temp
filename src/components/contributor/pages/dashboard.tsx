@@ -114,38 +114,52 @@ const Dashboard: React.FC = () => {
         </ChakraButton>
         {activeTab === "all" ? (
           <>
-            {error && <p>{error}</p>}
-            <DashboardGrid
-              category={activeTab}
-              loading={loading}
-              images={loading ? placeholderPhotos : photos.results}
-            />
-            {!reachedPageLimit && !loading ? (
-              <Button variant="primary" h="54px" onClick={loadMore}>
-                LOAD MORE
-              </Button>
+            {error ? (
+              <p>{error}</p>
             ) : (
-              ""
+              <>
+                <DashboardGrid
+                  category={activeTab}
+                  loading={loading}
+                  images={loading ? placeholderPhotos : photos.results}
+                />
+                {!reachedPageLimit && !loading ? (
+                  <Button variant="primary" h="54px" onClick={loadMore}>
+                    LOAD MORE
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </>
             )}
           </>
         ) : (
           <>
-            {contributorError && <p>{contributorError}</p>}
-            <DashboardGrid
-              category={activeTab}
-              loading={contributorLoading}
-              images={
-                contributorLoading
-                  ? placeholderPhotos
-                  : contributorPhotos.results
-              }
-            />
-            {!contributorReachedPageLimit && !contributorLoading ? (
-              <Button variant="primary" h="54px" onClick={contributorLoadMore}>
-                LOAD MORE
-              </Button>
+            {contributorError ? (
+              <p>{contributorError}</p>
             ) : (
-              ""
+              <>
+                <DashboardGrid
+                  category={activeTab}
+                  loading={contributorLoading}
+                  images={
+                    contributorLoading
+                      ? placeholderPhotos
+                      : contributorPhotos.results
+                  }
+                />
+                {!contributorReachedPageLimit && !contributorLoading ? (
+                  <Button
+                    variant="primary"
+                    h="54px"
+                    onClick={contributorLoadMore}
+                  >
+                    LOAD MORE
+                  </Button>
+                ) : (
+                  ""
+                )}
+              </>
             )}
           </>
         )}

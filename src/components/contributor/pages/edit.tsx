@@ -4,10 +4,10 @@ import { Box, Flex, Spinner } from "@chakra-ui/react";
 import Button from "../../user/atoms/button";
 import EditPhotoForm from "../organisms/upload-details-form";
 import { useParams } from "react-router-dom";
-import { getPhoto } from "../../../services/photos";
+import { getPhoto, updatePhoto } from "../../../services/photos";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
 
-const picturesDetails = {
+const picturesDetailsDefault = {
   title: "",
   description: "",
   thumbnail: "",
@@ -20,9 +20,11 @@ const picturesDetails = {
 };
 const EditPhoto: React.FC = () => {
   const { image } = useParams<{ image: string }>();
-  const [picture, setPicture] = useState(picturesDetails);
+  const [picture, setPicture] = useState(picturesDetailsDefault);
   const [loadingPhoto, setLoadingPhoto] = useState(true);
-  const { setPictureDetails } = useContext(PicturesDetailsContext);
+  const { setPictureDetails, picturesDetails } = useContext(
+    PicturesDetailsContext
+  );
   useEffect(() => {
     document.title = "Edit picture - Eikova";
     getPhoto(image).then((res) => {
@@ -97,7 +99,18 @@ const EditPhoto: React.FC = () => {
             <Spinner h="50px" w="50px" thickness="5px" />
           </Flex>
         ) : (
-          <EditPhotoForm pictureLink={picture.thumbnail} activeIndex={0} />
+          <EditPhotoForm
+            pictureLink={picture.thumbnail}
+            activeIndex={0}
+            handleUpload={() => {
+              console.log(picturesDetails[0]);
+              updatePhoto(image, { title: picturesDetails[0].title }).then(
+                (res) => {
+                  console.log(res.data);
+                }
+              );
+            }}
+          />
         )}
       </Box>
     </>

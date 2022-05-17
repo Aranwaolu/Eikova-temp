@@ -7,10 +7,12 @@ import ImageDetailInput from "../molecules/image-detail-input";
 interface IUploadDetailsFormProps {
   pictureLink: string;
   activeIndex: number;
+  handleUpload: () => void;
 }
 const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
   pictureLink,
   activeIndex,
+  handleUpload,
 }) => {
   const { picturesDetails, setPictureDetails } = useContext(
     PicturesDetailsContext
@@ -164,6 +166,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         fontSize="18px"
         fontWeight="500"
         disabled={!enablePublish}
+        onClick={handleUpload}
       >
         Publish now
       </Button>

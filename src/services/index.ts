@@ -1,23 +1,21 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
-import { getUserFromLocal } from '../utils'
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import { getUserFromLocal } from "../utils";
 
 const conf: AxiosRequestConfig = {
-	baseURL: process.env.REACT_APP_BASE_URL,
-	timeout: 60000,
-}
+  baseURL: process.env.REACT_APP_BASE_URL,
+  timeout: 60000,
+};
 
-const request: AxiosInstance = axios.create(conf)
+const request: AxiosInstance = axios.create(conf);
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-	if (!config.headers) {
-		config.headers = {}
-	}
+  if (!config.headers) {
+    config.headers = {};
+  }
+  config.headers["Authorization"] = `Bearer ${getUserFromLocal().token}`;
+  return config;
+};
 
-	config.headers['Authorization'] = `Bearer ${getUserFromLocal().token}`
+request.interceptors.request.use(onRequest);
 
-	return config
-}
-
-request.interceptors.request.use(onRequest)
-
-export default request
+export default request;

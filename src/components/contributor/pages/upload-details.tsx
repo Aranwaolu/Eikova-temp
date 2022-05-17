@@ -6,6 +6,7 @@ import { PictureFilesContext } from "../../../contexts/pictures-files-context";
 import UploadArrow from "../molecules/upload-arrows";
 import UploadDetailsForm from "../organisms/upload-details-form";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
+import { uploadPhoto } from "../../../services/photos";
 
 const UploadDetails: React.FC = () => {
   const { pictures } = useContext(PictureFilesContext);
@@ -100,6 +101,11 @@ const UploadDetails: React.FC = () => {
         <UploadDetailsForm
           pictureLink={pictures.links ? pictures.links[activeIndex] : ""}
           activeIndex={activeIndex}
+          handleUpload={() => {
+            uploadPhoto(picturesDetails[0]).then((res) => {
+              console.log(res.data);
+            });
+          }}
         />
       </Box>
     </>

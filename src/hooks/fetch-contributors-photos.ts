@@ -31,7 +31,7 @@ const useFetchContributorPhotos = () => {
         setLoading(false);
       })
       .catch((err) => {
-        setError("An contributorError occurred, please try again");
+        setError("An Error occurred, please try again");
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
