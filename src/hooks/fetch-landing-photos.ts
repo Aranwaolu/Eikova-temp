@@ -17,6 +17,8 @@ const useFetchLandingPhotos = () => {
   useEffect(() => {
     getAllPhotos(pageNumber)
       .then((res) => {
+        console.log(res.data);
+
         if (pageNumber > 1) {
           setPhotos({
             ...res.data.photos,

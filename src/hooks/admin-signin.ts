@@ -9,7 +9,7 @@ const useAdminSignIn = () => {
   const [password, setPassword] = useState("");
   const [isSigningIn, setisSigningIn] = useState(false);
   const [error, setError] = useState("");
-  const { setUser } = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
   const history = useHistory();
   const handleSignIn = () => {
     setError("");
@@ -23,6 +23,8 @@ const useAdminSignIn = () => {
         // Save token to local storage
         saveUserToLocal(res.data.tokens.access.token);
         setUser(getUserFromLocal());
+        console.log(user);
+
         history.push("/");
       })
       .catch((err) => {
