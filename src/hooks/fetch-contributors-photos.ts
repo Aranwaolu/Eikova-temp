@@ -11,6 +11,7 @@ const useFetchContributorPhotos = () => {
   };
   const [contributorPhotos, setPhotos] = useState(defaulValue);
   const [contributorLoading, setLoading] = useState(true);
+  const [contributorLoadingMore, setContributorLoadingMore] = useState(false);
   const [contributorError, setError] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [contributorReachedPageLimit, setReachedPageLimit] = useState(false);
@@ -25,19 +26,23 @@ const useFetchContributorPhotos = () => {
         } else {
           setPhotos(res.data.photos);
         }
-        if (contributorPhotos.totalPages <= pageNumber) {
+        if (res.data.photos.totalPages <= pageNumber) {
           setReachedPageLimit(true);
         }
         setLoading(false);
+        setContributorLoadingMore(false)
       })
       .catch((err) => {
         setError("An Error occurred, please try again");
+        setLoading(false);
+        setContributorLoadingMore(false)
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
   const contributorLoadMore = () => {
     if (contributorPhotos.totalPages > pageNumber) {
       setPageNumber(pageNumber + 1);
+      setContributorLoadingMore(true)
     }
   };
   return {
@@ -46,6 +51,7 @@ const useFetchContributorPhotos = () => {
     contributorError,
     contributorLoadMore,
     contributorReachedPageLimit,
+    contributorLoadingMore
   };
 };
 

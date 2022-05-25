@@ -102,9 +102,13 @@ const UploadDetails: React.FC = () => {
           pictureLink={pictures.links ? pictures.links[activeIndex] : ""}
           activeIndex={activeIndex}
           handleUpload={() => {
-            uploadPhoto(picturesDetails[0]).then((res) => {
-              console.log(res.data);
-            });
+            uploadPhoto({...picturesDetails[0], image: pictures.files? pictures.files[0]: null})
+              .then((res) => {
+                console.log(res.data);
+              })
+              .catch((err) => {
+                console.log(err.response);
+              });
           }}
         />
       </Box>

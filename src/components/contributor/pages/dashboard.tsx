@@ -1,5 +1,11 @@
 import AdminNav from "../organisms/admin-nav";
-import { Box, Button as ChakraButton, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button as ChakraButton,
+  Flex,
+  Spinner,
+  Text,
+} from "@chakra-ui/react";
 import DashboardGrid from "../organisms/dashboard-grid";
 import Button from "../../user/atoms/button";
 import { useEffect, useState } from "react";
@@ -9,7 +15,7 @@ import {
 } from "../../../hooks";
 
 const Dashboard: React.FC = () => {
-  const { photos, loading, error, loadMore, reachedPageLimit } =
+  const { photos, loading, error, loadMore, reachedPageLimit, loadingMore } =
     useFetchLandingPhotos();
   const {
     contributorPhotos,
@@ -17,6 +23,7 @@ const Dashboard: React.FC = () => {
     contributorError,
     contributorLoadMore,
     contributorReachedPageLimit,
+    contributorLoadingMore,
   } = useFetchContributorPhotos();
   const placeholderPhotos = [
     {
@@ -123,6 +130,16 @@ const Dashboard: React.FC = () => {
                   loading={loading}
                   images={loading ? placeholderPhotos : photos.results}
                 />
+                {loadingMore && (
+                  <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    h="400px"
+                    w="100%"
+                  >
+                    <Spinner h="50px" w="50px" thickness="7px" />
+                  </Flex>
+                )}
                 {!reachedPageLimit && !loading ? (
                   <Button variant="primary" h="54px" onClick={loadMore}>
                     LOAD MORE
@@ -148,6 +165,16 @@ const Dashboard: React.FC = () => {
                       : contributorPhotos.results
                   }
                 />
+                {contributorLoadingMore && (
+                  <Flex
+                    justifyContent="center"
+                    alignItems="center"
+                    h="400px"
+                    w="100%"
+                  >
+                    <Spinner h="50px" w="50px" thickness="7px" />
+                  </Flex>
+                )}
                 {!contributorReachedPageLimit && !contributorLoading ? (
                   <Button
                     variant="primary"

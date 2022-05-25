@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import LandingFilter from "../molecules/landing-filter";
 import HomeBanner from "../templates/home-banner";
 import PictureGrid from "../templates/picture-grid";
@@ -9,7 +9,8 @@ import { useFetchLandingPhotos } from "../../../hooks";
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
-  const { photos, loading, error, loadMore, reachedPageLimit } = useFetchLandingPhotos();
+  const { photos, loading, error, loadMore, reachedPageLimit, loadingMore } =
+    useFetchLandingPhotos();
 
   return (
     <>
@@ -21,7 +22,12 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
         ) : (
           <>
             <PictureGrid photos={photos.results} loading={loading} />
-            {(!loading && !reachedPageLimit)&& (
+            {loadingMore && (
+              <Flex justifyContent="center" alignItems="center" h="400px" w="100%">
+                <Spinner h="50px" w="50px" thickness="7px" />
+              </Flex>
+            )}
+            {!loading && !reachedPageLimit && (
               <Button
                 variant="primary"
                 bgColor="text.secondary"

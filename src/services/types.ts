@@ -19,13 +19,14 @@ export interface IUpdateDetails {
   songMinister?: string;
 }
 
-export interface IPhotoDetails {
+export interface IUploadPhotoDetails {
   title: string;
   description: string;
   tags: string;
   meeting: string;
   location: string;
   date: string;
+  image: File | null;
   minister?: string;
   songMinister?: string;
 }
