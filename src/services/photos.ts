@@ -1,8 +1,9 @@
+import { getUploadFormData } from "../utils";
 import request from "./index";
-import { IPhotoDetails, IUpdateDetails } from "./types";
+import { IUploadPhotoDetails, IUpdateDetails } from "./types";
 
 export const getAllPhotos = (page: number) =>
-  request.get(`photos/?populate=user&sortBy=latest&page=${page}`);
+  request.get(`photos/?sortBy=latest&populate=user&page=${page}`);
 
 export const getPhoto = (photoId: string) => request.get(`photos/${photoId}`);
 
@@ -12,16 +13,13 @@ export const searchPhotos = (query: string) =>
 export const getContributorPhotos = (userId: string) =>
   request.get(`/photos/user-contributions/${userId}`);
 
-export const uploadPhoto = (photoDetails: IPhotoDetails) =>
-  request.post(
-    `/photos/upload`,
-    { photoDetails },
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+export const uploadPhoto = (photoDetails: IUploadPhotoDetails) => {
+  return request.post(`/photos/upload`, getUploadFormData(photoDetails), {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
 
 export const updatePhoto = (photoId: string, updateDetails: IUpdateDetails) =>
   request.patch(

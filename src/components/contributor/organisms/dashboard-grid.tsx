@@ -25,6 +25,8 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
   loading,
   category,
 }) => {
+  console.log(images[0].user.username);
+
   const history = useHistory();
   return (
     <Grid templateColumns="repeat(4, 1fr)" mt="36px" mb="40px" gap="20px">
@@ -61,7 +63,7 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                 color="white"
                 fontSize="14px"
               >
-                <Text>{image.user.username}</Text>
+                <Text>{image.user ? image.user.username : "omo"}</Text>
                 <Box
                   as="button"
                   onClick={() => {
@@ -117,10 +119,7 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                         filterUnits="userSpaceOnUse"
                         colorInterpolationFilters="sRGB"
                       >
-                        <feFlood
-                          floodOpacity="0"
-                          result="BackgroundImageFix"
-                        />
+                        <feFlood floodOpacity="0" result="BackgroundImageFix" />
                         <feGaussianBlur
                           in="BackgroundImage"
                           stdDeviation="1.63824"

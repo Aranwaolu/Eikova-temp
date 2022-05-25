@@ -3,7 +3,7 @@ import { getUserFromLocal } from "../utils";
 
 const conf: AxiosRequestConfig = {
   baseURL: process.env.REACT_APP_BASE_URL,
-  timeout: 60000,
+  // timeout: 100000,
 };
 
 const request: AxiosInstance = axios.create(conf);
