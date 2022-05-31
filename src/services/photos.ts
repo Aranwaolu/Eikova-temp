@@ -21,6 +21,13 @@ export const uploadPhoto = (photoDetails: IUploadPhotoDetails) => {
   });
 };
 
+export const uploadPhotos = () => {
+  return request.post(`/photos/upload/bulk`, {}, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  })
+}
 export const updatePhoto = (photoId: string, updateDetails: IUpdateDetails) =>
   request.patch(
     `/photos/${photoId}`,

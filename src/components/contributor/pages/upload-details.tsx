@@ -7,6 +7,9 @@ import UploadArrow from "../molecules/upload-arrows";
 import UploadDetailsForm from "../organisms/upload-details-form";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
 import { uploadPhoto } from "../../../services/photos";
+import { useUploadPhoto } from "../../../hooks";
+import UploadSuccessModal from "../molecules/upload-success-modal";
+import { IPicturesDetailsContext } from "../../../services/types";
 
 const UploadDetails: React.FC = () => {
   const { pictures } = useContext(PictureFilesContext);
@@ -34,6 +37,9 @@ const UploadDetails: React.FC = () => {
       }
     });
   }, [picturesDetails]);
+
+  const { handleUpload, openModal, onModalClose, uploading, error } =
+    useUploadPhoto(activeIndex);
   return (
     <>
       <AdminNav />
@@ -101,16 +107,21 @@ const UploadDetails: React.FC = () => {
         <UploadDetailsForm
           pictureLink={pictures.links ? pictures.links[activeIndex] : ""}
           activeIndex={activeIndex}
-          handleUpload={() => {
-            uploadPhoto({...picturesDetails[0], image: pictures.files? pictures.files[0]: null})
-              .then((res) => {
-                console.log(res.data);
-              })
-              .catch((err) => {
-                console.log(err.response);
-              });
+          handleUpload={(
+            picturesDetail: IPicturesDetailsContext["picturesDetails"][0]
+          ) => {
+            handleUpload(picturesDetail);
+            if (
+              picturesDetails.length > 1 &&
+              activeIndex >= picturesDetails.length - 1
+            ) {
+              setActiveIndex(activeIndex - 1);
+            }
           }}
+          uploading={uploading}
+          error={error}
         />
+        <UploadSuccessModal isOpen={openModal} onClose={onModalClose} />
       </Box>
     </>
   );

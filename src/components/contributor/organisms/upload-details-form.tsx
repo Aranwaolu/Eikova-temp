@@ -1,18 +1,25 @@
-import { Box, Input, Img } from "@chakra-ui/react";
+import { Box, Input, Img, Text, Spinner } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
+import { IPicturesDetailsContext } from "../../../services/types";
 import Button from "../../user/atoms/button";
 import ImageDetailInput from "../molecules/image-detail-input";
 
 interface IUploadDetailsFormProps {
   pictureLink: string;
   activeIndex: number;
-  handleUpload: () => void;
+  uploading: boolean;
+  error: string;
+  handleUpload: (
+    pictureDetail: IPicturesDetailsContext["picturesDetails"][0]
+  ) => void;
 }
 const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
   pictureLink,
   activeIndex,
   handleUpload,
+  uploading,
+  error,
 }) => {
   const { picturesDetails, setPictureDetails } = useContext(
     PicturesDetailsContext
@@ -39,7 +46,11 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
     const store = [...picturesDetails];
     store[activeIndex] = details;
     setPictureDetails(store);
-  }, [details]);
+  }, [activeIndex]);
+
+  useEffect(() => {
+    setDetails(picturesDetails[activeIndex]);
+  }, [picturesDetails]);
 
   useEffect(() => {
     setDetails(picturesDetails[activeIndex]);
@@ -160,16 +171,26 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         }}
       />
       <Button
+        display="flex"
+        gap="20px"
         opacity={enablePublish ? "1" : "0.5"}
         variant="primary"
         mt="95px"
         fontSize="18px"
         fontWeight="500"
         disabled={!enablePublish}
-        onClick={handleUpload}
+        onClick={() => {
+          const store = [...picturesDetails];
+          store[activeIndex] = details;
+          setPictureDetails(store);
+          handleUpload(store[activeIndex]);
+          setDetails(picturesDetails[activeIndex]);
+        }}
       >
-        Publish now
+        {uploading ? "Publishing" : "Publish now"}
+        {uploading ? <Spinner /> : ""}
       </Button>
+      {error && <Text color="red">{error}</Text>}
     </Box>
   );
 };

@@ -100,6 +100,8 @@ const EditPhoto: React.FC = () => {
           </Flex>
         ) : (
           <EditPhotoForm
+            error=""
+            uploading={false}
             pictureLink={picture.thumbnail}
             activeIndex={0}
             handleUpload={() => {

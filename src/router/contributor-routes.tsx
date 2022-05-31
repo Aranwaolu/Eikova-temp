@@ -53,7 +53,7 @@ const ContributorRoutes: React.FunctionComponent<IContributorRoutesProps> = (
         exact={true}
       />
       <ProtectedRoute
-        isAuthenticated={!!pictures.files}
+        isAuthenticated={pictures.files !== null && pictures.files.length > 0}
         path="/upload-details"
         redirectPath="/upload"
         component={UploadDetails}

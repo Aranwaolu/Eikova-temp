@@ -30,3 +30,19 @@ export interface IUploadPhotoDetails {
   minister?: string;
   songMinister?: string;
 }
+
+export interface IPicturesDetailsContext {
+  picturesDetails: {
+    title: string;
+    description: string;
+    tags: string;
+    meeting: string;
+    location: string;
+    date: string;
+    minister: string;
+    songMinister: string;
+  }[];
+  setPictureDetails: (
+    pictureDetails: IPicturesDetailsContext["picturesDetails"]
+  ) => void;
+}
