@@ -9,6 +9,7 @@ import useFetchContributorPhotos from "./fetch-contributors-photos";
 import useConfirmDelete from "./confirm-delete";
 import useUploadPhoto from "./upload-photo";
 import useBatchUpload from "./upload-photos";
+import useFilterOptions from "./filter-options";
 
 export {
   useSignIn,
@@ -22,4 +23,5 @@ export {
   useConfirmDelete,
   useUploadPhoto,
   useBatchUpload,
+  useFilterOptions,
 };

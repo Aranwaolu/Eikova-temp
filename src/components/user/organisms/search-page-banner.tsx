@@ -31,7 +31,7 @@ const SearchPageBanner: React.FunctionComponent<ISearchPageBannerProps> = (
   };
   useEffect(() => {
     onSearch();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box
@@ -43,7 +43,7 @@ const SearchPageBanner: React.FunctionComponent<ISearchPageBannerProps> = (
       <NavigationBar />
       <SearchBar onSearchValueChange={setSearchValue} onSearch={onSearch} />
       <Spacer mt="68px" />
-      <BannerFilter />
+      <BannerFilter getActiveIndex={(index) => {}} />
     </Box>
   );
 };

@@ -34,7 +34,6 @@ const useBatchUpload = () => {
   const onBatchModalClose = () => {
     setPictureFiles([]);
     setPictureDetails([]);
-    //   history.push("/upload")
   };
   return {
     handleBatchUpload,

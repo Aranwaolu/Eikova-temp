@@ -79,6 +79,8 @@ const UploadDetails: React.FC = () => {
               Save as Draft
             </Button>
             <Button
+              display="flex"
+              gap="20px"
               variant="primary"
               minW="162px"
               h="53px"
@@ -92,8 +94,8 @@ const UploadDetails: React.FC = () => {
               {uploadingBatch ? <Spinner /> : ""}
             </Button>
           </Flex>
-          {batchError ? <Text>{batchError}</Text> : ""}
         </Flex>
+        {batchError ? <Text>{batchError}</Text> : ""}
         {pictures.files && pictures.files.length > 1 && (
           <UploadArrow
             nextDisable={

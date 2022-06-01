@@ -10,9 +10,17 @@ const PictureFrame: React.FunctionComponent<IPictureFrameProps> = ({
   imageLink,
 }) => {
   return (
-    <Box borderRadius="4px" overflow="hidden" pos="relative">
-      <Img w="100%" h="268px" objectFit="cover" src={imageLink} pos="relative" />
+    <Box borderRadius="4px" overflow="hidden" pos="relative" role="group">
+      <Img
+        w="100%"
+        h="268px"
+        objectFit="cover"
+        src={imageLink}
+        pos="relative"
+      />
       <Box
+        display="none"
+        _groupHover={{ display: "block" }}
         height="100%"
         width="100%"
         position="absolute"
@@ -20,6 +28,8 @@ const PictureFrame: React.FunctionComponent<IPictureFrameProps> = ({
         top="0"
       ></Box>
       <Link
+        display="none"
+        _groupHover={{ display: "block" }}
         pos="absolute"
         bottom="11px"
         right="11px"

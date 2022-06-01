@@ -1,27 +1,16 @@
-import { useState } from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import {  useState } from "react";
+import { Box, Button, Flex, Skeleton } from "@chakra-ui/react";
 import LandingFilterNext from "../atoms/landing-filter-arrow";
 
-interface ILandingFilterprops {}
+interface ILandingFilterprops {
+  filterValues: { name: string }[];
+  loading: boolean;
+}
 
-const LandingFilter: React.FunctionComponent<ILandingFilterprops> = (props) => {
-  const [filterValues] = useState([
-    "All Preachers",
-    "Rev. Kayode Oyegoke",
-    "Rev. Helen Oyegoke",
-    "Rev. Busuyi Olabode",
-    "Rev. Ken Igbinedion",
-    "Pst. Emeka Egwuchukwu",
-    "Pst. Tosin Gabriel",
-    "Pst. Tayo Ladejo",
-    "Pst. Dimeji Elugbade",
-
-    "Pst. Tope Falaye",
-    "Rev. Mike Ogunoye",
-    "Rev. Mike Ogunoye",
-    "Rev. Mike Ogunoye",
-    "Rev. Mike Ogunoye",
-  ]);
+const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
+  filterValues,
+  loading,
+}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
   return (
@@ -31,25 +20,31 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = (props) => {
       pos="relative"
       overflowX="scroll"
     >
-      <Flex alignItems="center" transform={`translateX(-${translate}rem)`}>
-        {filterValues.map((value, index) => (
-          <Box
-            key={index + value}
-            mr={activeIndex === index ? "23px" : "30px"}
-            fontSize="12px"
-            fontWeight={activeIndex === index ? "500" : "400"}
-            color={activeIndex === index ? "#7B4B36" : "#686868"}
-            bgColor={activeIndex === index ? "#FFEED1" : "transparent"}
-            p={activeIndex === index ? "8px 13px" : "0"}
-            borderRadius={activeIndex === index ? "8px" : "none"}
-            cursor="pointer"
-            minW="fit-content"
-            onClick={(e) => {
-              setActiveIndex(index);
-            }}
-          >
-            {value}
-          </Box>
+      <Flex
+        alignItems="center"
+        gap="20px"
+        transform={`translateX(-${translate}rem)`}
+      >
+        {filterValues.map((filter, index) => (
+          <Skeleton isLoaded={!loading}>
+            <Box
+              key={index + filter.name}
+              // mr={activeIndex === index ? "23px" : "30px"}
+              fontSize="12px"
+              fontWeight={activeIndex === index ? "500" : "400"}
+              color={activeIndex === index ? "#7B4B36" : "#686868"}
+              bgColor={activeIndex === index ? "#FFEED1" : "transparent"}
+              p={activeIndex === index && !loading ? "8px 13px" : "0"}
+              borderRadius={activeIndex === index ? "8px" : "none"}
+              cursor="pointer"
+              minW="fit-content"
+              onClick={(e) => {
+                setActiveIndex(index);
+              }}
+            >
+              {filter.name}
+            </Box>
+          </Skeleton>
         ))}
       </Flex>
       <Button

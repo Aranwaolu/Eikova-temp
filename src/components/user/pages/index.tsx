@@ -4,18 +4,26 @@ import LandingFilter from "../molecules/landing-filter";
 import HomeBanner from "../templates/home-banner";
 import PictureGrid from "../templates/picture-grid";
 import Button from "../atoms/button";
-import { useFetchLandingPhotos } from "../../../hooks";
+import { useFetchLandingPhotos, useFilterOptions } from "../../../hooks";
 
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
   const { photos, loading, error, loadMore, reachedPageLimit, loadingMore } =
     useFetchLandingPhotos();
-
+  const { filterValues, filterOptionsLoading, setActiveTab } =
+    useFilterOptions();
   return (
     <>
-      <HomeBanner />
-      <LandingFilter />
+      <HomeBanner
+        getActiveIndex={(index) => {
+          setActiveTab(index);
+        }}
+      />
+      <LandingFilter
+        filterValues={filterValues}
+        loading={filterOptionsLoading}
+      />
       <Box pt="42px" pb="161px" px="100px">
         {error ? (
           <Text>{error}</Text>
@@ -23,7 +31,12 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
           <>
             <PictureGrid photos={photos.results} loading={loading} />
             {loadingMore && (
-              <Flex justifyContent="center" alignItems="center" h="400px" w="100%">
+              <Flex
+                justifyContent="center"
+                alignItems="center"
+                h="400px"
+                w="100%"
+              >
                 <Spinner h="50px" w="50px" thickness="7px" />
               </Flex>
             )}

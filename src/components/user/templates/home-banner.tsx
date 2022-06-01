@@ -5,9 +5,11 @@ import SearchBar from "../organisms/search-bar";
 import BannerFilter from "../molecules/banner-filter";
 import { useHistory } from "react-router-dom";
 
-interface IHomeBannerProps {}
+interface IHomeBannerProps {
+  getActiveIndex: (index: number) => void;
+}
 
-const HomeBanner: React.FunctionComponent<IHomeBannerProps> = (props) => {
+const HomeBanner: React.FunctionComponent<IHomeBannerProps> = ({getActiveIndex}) => {
   const [searchValue, setSearchValue] = useState("");
   const history = useHistory();
   const onSearch = () => {
@@ -47,7 +49,7 @@ const HomeBanner: React.FunctionComponent<IHomeBannerProps> = (props) => {
       </Text>
       <SearchBar onSearchValueChange={setSearchValue} onSearch={onSearch} />
       <Spacer mt="68px" />
-      <BannerFilter />
+      <BannerFilter getActiveIndex={getActiveIndex} />
     </Box>
   );
 };

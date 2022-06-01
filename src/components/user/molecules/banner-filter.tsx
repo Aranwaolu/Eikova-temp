@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Flex, Text } from "@chakra-ui/react";
 
-interface IBannerFilterProps {}
+interface IBannerFilterProps {
+  getActiveIndex: (index: number) => void;
+}
 
-const BannerFilter: React.FunctionComponent<IBannerFilterProps> = (props) => {
+const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({getActiveIndex}) => {
   const [filterValues] = useState([
+    "All",
     "Preachers",
-    "Ministry",
     "Choir",
     "Audience",
     "Outdoor",
@@ -22,7 +24,7 @@ const BannerFilter: React.FunctionComponent<IBannerFilterProps> = (props) => {
           borderBottom={index === activeIndex ? "5px solid" : "none"}
           borderColor="text.primary"
           mr="40px"
-          opacity={index === activeIndex ? "1" : "0.5"}
+          opacity={index === activeIndex ? "1" : "0.6"}
           fontWeight={index === activeIndex ? "700" : "400"}
           fontSize="14px"
           pb="14px"
@@ -31,6 +33,7 @@ const BannerFilter: React.FunctionComponent<IBannerFilterProps> = (props) => {
           cursor="pointer"
           onClick={(e) => {
             setActiveIndex(index);
+            getActiveIndex(index)
           }}
         >
           {value}
