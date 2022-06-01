@@ -46,11 +46,11 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
     const store = [...picturesDetails];
     store[activeIndex] = details;
     setPictureDetails(store);
-  }, [activeIndex]);
+  }, [details]);
 
-  useEffect(() => {
-    setDetails(picturesDetails[activeIndex]);
-  }, [picturesDetails]);
+  // useEffect(() => {
+  //   setDetails(picturesDetails[activeIndex]);
+  // }, [picturesDetails]);
 
   useEffect(() => {
     setDetails(picturesDetails[activeIndex]);
@@ -182,7 +182,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         onClick={() => {
           const store = [...picturesDetails];
           store[activeIndex] = details;
-          setPictureDetails(store);
+          // setPictureDetails(store);
           handleUpload(store[activeIndex]);
           setDetails(picturesDetails[activeIndex]);
         }}

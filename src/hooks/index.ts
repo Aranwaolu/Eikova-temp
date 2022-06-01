@@ -8,6 +8,7 @@ import useAddUser from "./add-user";
 import useFetchContributorPhotos from "./fetch-contributors-photos";
 import useConfirmDelete from "./confirm-delete";
 import useUploadPhoto from "./upload-photo";
+import useBatchUpload from "./upload-photos";
 
 export {
   useSignIn,
@@ -20,4 +21,5 @@ export {
   useFetchContributorPhotos,
   useConfirmDelete,
   useUploadPhoto,
+  useBatchUpload,
 };

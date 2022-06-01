@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import AdminNav from "../organisms/admin-nav";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Text } from "@chakra-ui/react";
 import Button from "../../user/atoms/button";
 import { PictureFilesContext } from "../../../contexts/pictures-files-context";
 import UploadArrow from "../molecules/upload-arrows";
 import UploadDetailsForm from "../organisms/upload-details-form";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
-import { uploadPhoto } from "../../../services/photos";
-import { useUploadPhoto } from "../../../hooks";
+// import { uploadPhoto } from "../../../services/photos";
+import { useBatchUpload, useUploadPhoto } from "../../../hooks";
 import UploadSuccessModal from "../molecules/upload-success-modal";
 import { IPicturesDetailsContext } from "../../../services/types";
+import BatchUploadSuccessModal from "../molecules/batch-upload-success";
 
 const UploadDetails: React.FC = () => {
   const { pictures } = useContext(PictureFilesContext);
@@ -40,6 +41,13 @@ const UploadDetails: React.FC = () => {
 
   const { handleUpload, openModal, onModalClose, uploading, error } =
     useUploadPhoto(activeIndex);
+  const {
+    handleBatchUpload,
+    openBatchModal,
+    onBatchModalClose,
+    uploadingBatch,
+    batchError,
+  } = useBatchUpload();
   return (
     <>
       <AdminNav />
@@ -77,14 +85,14 @@ const UploadDetails: React.FC = () => {
               fontSize="18px"
               fontWeight="500"
               opacity={enablePublish ? "1" : "0.5"}
-              // disabled={!enablePublish}
-              onClick={() => {
-                console.log(picturesDetails);
-              }}
+              disabled={!enablePublish}
+              onClick={handleBatchUpload}
             >
-              Publish All Images
+              {uploadingBatch ? "Publishing" : "Publish All Images"}
+              {uploadingBatch ? <Spinner /> : ""}
             </Button>
           </Flex>
+          {batchError ? <Text>{batchError}</Text> : ""}
         </Flex>
         {pictures.files && pictures.files.length > 1 && (
           <UploadArrow
@@ -122,6 +130,10 @@ const UploadDetails: React.FC = () => {
           error={error}
         />
         <UploadSuccessModal isOpen={openModal} onClose={onModalClose} />
+        <BatchUploadSuccessModal
+          isOpen={openBatchModal}
+          onClose={onBatchModalClose}
+        />
       </Box>
     </>
   );
