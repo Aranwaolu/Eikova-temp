@@ -8,7 +8,7 @@ const useFetchLandingPhotos = () => {
     page: 0,
     totalPages: 0,
     totalResults: 0,
-    results: [{ thumbnail: "", url: "", id: "", user: { username: "" } }],
+    results: [{ thumbnail: "", url: "", title: "", id: "", user: { username: "" } }],
   };
   const [photos, setPhotos] = useState(defaulValue);
   const [loading, setLoading] = useState(true);

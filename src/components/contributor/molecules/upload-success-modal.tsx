@@ -103,7 +103,7 @@ const UploadSuccessModal: React.FunctionComponent<IUploadSuccessModalProps> = ({
               w="196px"
               p="15px 30px"
               _focus={{ outline: "none" }}
-              // _hover={{ background: "#E12D3A" }}
+              _hover={{}}
               type="submit"
               onClick={onClose}
             >

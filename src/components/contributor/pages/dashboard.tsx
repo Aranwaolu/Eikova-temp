@@ -24,53 +24,62 @@ const Dashboard: React.FC = () => {
     contributorLoadMore,
     contributorReachedPageLimit,
     contributorLoadingMore,
+    deleteHandlers,
   } = useFetchContributorPhotos();
   const placeholderPhotos = [
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
     {
       url: "/assets/images/picture-card-1.png",
       thumbnail: "/assets/images/picture-card-1.png",
+      title: "",
       id: "",
       user: { username: "" },
     },
@@ -126,6 +135,7 @@ const Dashboard: React.FC = () => {
             ) : (
               <>
                 <DashboardGrid
+                  deleteHandlers={deleteHandlers}
                   category={activeTab}
                   loading={loading}
                   images={loading ? placeholderPhotos : photos.results}
@@ -157,6 +167,7 @@ const Dashboard: React.FC = () => {
             ) : (
               <>
                 <DashboardGrid
+                  deleteHandlers={deleteHandlers}
                   category={activeTab}
                   loading={contributorLoading}
                   images={

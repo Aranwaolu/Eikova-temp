@@ -32,5 +32,9 @@ export const uploadMultiplePhotos = (photoDetails: IUploadPhotoDetails[]) => {
     }
   );
 };
+
 export const updatePhoto = (photoId: string, updateDetails: IUpdateDetails) =>
   request.patch(`/photos/${photoId}`, updateDetails);
+
+export const deletePhoto = (photoId: string) =>
+  request.delete(`/photos/${photoId}`);

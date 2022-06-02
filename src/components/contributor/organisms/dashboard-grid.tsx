@@ -7,7 +7,10 @@ import {
   HStack,
   Button,
 } from "@chakra-ui/react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useFetchContributorPhotos } from "../../../hooks";
+import ConfirmPictureDeleteModal from "../molecules/confirm-image-delete-modal";
 
 interface IDashboardGridProps {
   images: {
@@ -15,19 +18,36 @@ interface IDashboardGridProps {
     url: string;
     id: string;
     user: { username: string };
+    title: string;
   }[];
   loading: boolean;
   category: "all" | "contributions";
+  deleteHandlers: {
+    confirmDelete: () => void;
+    handleDelete: (imageID: string) => void;
+    deleting: boolean;
+    openDeleteModal: boolean;
+    onCloseModal: () => void;
+    deleteError: string;
+}
 }
 
 const DashboardGrid: React.FC<IDashboardGridProps> = ({
   images,
   loading,
   category,
+  deleteHandlers
 }) => {
-  console.log(images[0].user.username);
-
   const history = useHistory();
+  const [deleteID, setDeleteID] = useState({ id: "", name: "" });
+  const {
+    confirmDelete,
+    handleDelete,
+    deleting,
+    openDeleteModal,
+    onCloseModal,
+    deleteError,
+  } = deleteHandlers;
   return (
     <Grid templateColumns="repeat(4, 1fr)" mt="36px" mb="40px" gap="20px">
       {images.map((image, index) => (
@@ -159,6 +179,11 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                   borderRadius="7px"
                   backdropFilter="blur(3.27647px)"
                   _hover={{}}
+                  onClick={() => {
+                    console.log("I dye delete dey go");
+                    setDeleteID({ id: image.id, name: image.title });
+                    confirmDelete();
+                  }}
                 >
                   Delete
                   <svg
@@ -240,6 +265,15 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
           </Box>
         </Skeleton>
       ))}
+      <ConfirmPictureDeleteModal
+        imageName={deleteID.name}
+        imageID={deleteID.id}
+        isOpen={openDeleteModal}
+        deleting={deleting}
+        onClose={onCloseModal}
+        deleteError={deleteError}
+        handleDelete={handleDelete}
+      />
     </Grid>
   );
 };
