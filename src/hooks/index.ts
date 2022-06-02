@@ -10,6 +10,7 @@ import useConfirmDelete from "./confirm-delete";
 import useUploadPhoto from "./upload-photo";
 import useBatchUpload from "./upload-photos";
 import useFilterOptions from "./filter-options";
+import useEditPhoto from "./edit-photo";
 
 export {
   useSignIn,
@@ -24,4 +25,5 @@ export {
   useUploadPhoto,
   useBatchUpload,
   useFilterOptions,
+  useEditPhoto,
 };

@@ -1,6 +1,6 @@
 import { Box, Input, Img, Text, Flex, Spinner } from "@chakra-ui/react";
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
 import { PictureFilesContext } from "../../../contexts/pictures-files-context";
 import { IPicturesDetailsContext } from "../../../services/types";
@@ -60,7 +60,6 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
   }, [activeIndex]);
 
   const params = useParams<{ image: string }>();
-  console.log("params", params);
 
   return (
     <Box maxW="850px" mx="auto" mt="50px">
