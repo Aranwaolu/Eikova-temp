@@ -9,8 +9,15 @@ import { useFetchLandingPhotos, useFilterOptions } from "../../../hooks";
 interface IHomePageProps {}
 
 const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
-  const { photos, loading, error, loadMore, reachedPageLimit, loadingMore } =
-    useFetchLandingPhotos();
+  const {
+    photos,
+    loading,
+    error,
+    loadMore,
+    setSearchQuery,
+    reachedPageLimit,
+    loadingMore,
+  } = useFetchLandingPhotos();
   const { filterValues, filterOptionsLoading, setActiveTab } =
     useFilterOptions();
   return (
@@ -23,6 +30,9 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
       <LandingFilter
         filterValues={filterValues}
         loading={filterOptionsLoading}
+        setSearchQuery={(searchValue: string) => {
+          setSearchQuery(searchValue);
+        }}
       />
       <Box pt="42px" pb="161px" px="100px">
         {error ? (

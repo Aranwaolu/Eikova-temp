@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { searchPhotos } from "../services/filter";
 import { getAllPhotos } from "../services/photos";
 
 const useFetchLandingPhotos = () => {
@@ -15,7 +16,11 @@ const useFetchLandingPhotos = () => {
   const [error, setError] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [reachedPageLimit, setReachedPageLimit] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
+    if (searchQuery) {
+      return;
+    }
     getAllPhotos(pageNumber)
       .then((res) => {
         if (pageNumber > 1) {
@@ -39,13 +44,44 @@ const useFetchLandingPhotos = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      return;
+    }
+    searchPhotos(searchQuery)
+      .then((res) => {
+        console.log(res.data.photos.body.hits.hits[0]._source.thumbnail);
+        const results = res.data.photos.body.hits.hits;
+        // const searchResults = results.map((result) => {
+        //   return {
+        //     thumbnail: result._source.thumbnail,
+        //     url: result._source.url,
+        //     id: result._source.id,
+        //     user: {
+        //       username: result._source.user,
+        //     },
+        //   };
+        // });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [searchQuery, pageNumber]);
   const loadMore = () => {
     if (photos.totalPages > pageNumber) {
       setPageNumber(pageNumber + 1);
       setLoadingMore(true);
     }
   };
-  return { photos, loading, error, loadMore, reachedPageLimit, loadingMore };
+  return {
+    photos,
+    loading,
+    error,
+    setSearchQuery,
+    loadMore,
+    reachedPageLimit,
+    loadingMore,
+  };
 };
 
 export default useFetchLandingPhotos;

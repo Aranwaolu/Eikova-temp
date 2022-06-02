@@ -27,7 +27,7 @@ const UploadDetails: React.FC = () => {
       if (
         details.date &&
         details.description &&
-        details.location &&
+        // details.location &&
         details.meeting &&
         details.tags &&
         details.title

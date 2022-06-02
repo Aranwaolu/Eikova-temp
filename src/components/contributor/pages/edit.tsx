@@ -6,6 +6,7 @@ import EditPhotoForm from "../organisms/upload-details-form";
 import { useParams } from "react-router-dom";
 import { getPhoto, updatePhoto } from "../../../services/photos";
 import { PicturesDetailsContext } from "../../../contexts/pictures-details-context";
+import { IPicturesDetailsContext } from "../../../services/types";
 
 const picturesDetailsDefault = {
   title: "",
@@ -28,18 +29,23 @@ const EditPhoto: React.FC = () => {
   useEffect(() => {
     document.title = "Edit picture - Eikova";
     getPhoto(image).then((res) => {
-      console.log(res.data.photo);
       const data = {
-        ...res.data.photo,
-        tags: res.data.photo.tags.join(", "),
-        meeting: res.data.photo.meeting_id,
-        location: res.data.photo.location ? res.data.photo.location : "",
-        date: `${res.data.photo.year}-0${res.data.photo.month}-01`,
-        minister: res.data.photo.minister
-          ? res.data.photo.minister.join(", ")
+        title: res.data.photo.photo.title,
+        description: res.data.photo.photo.description,
+        thumbnail: res.data.photo.photo.thumbnail,
+        tags: res.data.photo.photo.tags.join(", "),
+        meeting: res.data.photo.photo.meeting
+          ? res.data.photo.photo.meeting
+          : res.data.photo.photo.meeting_id,
+        location: res.data.photo.photo.location
+          ? res.data.photo.photo.location
           : "",
-        songMinister: res.data.photo.minister
-          ? res.data.photo.minister.join(", ")
+        date: res.data.photo.photo.updatedAt.slice(0, 10),
+        minister: res.data.photo.photo.minister
+          ? res.data.photo.photo.minister.join(", ")
+          : "",
+        songMinister: res.data.photo.photo.minister
+          ? res.data.photo.photo.minister.join(", ")
           : "",
       };
       setPicture(data);
@@ -78,7 +84,7 @@ const EditPhoto: React.FC = () => {
             >
               Save as Draft
             </Button>
-            <Button
+            {/* <Button
               variant="primary"
               minW="162px"
               h="53px"
@@ -91,7 +97,7 @@ const EditPhoto: React.FC = () => {
               }}
             >
               Publish All Images
-            </Button>
+            </Button> */}
           </Flex>
         </Flex>
         {loadingPhoto ? (
@@ -104,13 +110,37 @@ const EditPhoto: React.FC = () => {
             uploading={false}
             pictureLink={picture.thumbnail}
             activeIndex={0}
-            handleUpload={() => {
-              console.log(picturesDetails[0]);
-              updatePhoto(image, { title: picturesDetails[0].title }).then(
-                (res) => {
+            handleUpload={(
+              pictureDetail: IPicturesDetailsContext["picturesDetails"][0]
+            ) => {
+              const taggedPicturedetail = {
+                ...pictureDetail,
+              };
+              if (pictureDetail.minister) {
+                taggedPicturedetail.tags =
+                  taggedPicturedetail.tags +
+                  ", " +
+                  taggedPicturedetail.minister;
+              }
+              if (pictureDetail.songMinister) {
+                taggedPicturedetail.tags =
+                  taggedPicturedetail.tags +
+                  ", " +
+                  taggedPicturedetail.songMinister;
+              }
+              if (pictureDetail.location) {
+                taggedPicturedetail.tags =
+                  taggedPicturedetail.tags +
+                  ", " +
+                  taggedPicturedetail.location;
+              }
+              updatePhoto(image, taggedPicturedetail)
+                .then((res) => {
                   console.log(res.data);
-                }
-              );
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
             }}
           />
         )}

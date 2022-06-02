@@ -8,9 +8,6 @@ export const getAllPhotos = (page: number) =>
 
 export const getPhoto = (photoId: string) => request.get(`photos/${photoId}`);
 
-export const searchPhotos = (query: string) =>
-  request.get(`/photos/search?query=${query}`);
-
 export const getContributorPhotos = (userId: string) =>
   request.get(`/photos/user-contributions/${userId}`);
 
@@ -36,12 +33,4 @@ export const uploadMultiplePhotos = (photoDetails: IUploadPhotoDetails[]) => {
   );
 };
 export const updatePhoto = (photoId: string, updateDetails: IUpdateDetails) =>
-  request.patch(
-    `/photos/${photoId}`,
-    { updateDetails },
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
-  );
+  request.patch(`/photos/${photoId}`, updateDetails);

@@ -2,8 +2,6 @@ import { IUploadPhotoDetails } from "../services/types";
 
 const getUploadFormData = (object: IUploadPhotoDetails) => {
   let form_data = new FormData();
-  console.log(object.date, object.date.toString());
-
   form_data.append("title", object.title);
   form_data.append("description", object.description);
   form_data.append("year", object.date.substring(0, 4));
@@ -16,12 +14,19 @@ const getUploadFormData = (object: IUploadPhotoDetails) => {
   }
   if (object.minister && object.songMinister) {
     form_data.append("people", object.minister + ", " + object.songMinister);
+    form_data.append(
+      "tags",
+      object.minister + ", " + object.songMinister + ", minister, choir"
+    );
   } else if (object.minister) {
     form_data.append("people", object.minister);
+    form_data.append("tags", object.minister + ", minister");
   } else if (object.songMinister) {
     form_data.append("people", object.songMinister);
+    form_data.append("tags", object.songMinister + ", choir");
   } else {
     form_data.append("people", "audience");
+    form_data.append("tags", "audience");
   }
   return form_data;
 };

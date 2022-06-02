@@ -5,7 +5,7 @@ import SearchBar from "./search-bar";
 import BannerFilter from "../molecules/banner-filter";
 import { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { searchPhotos } from "../../../services/photos";
+import { searchPhotos } from "../../../services/filter";
 
 interface ISearchPageBannerProps {}
 

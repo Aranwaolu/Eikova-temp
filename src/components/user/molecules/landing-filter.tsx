@@ -1,15 +1,17 @@
-import {  useState } from "react";
+import { useState } from "react";
 import { Box, Button, Flex, Skeleton } from "@chakra-ui/react";
 import LandingFilterNext from "../atoms/landing-filter-arrow";
 
 interface ILandingFilterprops {
   filterValues: { name: string }[];
   loading: boolean;
+  setSearchQuery: (searchValue: string) => void;
 }
 
 const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
   filterValues,
   loading,
+  setSearchQuery,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
@@ -40,6 +42,12 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
               minW="fit-content"
               onClick={(e) => {
                 setActiveIndex(index);
+                if (
+                  filter.name !== "All Choir" &&
+                  filter.name !== "All Preachers"
+                ) {
+                  setSearchQuery(filter.name);
+                }
               }}
             >
               {filter.name}

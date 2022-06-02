@@ -9,12 +9,16 @@ const getBulkUploadFormData = (objects: IUploadPhotoDetails[]) => {
   });
   const newObjects = objects.map((object) => {
     let people = "";
+    let newTags = "";
     if (object.minister && object.songMinister) {
       people = object.minister + ", " + object.songMinister;
+      newTags = ", minister, choir";
     } else if (object.minister) {
       people = object.minister;
+      newTags = ", minister";
     } else if (object.songMinister) {
       people = object.songMinister;
+      newTags = ", choir";
     } else {
       people = "audience";
     }
@@ -22,6 +26,7 @@ const getBulkUploadFormData = (objects: IUploadPhotoDetails[]) => {
       ...object,
       year: object.date.substring(0, 4),
       month: object.date.substring(8, 10),
+      tags: object.tags + ", " + people + newTags,
       people,
     };
   });
