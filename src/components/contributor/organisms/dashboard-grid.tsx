@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useFetchContributorPhotos } from "../../../hooks";
 import ConfirmPictureDeleteModal from "../molecules/confirm-image-delete-modal";
 
 interface IDashboardGridProps {
@@ -180,7 +179,6 @@ const DashboardGrid: React.FC<IDashboardGridProps> = ({
                   backdropFilter="blur(3.27647px)"
                   _hover={{}}
                   onClick={() => {
-                    console.log("I dye delete dey go");
                     setDeleteID({ id: image.id, name: image.title });
                     confirmDelete();
                   }}
