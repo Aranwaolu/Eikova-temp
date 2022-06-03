@@ -17,11 +17,12 @@ const SearchPageBanner: React.FunctionComponent<ISearchPageBannerProps> = (
   const query = new URLSearchParams(location.search);
   const searchQuery = query.get("query") || "";
   const [searchValue, setSearchValue] = useState(searchQuery);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const onSearch = () => {
     console.log(searchValue);
     history.push(`/search?query=${searchValue}`);
-    searchPhotos(searchValue)
+    searchPhotos(searchValue, pageNumber)
       .then((res) => {
         console.log(res.data);
       })
@@ -43,7 +44,10 @@ const SearchPageBanner: React.FunctionComponent<ISearchPageBannerProps> = (
       <NavigationBar />
       <SearchBar onSearchValueChange={setSearchValue} onSearch={onSearch} />
       <Spacer mt="68px" />
-      <BannerFilter getActiveIndex={(index) => {}} />
+      <BannerFilter
+        getActiveIndex={(index) => {}}
+        setSearchQuery={(searchValue) => {}}
+      />
     </Box>
   );
 };

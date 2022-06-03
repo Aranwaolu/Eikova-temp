@@ -3,12 +3,13 @@ import { Flex, Text } from "@chakra-ui/react";
 
 interface IBannerFilterProps {
   getActiveIndex: (index: number) => void;
+  setSearchQuery: (searchValue: string) => void;
 }
 
-const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({getActiveIndex}) => {
+const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({getActiveIndex, setSearchQuery}) => {
   const [filterValues] = useState([
     "All",
-    "Preachers",
+    "Ministers",
     "Choir",
     "Audience",
     "Outdoor",
@@ -34,6 +35,7 @@ const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({getActiveInd
           onClick={(e) => {
             setActiveIndex(index);
             getActiveIndex(index)
+            setSearchQuery(value)
           }}
         >
           {value}

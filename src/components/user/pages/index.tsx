@@ -26,6 +26,9 @@ const HomePage: React.FunctionComponent<IHomePageProps> = (props) => {
         getActiveIndex={(index) => {
           setActiveTab(index);
         }}
+        setSearchQuery={(searchValue: string) => {
+          setSearchQuery(searchValue);
+        }}
       />
       <LandingFilter
         filterValues={filterValues}

@@ -5,6 +5,6 @@ export const getAllPreachers = async () =>
 
 export const getChoir = () => request.get(`people/search?q=choir&isType=true`);
 
-export const searchPhotos = (query: string) => {
-  return request.get(`search?query=${query}`);
+export const searchPhotos = (query: string, pageNumber: number) => {
+  return request.get(`search?query=${query}&skip=${pageNumber}&limit=10`);
 };

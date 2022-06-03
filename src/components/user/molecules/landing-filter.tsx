@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Flex, Skeleton } from "@chakra-ui/react";
 import LandingFilterNext from "../atoms/landing-filter-arrow";
 
@@ -15,6 +15,9 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [translate, setTranslate] = useState(0);
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [filterValues]);
   return (
     <Flex
       p="13px 100px 17px"
@@ -28,7 +31,7 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
         transform={`translateX(-${translate}rem)`}
       >
         {filterValues.map((filter, index) => (
-          <Skeleton isLoaded={!loading}>
+          <Skeleton key={index + filter.name} isLoaded={!loading}>
             <Box
               key={index + filter.name}
               // mr={activeIndex === index ? "23px" : "30px"}
@@ -40,12 +43,13 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
               borderRadius={activeIndex === index ? "8px" : "none"}
               cursor="pointer"
               minW="fit-content"
-              onClick={(e) => {
+              onClick={() => {
                 setActiveIndex(index);
-                if (
-                  filter.name !== "All Choir" &&
-                  filter.name !== "All Preachers"
-                ) {
+                if (filter.name === "All Choir") {
+                  setSearchQuery("choir");
+                } else if (filter.name === "All Preachers") {
+                  setSearchQuery("ministers");
+                } else {
                   setSearchQuery(filter.name);
                 }
               }}

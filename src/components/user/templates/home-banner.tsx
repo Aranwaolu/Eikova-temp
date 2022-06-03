@@ -7,9 +7,10 @@ import { useHistory } from "react-router-dom";
 
 interface IHomeBannerProps {
   getActiveIndex: (index: number) => void;
+  setSearchQuery: (searchValue: string) => void;
 }
 
-const HomeBanner: React.FunctionComponent<IHomeBannerProps> = ({getActiveIndex}) => {
+const HomeBanner: React.FunctionComponent<IHomeBannerProps> = ({getActiveIndex, setSearchQuery}) => {
   const [searchValue, setSearchValue] = useState("");
   const history = useHistory();
   const onSearch = () => {
@@ -49,7 +50,7 @@ const HomeBanner: React.FunctionComponent<IHomeBannerProps> = ({getActiveIndex})
       </Text>
       <SearchBar onSearchValueChange={setSearchValue} onSearch={onSearch} />
       <Spacer mt="68px" />
-      <BannerFilter getActiveIndex={getActiveIndex} />
+      <BannerFilter getActiveIndex={getActiveIndex} setSearchQuery={setSearchQuery} />
     </Box>
   );
 };

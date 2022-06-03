@@ -8,7 +8,9 @@ const useFetchLandingPhotos = () => {
     page: 0,
     totalPages: 0,
     totalResults: 0,
-    results: [{ thumbnail: "", url: "", title: "", id: "", user: { username: "" } }],
+    results: [
+      { thumbnail: "", url: "", title: "", id: "", user: { username: "" } },
+    ],
   };
   const [photos, setPhotos] = useState(defaulValue);
   const [loading, setLoading] = useState(true);
@@ -17,6 +19,7 @@ const useFetchLandingPhotos = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [reachedPageLimit, setReachedPageLimit] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     if (searchQuery) {
       return;
@@ -44,29 +47,64 @@ const useFetchLandingPhotos = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
+
+  useEffect(() => {
+    setPageNumber(1);
+    setLoading(true);
+  }, [searchQuery]);
+
   useEffect(() => {
     if (searchQuery.length === 0) {
       return;
     }
-    searchPhotos(searchQuery)
+    searchPhotos(searchQuery, pageNumber)
       .then((res) => {
-        console.log(res.data.photos.body.hits.hits[0]._source.thumbnail);
+        console.log(res.data.photos.body.hits.hits[0]._source.title);
         const results = res.data.photos.body.hits.hits;
-        // const searchResults = results.map((result) => {
-        //   return {
-        //     thumbnail: result._source.thumbnail,
-        //     url: result._source.url,
-        //     id: result._source.id,
-        //     user: {
-        //       username: result._source.user,
-        //     },
-        //   };
-        // });
+
+        const searchResults = results.map((result: any) => {
+          return {
+            thumbnail: result._source.thumbnail,
+            url: result._source.url,
+            id: result._source.id,
+            user: {
+              username: result._source.user,
+            },
+          };
+        });
+        console.log("searchResults", searchResults, pageNumber);
+
+        if (pageNumber > 1) {
+          setPhotos({
+            limit: 0,
+            page: pageNumber,
+            totalPages: 5,
+            totalResults: 0,
+            results: [...photos.results, ...searchResults],
+          });
+        } else {
+          setPhotos({
+            limit: 0,
+            page: pageNumber,
+            totalPages: 5,
+            totalResults: 0,
+            results: searchResults,
+          });
+        }
+        if (photos.totalPages <= pageNumber) {
+          setReachedPageLimit(true);
+        }
+        setLoading(false);
+        setLoadingMore(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
+        setLoadingMore(false);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery, pageNumber]);
+
   const loadMore = () => {
     if (photos.totalPages > pageNumber) {
       setPageNumber(pageNumber + 1);

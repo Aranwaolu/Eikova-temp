@@ -22,7 +22,6 @@ const useFilterOptions = () => {
     setFilterValues(defaultValues);
     getAllPreachers()
       .then((res) => {
-        console.log(res.data.people);
         setFilterValues([{ name: "All Preachers" }, ...res.data.people]);
         setLoading(false);
       })
@@ -37,13 +36,11 @@ const useFilterOptions = () => {
     setFilterValues(defaultValues);
     getChoir()
       .then((res) => {
-        console.log(res.data.people);
         setFilterValues([{ name: "All Choir" }, ...res.data.people]);
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
-        setLoading(false);
+        // setLoading(false);
       });
   }, [defaultValues]);
 
