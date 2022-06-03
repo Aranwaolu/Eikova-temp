@@ -35,7 +35,7 @@ const addMinisterData = {
 };
 
 const addSongMinisterData = {
-  category: "minister",
+  category: "choir",
   position: "204%",
   inputPlaceholder: "Sister Ola.",
   buttonText: "Add new song minister",
@@ -94,7 +94,7 @@ const AddCategoryInputModal: React.FC<IAddCategoryInputModalProps> = ({
           })
           .catch((error) => console.error(error));
       } else {
-        await createPeople(inputValue)
+        await createPeople(inputValue, categoryInputCopyData.category)
           .then((res) => {
             toast({
               title: `Created new person!`,
@@ -105,7 +105,10 @@ const AddCategoryInputModal: React.FC<IAddCategoryInputModalProps> = ({
             setLoading(false);
             setInputValue("");
           })
-          .catch((error) => console.error(error));
+          .catch((error) => {
+            setLoading(false);
+            console.log(error.response);
+          });
       }
     }
   };
