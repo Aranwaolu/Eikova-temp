@@ -24,6 +24,8 @@ const useFetchLandingPhotos = () => {
     if (searchQuery) {
       return;
     }
+    console.log("me sef dey run o");
+
     getAllPhotos(pageNumber)
       .then((res) => {
         if (pageNumber > 1) {
@@ -49,15 +51,11 @@ const useFetchLandingPhotos = () => {
   }, [pageNumber]);
 
   useEffect(() => {
-    setPageNumber(1);
     setLoading(true);
   }, [searchQuery]);
 
-  useEffect(() => {
-    if (searchQuery.length === 0) {
-      return;
-    }
-    searchPhotos(searchQuery, pageNumber)
+  const doSearch = (pageNo: number) => {
+    searchPhotos(searchQuery, pageNo)
       .then((res) => {
         console.log(res.data.photos.body.hits.hits[0]._source.title);
         const results = res.data.photos.body.hits.hits;
@@ -72,26 +70,29 @@ const useFetchLandingPhotos = () => {
             },
           };
         });
-        console.log("searchResults", searchResults, pageNumber);
+        console.log("searchResults", searchResults, pageNo);
 
-        if (pageNumber > 1) {
+        if (pageNo > 1) {
+          console.log("greater than 1");
           setPhotos({
             limit: 0,
-            page: pageNumber,
+            page: pageNo,
             totalPages: 5,
             totalResults: 0,
             results: [...photos.results, ...searchResults],
           });
         } else {
+          console.log("one or less");
+
           setPhotos({
             limit: 0,
-            page: pageNumber,
+            page: pageNo,
             totalPages: 5,
             totalResults: 0,
             results: searchResults,
           });
         }
-        if (photos.totalPages <= pageNumber) {
+        if (5 <= pageNumber) {
           setReachedPageLimit(true);
         }
         setLoading(false);
@@ -102,8 +103,22 @@ const useFetchLandingPhotos = () => {
         setLoading(false);
         setLoadingMore(false);
       });
+  };
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      return;
+    }
+    doSearch(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchQuery, pageNumber]);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (searchQuery.length === 0) {
+      return;
+    }
+    doSearch(pageNumber);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageNumber]);
 
   const loadMore = () => {
     if (photos.totalPages > pageNumber) {

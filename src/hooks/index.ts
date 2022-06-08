@@ -11,6 +11,7 @@ import useUploadPhoto from "./upload-photo";
 import useBatchUpload from "./upload-photos";
 import useFilterOptions from "./filter-options";
 import useEditPhoto from "./edit-photo";
+import useSearchPhotos from "./search-photos";
 
 export {
   useSignIn,
@@ -26,4 +27,5 @@ export {
   useBatchUpload,
   useFilterOptions,
   useEditPhoto,
+  useSearchPhotos,
 };

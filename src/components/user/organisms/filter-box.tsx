@@ -9,10 +9,10 @@ const FilterBox: React.FunctionComponent<IFilterProps> = (props) => {
     {
       title: "Meeting",
       options: [
-        { value: "sos", title: "SOS" },
-        { value: "wtv", title: "WTV" },
-        { value: "pm", title: "PM" },
-        { value: "lsc", title: "LSC" },
+        { value: "school of the spirit", title: "SOS" },
+        { value: "writing the vision", title: "WTV" },
+        { value: "prayer meeting", title: "PM" },
+        { value: "lekki soul center", title: "LSC" },
       ],
     },
     {
@@ -27,10 +27,18 @@ const FilterBox: React.FunctionComponent<IFilterProps> = (props) => {
     {
       title: "Month",
       options: [
-        { value: "jan", title: "January" },
-        { value: "feb", title: "February" },
-        { value: "mar", title: "March" },
-        { value: "apr", title: "April" },
+        { value: "january", title: "January" },
+        { value: "february", title: "February" },
+        { value: "march", title: "March" },
+        { value: "april", title: "April" },
+        { value: "may", title: "May" },
+        { value: "june", title: "June" },
+        { value: "july", title: "July" },
+        { value: "august", title: "August" },
+        { value: "september", title: "September" },
+        { value: "october", title: "October" },
+        { value: "november", title: "November" },
+        { value: "december", title: "December" },
       ],
     },
     {
@@ -38,7 +46,7 @@ const FilterBox: React.FunctionComponent<IFilterProps> = (props) => {
       options: [
         { value: "kosofe", title: "Kosofe" },
         { value: "noic", title: "NOIC" },
-        { value: "faith-plaza", title: "Faith Plaza" },
+        { value: "faith plaza", title: "Faith Plaza" },
         { value: "lekki", title: "Lekki" },
       ],
     },

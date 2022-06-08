@@ -1,23 +1,24 @@
 import * as React from "react";
-import { useLocation } from "react-router-dom";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import SearchPageBanner from "../organisms/search-page-banner";
 import FilterBox from "../organisms/filter-box";
 import PictureGrid from "../templates/picture-grid";
+import { useSearchPhotos } from "../../../hooks";
+import Pagination from "../../admin/molecules/pagination";
+import "../../../style-config/pagination.css";
 
 interface ISearchPageProps {}
 
 const SearchPage: React.FunctionComponent<ISearchPageProps> = (props) => {
-  const location = useLocation()
-  const query = new URLSearchParams(location.search);
-  const searchQuery = query.get('query');
+  const { searchResults, loading, error, searchQuery, setPageNumber } =
+    useSearchPhotos();
 
   return (
     <Box>
       <SearchPageBanner />
-      <Flex p="35px 100px">
+      <Flex p="35px 100px" gap="20px" pos="relative" zIndex="8">
         <FilterBox />
-        <Box ml="20px">
+        <Box w="100%">
           <Box>
             <Text
               fontSize="18px"
@@ -35,7 +36,13 @@ const SearchPage: React.FunctionComponent<ISearchPageProps> = (props) => {
               ’
             </Text>
           </Box>
-          <PictureGrid />
+          <PictureGrid photos={searchResults} loading={loading} />
+          {!!error && <Text>{error}</Text>}
+          {!error && (
+            <Box w="100%">
+              <Pagination pageCount={10} setPage={setPageNumber} />
+            </Box>
+          )}
         </Box>
       </Flex>
     </Box>

@@ -2,8 +2,8 @@ import { Grid, Skeleton } from "@chakra-ui/react";
 import PictureCard from "../organisms/picture-card";
 
 interface IPictureGridProps {
-  photos?: { thumbnail: string; url: string }[];
-  loading?: boolean;
+  photos: { thumbnail: string; url: string }[];
+  loading: boolean;
 }
 
 const PictureGrid: React.FunctionComponent<IPictureGridProps> = ({

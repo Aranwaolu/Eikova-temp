@@ -1,4 +1,5 @@
 import { Box, Flex, Radio, RadioGroup, Stack } from "@chakra-ui/react";
+import { useHistory, useLocation } from "react-router-dom";
 
 interface IFilterItemProps {
   title: string;
@@ -13,6 +14,43 @@ const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
   active,
   onClick,
 }) => {
+  const location = useLocation();
+  const history = useHistory();
+  const query = new URLSearchParams(location.search);
+  const handleRadioChange = (e: string) => {
+    const searchQuery = query.get("query") || "";
+    const meeting = query.get("meeting") || "";
+    const year = query.get("year") || "";
+    const month = query.get("month") || "";
+    const locationQuery = query.get("location") || "";
+    if (title.toLowerCase() === "meeting") {
+      history.push(
+        `/search?query=${searchQuery}&meeting=${e}${year && `&year=${year}`}${
+          month && `&month=${month}`
+        }${locationQuery && `&location=${locationQuery}`}`
+      );
+    } else if (title.toLowerCase() === "year") {
+      history.push(
+        `/search?query=${searchQuery}${
+          meeting && `&meeting=${meeting}`
+        }&year=${e}${month && `&month=${month}`}${
+          locationQuery && `&location=${locationQuery}`
+        }`
+      );
+    } else if (title.toLowerCase() === "month") {
+      history.push(
+        `/search?query=${searchQuery}${meeting && `&meeting=${meeting}`}${
+          year && `&year=${year}`
+        }&month=${e}${locationQuery && `&location=${locationQuery}`}`
+      );
+    } else if (title.toLowerCase() === "location") {
+      history.push(
+        `/search?query=${searchQuery}${meeting && `&meeting=${meeting}`}${
+          year && `&year=${year}`
+        }${month && `&month=${month}`}&location=${e}`
+      );
+    }
+  };
   return (
     <Box borderBottom="1px solid rgba(255, 255, 255, 0.3)" pb="14px" mb="14px">
       <Flex
@@ -43,6 +81,7 @@ const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
           </svg>
         </Box>
       </Flex>
+      {/* <p>{query.get("month") || "omo"}</p> */}
       <Box
         as="form"
         ml="10px"
@@ -51,8 +90,8 @@ const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
         transition=".3s"
       >
         <RadioGroup
-          onChange={() => {}}
-          defaultValue="1"
+          onChange={handleRadioChange}
+          defaultValue={query.get(title.toLowerCase()) || ""}
           __css={{ label: { color: "white" } }}
         >
           <Stack direction="column" pt="14px">

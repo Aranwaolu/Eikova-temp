@@ -1,5 +1,5 @@
 import AdminNav from '../../../contributor/organisms/admin-nav'
-import { Button as ChakraButton, Flex, Image, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 
 import PeopleColorCodes from '../../molecules/people-color-codes'
 import AddAdminModal from '../../modals/add-admin-modal'
@@ -36,7 +36,7 @@ const Dashboard: React.FC = () => {
 		setPage,
 		totalPages,
 		refetchUsers,
-		handleClickAddCategory,
+		// handleClickAddCategory,
 	} = useSuperAdminDashboard()
 	return (
 		<>
