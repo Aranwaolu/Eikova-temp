@@ -2,17 +2,35 @@ import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 import FilterItem from "../molecules/filter-item";
 
-interface IFilterProps {}
+interface IFilterProps {
+  filterQueries: {
+    meeting: string;
+    year: string;
+    month: string;
+    location: string;
+  };
+  setFilterQueries: React.Dispatch<
+    React.SetStateAction<{
+      meeting: string;
+      year: string;
+      month: string;
+      location: string;
+    }>
+  >;
+}
 
-const SearchBarFilter: React.FunctionComponent<IFilterProps> = (props) => {
+const SearchBarFilter: React.FunctionComponent<IFilterProps> = ({
+  setFilterQueries,
+  filterQueries,
+}) => {
   const filterData = [
     {
-      title: "Meeting Search bar",
+      title: "Meeting",
       options: [
-        { value: "sos", title: "SOS" },
-        { value: "wtv", title: "WTV" },
-        { value: "pm", title: "PM" },
-        { value: "lsc", title: "LSC" },
+        { value: "school of the spirit", title: "SOS" },
+        { value: "writing the vision", title: "WTV" },
+        { value: "prayer meeting", title: "PM" },
+        { value: "lekki soul center", title: "LSC" },
       ],
     },
     {
@@ -27,10 +45,18 @@ const SearchBarFilter: React.FunctionComponent<IFilterProps> = (props) => {
     {
       title: "Month",
       options: [
-        { value: "jan", title: "January" },
-        { value: "feb", title: "February" },
-        { value: "mar", title: "March" },
-        { value: "apr", title: "April" },
+        { value: "january", title: "January" },
+        { value: "february", title: "February" },
+        { value: "march", title: "March" },
+        { value: "april", title: "April" },
+        { value: "may", title: "May" },
+        { value: "june", title: "June" },
+        { value: "july", title: "July" },
+        { value: "august", title: "August" },
+        { value: "september", title: "September" },
+        { value: "october", title: "October" },
+        { value: "november", title: "November" },
+        { value: "december", title: "December" },
       ],
     },
     {
@@ -38,7 +64,7 @@ const SearchBarFilter: React.FunctionComponent<IFilterProps> = (props) => {
       options: [
         { value: "kosofe", title: "Kosofe" },
         { value: "noic", title: "NOIC" },
-        { value: "faith-plaza", title: "Faith Plaza" },
+        { value: "faith plaza", title: "Faith Plaza" },
         { value: "lekki", title: "Lekki" },
       ],
     },
@@ -65,6 +91,17 @@ const SearchBarFilter: React.FunctionComponent<IFilterProps> = (props) => {
               setActiveFilter(-1);
             } else {
               setActiveFilter(index);
+            }
+          }}
+          handleRadioChange={(e) => {
+            if (filterItem.title === "Meeting") {
+              setFilterQueries({ ...filterQueries, meeting: e });
+            } else if (filterItem.title === "Year") {
+              setFilterQueries({ ...filterQueries, year: e });
+            } else if (filterItem.title === "Month") {
+              setFilterQueries({ ...filterQueries, month: e });
+            } else if (filterItem.title === "Location") {
+              setFilterQueries({ ...filterQueries, location: e });
             }
           }}
         />

@@ -36,6 +36,31 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = ({
     };
   }, []);
 
+  const [filterQueries, setFilterQueries] = useState({
+    meeting: "",
+    year: "",
+    month: "",
+    location: "",
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const searchUrl = `${searchQuery}${
+      filterQueries.meeting && `&meeting=${filterQueries.meeting}`
+    }${filterQueries.year && `&year=${filterQueries.year}`}${
+      filterQueries.month && `&month=${filterQueries.month}`
+    }${filterQueries.location && `&location=${filterQueries.location}`}`;
+    console.log("searchUrl", searchUrl);
+
+    onSearchValueChange(searchUrl);
+  }, [
+    searchQuery,
+    filterQueries.location,
+    onSearchValueChange,
+    filterQueries.meeting,
+    filterQueries.year,
+    filterQueries.month,
+  ]);
   return (
     <Box pos="relative" maxW="856px" mx="auto" ref={filterRef}>
       <Flex
@@ -130,7 +155,7 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = ({
             borderRadius="0px 4px 4px 0px"
             onChange={(e) => {
               e.preventDefault();
-              onSearchValueChange(e.target.value);
+              setSearchQuery(e.target.value);
             }}
           />
         </Box>
@@ -154,7 +179,10 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = ({
         zIndex="99"
         display={showFilter ? "block" : "none"}
       >
-        <SearchBarFilter />
+        <SearchBarFilter
+          filterQueries={filterQueries}
+          setFilterQueries={setFilterQueries}
+        />
       </Box>
     </Box>
   );
