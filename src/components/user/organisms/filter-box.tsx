@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Box, Text, Flex } from "@chakra-ui/react";
 import FilterItem from "../molecules/filter-item";
+import { useHistory, useLocation } from "react-router-dom";
 
 interface IFilterProps {}
 
 const FilterBox: React.FunctionComponent<IFilterProps> = (props) => {
+  const location = useLocation();
+  const history = useHistory();
+  const query = new URLSearchParams(location.search);
   const filterData = [
     {
       title: "Meeting",
@@ -98,6 +102,47 @@ const FilterBox: React.FunctionComponent<IFilterProps> = (props) => {
       </Flex>
       {filterData.map((filterItem, index) => (
         <FilterItem
+          handleRadioChange={(e: string) => {
+            const searchQuery = query.get("query") || "";
+            const meeting = query.get("meeting") || "";
+            const year = query.get("year") || "";
+            const month = query.get("month") || "";
+            const locationQuery = query.get("location") || "";
+            const title = filterItem.title;
+            if (title.toLowerCase() === "meeting") {
+              history.push(
+                `/search?query=${searchQuery}&meeting=${e}${
+                  year && `&year=${year}`
+                }${month && `&month=${month}`}${
+                  locationQuery && `&location=${locationQuery}`
+                }`
+              );
+            } else if (title.toLowerCase() === "year") {
+              history.push(
+                `/search?query=${searchQuery}${
+                  meeting && `&meeting=${meeting}`
+                }&year=${e}${month && `&month=${month}`}${
+                  locationQuery && `&location=${locationQuery}`
+                }`
+              );
+            } else if (title.toLowerCase() === "month") {
+              history.push(
+                `/search?query=${searchQuery}${
+                  meeting && `&meeting=${meeting}`
+                }${year && `&year=${year}`}&month=${e}${
+                  locationQuery && `&location=${locationQuery}`
+                }`
+              );
+            } else if (title.toLowerCase() === "location") {
+              history.push(
+                `/search?query=${searchQuery}${
+                  meeting && `&meeting=${meeting}`
+                }${year && `&year=${year}`}${
+                  month && `&month=${month}`
+                }&location=${e}`
+              );
+            }
+          }}
           key={filterItem.title}
           title={filterItem.title}
           options={filterItem.options}

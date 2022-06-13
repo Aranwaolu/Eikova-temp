@@ -6,6 +6,7 @@ interface IFilterItemProps {
   options: { value: string; title: string }[];
   active: boolean;
   onClick: () => void;
+  handleRadioChange: (e: string) => void;
 }
 
 const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
@@ -13,44 +14,10 @@ const FilterItem: React.FunctionComponent<IFilterItemProps> = ({
   options,
   active,
   onClick,
+  handleRadioChange
 }) => {
   const location = useLocation();
-  const history = useHistory();
   const query = new URLSearchParams(location.search);
-  const handleRadioChange = (e: string) => {
-    const searchQuery = query.get("query") || "";
-    const meeting = query.get("meeting") || "";
-    const year = query.get("year") || "";
-    const month = query.get("month") || "";
-    const locationQuery = query.get("location") || "";
-    if (title.toLowerCase() === "meeting") {
-      history.push(
-        `/search?query=${searchQuery}&meeting=${e}${year && `&year=${year}`}${
-          month && `&month=${month}`
-        }${locationQuery && `&location=${locationQuery}`}`
-      );
-    } else if (title.toLowerCase() === "year") {
-      history.push(
-        `/search?query=${searchQuery}${
-          meeting && `&meeting=${meeting}`
-        }&year=${e}${month && `&month=${month}`}${
-          locationQuery && `&location=${locationQuery}`
-        }`
-      );
-    } else if (title.toLowerCase() === "month") {
-      history.push(
-        `/search?query=${searchQuery}${meeting && `&meeting=${meeting}`}${
-          year && `&year=${year}`
-        }&month=${e}${locationQuery && `&location=${locationQuery}`}`
-      );
-    } else if (title.toLowerCase() === "location") {
-      history.push(
-        `/search?query=${searchQuery}${meeting && `&meeting=${meeting}`}${
-          year && `&year=${year}`
-        }${month && `&month=${month}`}&location=${e}`
-      );
-    }
-  };
   return (
     <Box borderBottom="1px solid rgba(255, 255, 255, 0.3)" pb="14px" mb="14px">
       <Flex
