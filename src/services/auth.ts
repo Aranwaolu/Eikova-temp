@@ -1,5 +1,5 @@
 import request from './index'
-import { IUserInvite, IUserLogin } from './types'
+import { ISignUp, IUserInvite, IUserLogin } from './types'
 
 export const signIn = (reqBody: IUserLogin) => {
 	return request.post(`auth/login`, reqBody)
@@ -23,4 +23,8 @@ export const resendInvite = (email: string) => {
 
 export const verifyInvite = (token: string) => {
 	return request.post(`/auth/verify-invite?token=${token}`)
+}
+
+export const completeResgistration = (reqBody: ISignUp) => {
+	return request.post(`/auth/signup`, reqBody)
 }

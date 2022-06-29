@@ -5,6 +5,7 @@ import SearchPage from "../components/user/pages/search";
 import SigninPage from "../components/user/pages/signin";
 import HomePage from "../components/user/pages/index";
 import ProtectedRoute from "./protected-route";
+import VerifyInvitePage from "../components/user/pages/verify-invite";
 interface IUserRoutesProps {}
 
 const UserRoutes: React.FunctionComponent<IUserRoutesProps> = (props) => {
@@ -15,9 +16,11 @@ const UserRoutes: React.FunctionComponent<IUserRoutesProps> = (props) => {
     user.details.role === "contributor" ||
     user.details.role === "admin" ||
     user.details.role === "superadmin";
+    // auth/verify
   return (
     <Switch>
       <Route path="/signin" component={SigninPage} exact={true} />
+      <Route path="/auth/verify-invite" component={VerifyInvitePage} exact={true} />
       <ProtectedRoute
         isAuthenticated={isAuthenticated}
         redirectPath="/signin"

@@ -46,3 +46,11 @@ export interface IPicturesDetailsContext {
     pictureDetails: IPicturesDetailsContext["picturesDetails"]
   ) => void;
 }
+export interface ISignUp {
+  username: string;
+  password: string;
+  email: string;
+  position: string;
+  department: string;
+  token: string;
+}

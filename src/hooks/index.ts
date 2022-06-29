@@ -12,6 +12,7 @@ import useBatchUpload from "./upload-photos";
 import useFilterOptions from "./filter-options";
 import useEditPhoto from "./edit-photo";
 import useSearchPhotos from "./search-photos";
+import useVerifyInvite from "./verify-invite";
 
 export {
   useSignIn,
@@ -28,4 +29,5 @@ export {
   useFilterOptions,
   useEditPhoto,
   useSearchPhotos,
+  useVerifyInvite
 };
