@@ -50,7 +50,6 @@ const SearchBar: React.FunctionComponent<ISearchBarProps> = ({
     }${filterQueries.year && `&year=${filterQueries.year}`}${
       filterQueries.month && `&month=${filterQueries.month}`
     }${filterQueries.location && `&location=${filterQueries.location}`}`;
-    console.log("searchUrl", searchUrl);
 
     onSearchValueChange(searchUrl);
   }, [
