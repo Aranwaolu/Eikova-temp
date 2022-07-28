@@ -48,7 +48,7 @@ const LandingFilter: React.FunctionComponent<ILandingFilterprops> = ({
                 if (filter.name === "All Choir") {
                   setSearchQuery("choir");
                 } else if (filter.name === "All Preachers") {
-                  setSearchQuery("ministers");
+                  setSearchQuery("minister");
                 } else {
                   setSearchQuery(filter.name);
                 }
