@@ -6,7 +6,10 @@ interface IBannerFilterProps {
   setSearchQuery: (searchValue: string) => void;
 }
 
-const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({getActiveIndex, setSearchQuery}) => {
+const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({
+  getActiveIndex,
+  setSearchQuery,
+}) => {
   const [filterValues] = useState([
     "All",
     "Ministers",
@@ -34,8 +37,15 @@ const BannerFilter: React.FunctionComponent<IBannerFilterProps> = ({getActiveInd
           cursor="pointer"
           onClick={(e) => {
             setActiveIndex(index);
-            getActiveIndex(index)
-            setSearchQuery(value)
+            getActiveIndex(index);
+            console.log("value", value);
+            if (value === "All") {
+              return setSearchQuery("");
+            }
+            if (value === "Ministers") {
+              return setSearchQuery("minister");
+            }
+            setSearchQuery(value);
           }}
         >
           {value}

@@ -20,12 +20,7 @@ const useFetchLandingPhotos = () => {
   const [reachedPageLimit, setReachedPageLimit] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    if (searchQuery) {
-      return;
-    }
-    console.log("me sef dey run o");
-
+  const getDefaultPhotos = () => {
     getAllPhotos(pageNumber)
       .then((res) => {
         if (pageNumber > 1) {
@@ -47,6 +42,12 @@ const useFetchLandingPhotos = () => {
         setLoading(false);
         setLoadingMore(false);
       });
+  };
+  useEffect(() => {
+    if (searchQuery) {
+      return;
+    }
+    getDefaultPhotos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber]);
 
@@ -57,7 +58,6 @@ const useFetchLandingPhotos = () => {
   const doSearch = (pageNo: number) => {
     searchPhotos(searchQuery, pageNo)
       .then((res) => {
-        console.log(res.data.photos.body.hits.hits[0]._source.title);
         const results = res.data.photos.body.hits.hits;
 
         const searchResults = results.map((result: any) => {
@@ -70,10 +70,7 @@ const useFetchLandingPhotos = () => {
             },
           };
         });
-        console.log("searchResults", searchResults, pageNo);
-
         if (pageNo > 1) {
-          console.log("greater than 1");
           setPhotos({
             limit: 0,
             page: pageNo,
@@ -82,8 +79,6 @@ const useFetchLandingPhotos = () => {
             results: [...photos.results, ...searchResults],
           });
         } else {
-          console.log("one or less");
-
           setPhotos({
             limit: 0,
             page: pageNo,
@@ -99,13 +94,13 @@ const useFetchLandingPhotos = () => {
         setLoadingMore(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setLoadingMore(false);
       });
   };
   useEffect(() => {
     if (searchQuery.length === 0) {
+      getDefaultPhotos();
       return;
     }
     doSearch(1);
