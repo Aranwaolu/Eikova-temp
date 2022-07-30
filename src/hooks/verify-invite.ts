@@ -23,7 +23,7 @@ const useVerifyInvite = () => {
       .then((res) => {
         console.log(res.data);
         setUser({
-          username: res.data.user.name,
+          username: res.data.user.username,
           email: res.data.user.email,
           token: res.data.token,
         });

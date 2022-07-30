@@ -138,7 +138,10 @@ const VerifyInvitePage: React.FC = () => {
               variant="primary"
               type="submit"
               fontSize="18px"
-              onClick={handleVerifyInvite}
+              onClick={(e) => {
+                e.preventDefault();
+                handleVerifyInvite();
+              }}
             >
               {signUpLoading ? "Please wait" : "Complete Registration"}
               {signUpLoading && <Spinner />}
