@@ -7,7 +7,7 @@ import { UserContext } from "../../../contexts/user-context";
 interface INavigationBarProps {}
 
 const NavigationBar: React.FunctionComponent<INavigationBarProps> = (props) => {
-  const { user } = useContext(UserContext);  
+  const { user } = useContext(UserContext);
   return (
     <Flex as="nav" justifyContent="space-between" pt="16px" px="27px">
       <Link to="/">

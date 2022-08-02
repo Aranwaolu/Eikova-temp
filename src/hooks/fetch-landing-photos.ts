@@ -9,7 +9,14 @@ const useFetchLandingPhotos = () => {
     totalPages: 0,
     totalResults: 0,
     results: [
-      { thumbnail: "", url: "", title: "", id: "", user: { username: "" } },
+      {
+        thumbnail: "",
+        url: "",
+        title: "",
+        id: "",
+        description: "",
+        user: { username: "" },
+      },
     ],
   };
   const [photos, setPhotos] = useState(defaulValue);
@@ -62,6 +69,8 @@ const useFetchLandingPhotos = () => {
 
         const searchResults = results.map((result: any) => {
           return {
+            title: result._source.title,
+            description: result._source.description,
             thumbnail: result._source.thumbnail,
             url: result._source.url,
             id: result._source.id,

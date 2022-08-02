@@ -6,10 +6,14 @@ import PictureModal from "./picture-modal";
 interface IPictureCardProps {
   imageLink: string;
   thumbnail: string;
+  title: string;
+  description: string;
   relatedImages: string[];
 }
 
 const PictureCard: React.FunctionComponent<IPictureCardProps> = ({
+  title,
+  description,
   imageLink,
   thumbnail,
   relatedImages,
@@ -28,11 +32,14 @@ const PictureCard: React.FunctionComponent<IPictureCardProps> = ({
           setShowModal(true);
         }}
       >
-        <PictureFrame imageLink={thumbnail} />
+        <PictureFrame thumbnailLink={thumbnail} imageLink={imageLink} />
       </Box>
       <PictureModal
         imageLink={imageLink}
+        thumbnailLink={thumbnail}
         relatedImages={relatedImages}
+        title={title}
+        description={description}
         closeModal={closeModal}
         showModal={showModal}
       />

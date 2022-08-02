@@ -47,7 +47,7 @@ const UploadedPicturesGrid: React.FunctionComponent<
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle cx="15" cy="15" r="15" fill="black" fill-opacity="0.5" />
+              <circle cx="15" cy="15" r="15" fill="black" fillOpacity="0.5" />
               <path
                 d="M15.243 15.243L20.486 20.486M10 20.486L15.243 15.243L10 20.486ZM20.486 10L15.242 15.243L20.486 10ZM15.242 15.243L10 10L15.242 15.243Z"
                 stroke="white"

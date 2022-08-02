@@ -5,6 +5,7 @@ import { IUploadPhotoDetails, IUpdateDetails } from "./types";
 
 export const getAllPhotos = (page: number) =>
   request.get(`photos/?sortBy=latest&populate=user&page=${page}`);
+// request.get(`photos/?sortBy=latest&populate=user&page=${page}`);
 
 export const getPhoto = (photoId: string) => request.get(`photos/${photoId}`);
 

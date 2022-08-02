@@ -2,7 +2,12 @@ import { Grid, Skeleton } from "@chakra-ui/react";
 import PictureCard from "../organisms/picture-card";
 
 interface IPictureGridProps {
-  photos: { thumbnail: string; url: string }[];
+  photos: {
+    thumbnail: string;
+    url: string;
+    title: string;
+    description: string;
+  }[];
   loading: boolean;
 }
 
@@ -17,6 +22,7 @@ const PictureGrid: React.FunctionComponent<IPictureGridProps> = ({
     "/assets/images/picture-card-5.png",
   ];
   const skeletonCount = [1, 2, 3, 4, 5, 6];
+
   return (
     <Grid templateColumns="repeat(3, 1fr)" gap="20px" column="3">
       {loading
@@ -27,6 +33,8 @@ const PictureGrid: React.FunctionComponent<IPictureGridProps> = ({
               relatedImages={relatedImages}
               thumbnail={photo.thumbnail}
               imageLink={photo.url}
+              title={photo.title}
+              description={photo.description}
             />
           ))}
     </Grid>
