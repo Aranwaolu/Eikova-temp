@@ -29,6 +29,8 @@ const useSearchPhotos = () => {
         const results = res.data.photos.body.hits.hits;
         const photos = results.map((result: any) => {
           return {
+            title: result._source.title,
+            description: result._source.description,
             thumbnail: result._source.thumbnail,
             url: result._source.url,
             id: result._source.id,

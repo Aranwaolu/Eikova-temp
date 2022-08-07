@@ -5,6 +5,7 @@ import { PicturesDetailsContext } from "../../../contexts/pictures-details-conte
 import { PictureFilesContext } from "../../../contexts/pictures-files-context";
 import { IPicturesDetailsContext } from "../../../services/types";
 import Button from "../../user/atoms/button";
+import ImageDetailAutosuggestInput from "../molecules/image-detail-autosuggest";
 import ImageDetailInput from "../molecules/image-detail-input";
 
 interface IUploadDetailsFormProps {
@@ -108,7 +109,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g clip-path="url(#clip0_353_2034)">
+            <g clipPath="url(#clip0_353_2034)">
               <path
                 d="M5.14095 12.6813C4.81451 13.0156 4.51163 13.3285 4.20447 13.6378C3.43085 14.4157 2.65223 15.1879 1.88576 15.9729C1.79431 16.0736 1.74054 16.2028 1.73361 16.3387C1.7186 16.9901 1.72432 17.6423 1.72718 18.2938C1.72718 18.8874 2.04362 19.2046 2.6358 19.2053C4.03446 19.2053 5.43383 19.2053 6.83248 19.2053C7.39966 19.2053 7.7404 19.5667 7.71397 20.116C7.69182 20.5682 7.38823 20.9075 6.93606 20.9111C5.4124 20.9225 3.88731 20.9539 2.36436 20.8997C1.00713 20.8511 0.0206444 19.7317 0.0163584 18.3281C0.0092151 16.0158 0.0163584 13.7035 0.0163584 11.3912C0.0163584 8.57868 0.0163584 5.76637 0.0163584 2.95429C0.0163584 1.78136 0.668541 0.832736 1.72003 0.495573C2.01631 0.401905 2.32508 0.353735 2.6358 0.352707C7.73135 0.344135 12.8281 0.342469 17.926 0.347707C19.4582 0.347707 20.5376 1.42706 20.5462 2.95644C20.5524 4.08174 20.5524 5.20681 20.5462 6.33164C20.5426 6.97882 20.0047 7.35599 19.3911 7.15526C19.0339 7.03954 18.8396 6.75595 18.8382 6.33164C18.8382 5.24229 18.8382 4.15294 18.8382 3.06358C18.8382 2.34926 18.5525 2.06352 17.8324 2.06352C12.7988 2.06352 7.76468 2.06352 2.73009 2.06352C2.01577 2.06352 1.73003 2.34926 1.73003 3.07001C1.73003 6.50736 1.73003 9.94447 1.73003 13.3813V13.7007C1.8329 13.6056 1.9029 13.5464 1.9679 13.4814C2.79986 12.6494 3.63158 11.816 4.46306 10.9812C4.93594 10.5083 5.37311 10.5112 5.85028 10.9891C6.46675 11.6062 7.08179 12.2248 7.70754 12.8556C7.79326 12.7749 7.8654 12.7127 7.93255 12.6413C9.33168 11.2422 10.7299 9.84232 12.1271 8.44176C12.6385 7.92959 13.0557 7.93031 13.5715 8.44176C14.0872 8.95322 14.6215 9.4854 15.138 10.0133C15.5259 10.4119 15.5009 10.9476 15.0958 11.2841C14.748 11.5734 14.3015 11.5591 13.9608 11.2269C13.5907 10.8698 13.235 10.494 12.8621 10.1154C12.7678 10.204 12.6964 10.2676 12.6285 10.3354L8.43401 14.5436C7.92398 15.055 7.50538 15.0522 6.99035 14.5357C6.38531 13.93 5.78171 13.3235 5.14095 12.6813Z"
                 fill="white"
@@ -173,6 +174,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         _placeholder={{ color: "text.gray200" }}
         _focus={{ outline: "none" }}
       />
+
       <ImageDetailInput
         title="Tags"
         sideNote="(Minimum 10)"
@@ -182,7 +184,27 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
           setDetails({ ...details, tags: value });
         }}
       />
-      <ImageDetailInput
+      <ImageDetailAutosuggestInput
+        id="upload-details-meeting"
+        title="Meeting"
+        placeholder="Add meeting..."
+        sideNote="(Minimum 1)"
+        suggestionsList={[
+          "SOS",
+          "PM",
+          "LSC",
+          "BECON",
+          "BECONPM",
+          "WTV",
+          "WTVPM",
+          "ANAMNESIS",
+          "ANAMNESISPM",
+        ]}
+        setValue={(value: string) => {
+          setDetails({ ...details, meeting: value });
+        }}
+      />
+      {/* <ImageDetailInput
         title="Meeting"
         placeholder="Add meeting..."
         sideNote="(Minimum 1)"
@@ -191,8 +213,25 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         setValue={(value: string) => {
           setDetails({ ...details, meeting: value });
         }}
+      /> */}
+
+      <ImageDetailAutosuggestInput
+        id="upload-details-location"
+        title="Location"
+        placeholder="Add location..."
+        suggestionsList={[
+          "KOSOFE",
+          "NOIC",
+          "FAITH PLAZA",
+          "TEA HOUSE",
+          "GBAGADA",
+          "OTHERS",
+        ]}
+        setValue={(value: string) => {
+          setDetails({ ...details, meeting: value });
+        }}
       />
-      <ImageDetailInput
+      {/* <ImageDetailInput
         title="Location"
         placeholder="Add location..."
         suggestions={[
@@ -207,7 +246,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         setValue={(value: string) => {
           setDetails({ ...details, location: value });
         }}
-      />
+      /> */}
       <ImageDetailInput
         title="Date"
         sideNote="(Year & Month)"

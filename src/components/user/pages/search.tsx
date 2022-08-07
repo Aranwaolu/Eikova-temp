@@ -16,7 +16,7 @@ const SearchPage: React.FunctionComponent<ISearchPageProps> = (props) => {
   return (
     <Box>
       <SearchPageBanner />
-      <Flex p="35px 100px" gap="20px" pos="relative" zIndex="8">
+      <Flex p="35px 100px" gap="20px" pos="relative">
         <FilterBox />
         <Box w="100%">
           <Box>
@@ -26,8 +26,13 @@ const SearchPage: React.FunctionComponent<ISearchPageProps> = (props) => {
               mb="35px"
               borderBottom="1px solid #ECECEC"
             >
-              <Text as="span" fontSize="24px" fontWeight="500">
-                2,965
+              <Text
+                as="span"
+                fontSize="22px"
+                fontWeight="500"
+                marginRight="8px"
+              >
+                {searchResults.length}
               </Text>{" "}
               Photos of ‘
               <Text as="span" fontStyle="italic">
@@ -38,7 +43,7 @@ const SearchPage: React.FunctionComponent<ISearchPageProps> = (props) => {
           </Box>
           <PictureGrid photos={searchResults} loading={loading} />
           {!!error && <Text>{error}</Text>}
-          {!error && (
+          {!error && searchResults.length > 20 && (
             <Box w="100%">
               <Pagination pageCount={10} setPage={setPageNumber} />
             </Box>

@@ -20,7 +20,7 @@ const useSignIn = () => {
     signIn({ email, password })
       .then((res) => {
         // Save token to local storage
-        console.log(res.data);
+
         if (res.data.tokens.access) {
           saveUserToLocal(res.data.tokens.access.token);
         } else {
@@ -28,7 +28,6 @@ const useSignIn = () => {
         }
         setUser(getUserFromLocal());
         history.push("/");
-        console.log(getUserFromLocal());
       })
       .catch((err) => {
         setisSigningIn(false);

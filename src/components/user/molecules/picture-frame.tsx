@@ -3,10 +3,12 @@ import { Box, Img, Link } from "@chakra-ui/react";
 import DownloadIcon from "../atoms/download-icon";
 
 interface IPictureFrameProps {
+  thumbnailLink: string;
   imageLink: string;
 }
 
 const PictureFrame: React.FunctionComponent<IPictureFrameProps> = ({
+  thumbnailLink,
   imageLink,
 }) => {
   return (
@@ -15,7 +17,7 @@ const PictureFrame: React.FunctionComponent<IPictureFrameProps> = ({
         w="100%"
         h="268px"
         objectFit="cover"
-        src={imageLink}
+        src={thumbnailLink}
         pos="relative"
       />
       <Box

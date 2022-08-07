@@ -4,14 +4,13 @@ import NavigationBar from "./nav";
 import SearchBar from "./search-bar";
 import BannerFilter from "../molecules/banner-filter";
 import { useState } from "react";
-import {  useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 interface ISearchPageBannerProps {}
 
 const SearchPageBanner: React.FunctionComponent<ISearchPageBannerProps> = (
   props
 ) => {
-  
   const location = useLocation();
   const query = new URLSearchParams(location.search);
   const searchQuery = query.get("query") || "";
