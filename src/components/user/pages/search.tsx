@@ -43,7 +43,7 @@ const SearchPage: React.FunctionComponent<ISearchPageProps> = (props) => {
           </Box>
           <PictureGrid photos={searchResults} loading={loading} />
           {!!error && <Text>{error}</Text>}
-          {!error && searchResults.length > 20 && (
+          {!error && searchResults.length > 11 && (
             <Box w="100%">
               <Pagination pageCount={10} setPage={setPageNumber} />
             </Box>
