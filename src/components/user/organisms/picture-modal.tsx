@@ -75,7 +75,7 @@ const PictureModal: React.FunctionComponent<IPictureModalProps> = ({
           >
             <Img
               w="75%"
-              height="600px"
+              // height="600px"
               objectFit="cover"
               objectPosition="center"
               src={imageLink}
