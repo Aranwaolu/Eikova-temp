@@ -17,7 +17,7 @@ const PictureFrame: React.FunctionComponent<IPictureFrameProps> = ({
         w="100%"
         h="268px"
         objectFit="cover"
-        src={thumbnailLink}
+        src={imageLink}
         pos="relative"
       />
       <Box
