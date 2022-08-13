@@ -146,7 +146,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
           opacity="0"
           accept="image/*"
           onChange={(e) => {
-            console.log(e.target.files);
+            // console.log(e.target.files);
             if (e.target.files) {
               const file = Array.from(e.target.files)[0];
               console.log(file);
@@ -228,7 +228,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
           "OTHERS",
         ]}
         setValue={(value: string) => {
-          setDetails({ ...details, meeting: value });
+          setDetails({ ...details, location: value });
         }}
       />
       {/* <ImageDetailInput
@@ -247,6 +247,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
           setDetails({ ...details, location: value });
         }}
       /> */}
+
       <ImageDetailInput
         title="Date"
         sideNote="(Year & Month)"
@@ -264,7 +265,22 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
           setDetails({ ...details, date: value });
         }}
       />
-      <ImageDetailInput
+
+      <ImageDetailAutosuggestInput
+        id="upload-details-ministers"
+        title="Ministers of the Word"
+        sideNote="(Select 1 Minimum)"
+        placeholder="Add ministers..."
+        suggestionsList={[
+          "Rev Kayode Oyegoke",
+          "Rev (Mrs) Helen Oyegoke",
+          "Pst Emeka Egwuchukwu",
+        ]}
+        setValue={(value: string) => {
+          setDetails({ ...details, minister: value });
+        }}
+      />
+      {/* <ImageDetailInput
         title="Ministers of the Word"
         sideNote="(Select 1 Minimum)"
         placeholder="Add ministers..."
@@ -277,8 +293,26 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         setValue={(value: string) => {
           setDetails({ ...details, minister: value });
         }}
+      /> */}
+
+      <ImageDetailAutosuggestInput
+        id="upload-details-song-ministers"
+        title="Song Minister"
+        sideNote="(Select 1 Minimum)"
+        placeholder="Add song ministers..."
+        suggestionsList={[
+          "Bro Lanre Awosika",
+          "Sis Ola Oseni",
+          "Bro Yomi",
+          "Pst Alfred",
+          "Sis Maria",
+          "Sis Favour",
+        ]}
+        setValue={(value: string) => {
+          setDetails({ ...details, songMinister: value });
+        }}
       />
-      <ImageDetailInput
+      {/* <ImageDetailInput
         title="Song Minister"
         sideNote="(Select 1 Minimum)"
         placeholder="Add ministers..."
@@ -294,7 +328,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         setValue={(value: string) => {
           setDetails({ ...details, songMinister: value });
         }}
-      />
+      /> */}
       <Button
         display="flex"
         gap="20px"
@@ -305,6 +339,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         fontWeight="500"
         disabled={!enablePublish}
         onClick={() => {
+          console.log(...picturesDetails);
           const store = [...picturesDetails];
           store[activeIndex] = details;
           // setPictureDetails(store);
