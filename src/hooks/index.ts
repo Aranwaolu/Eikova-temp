@@ -13,6 +13,7 @@ import useFilterOptions from "./filter-options";
 import useEditPhoto from "./edit-photo";
 import useSearchPhotos from "./search-photos";
 import useVerifyInvite from "./verify-invite";
+import useFetchPeople from "./fetch-people";
 
 export {
   useSignIn,
@@ -29,5 +30,6 @@ export {
   useFilterOptions,
   useEditPhoto,
   useSearchPhotos,
-  useVerifyInvite
+  useVerifyInvite,
+  useFetchPeople,
 };

@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import {
   useFetchContributorPhotos,
   useFetchLandingPhotos,
+  useFetchPeople,
 } from "../../../hooks";
 
 const Dashboard: React.FC = () => {
@@ -26,6 +27,13 @@ const Dashboard: React.FC = () => {
     contributorLoadingMore,
     deleteHandlers,
   } = useFetchContributorPhotos();
+
+  const { people } = useFetchPeople();
+
+  useEffect(() => {
+    // console.log("here", people);
+  }, []);
+
   const placeholderPhotos = [
     {
       url: "/assets/images/picture-card-1.png",

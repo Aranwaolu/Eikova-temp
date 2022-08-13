@@ -27,7 +27,7 @@ const ImageDetailAutosuggestInput: React.FC<
     );
 
     return lowerCasedSuggestionsList.filter((language) =>
-      language.startsWith(value.trim().toUpperCase())
+      language.includes(value.trim().toUpperCase())
     );
   };
 
