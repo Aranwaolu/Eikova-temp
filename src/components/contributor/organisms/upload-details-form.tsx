@@ -8,6 +8,8 @@ import Button from "../../user/atoms/button";
 import ImageDetailAutosuggestInput from "../molecules/image-detail-autosuggest";
 import ImageDetailInput from "../molecules/image-detail-input";
 
+import { useFetchPeople } from "../../../hooks";
+
 interface IUploadDetailsFormProps {
   pictureLink: string;
   activeIndex: number;
@@ -31,6 +33,21 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
 
   const [details, setDetails] = useState(picturesDetails[activeIndex]);
   const [enablePublish, setEnablePublish] = useState(false);
+  const [ministerList, setMinisterList] = useState<string[]>([]);
+  const [songMinisterList, setSongMinisterList] = useState<string[]>([]);
+
+  // const { loading, people } = useFetchPeople();
+
+  useEffect(() => {
+    let myMinisterList = localStorage.getItem("ministers")!.split(",");
+    // console.log(myMinisterList);
+    setMinisterList(myMinisterList);
+
+    let mySongMinisterList = localStorage.getItem("song_ministers")!.split(",");
+    // console.log(mySongMinisterList);
+    setSongMinisterList(mySongMinisterList);
+  }, []);
+
   useEffect(() => {
     if (
       details.date &&
@@ -271,11 +288,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         title="Ministers of the Word"
         sideNote="(Select 1 Minimum)"
         placeholder="Add ministers..."
-        suggestionsList={[
-          "Rev Kayode Oyegoke",
-          "Rev (Mrs) Helen Oyegoke",
-          "Pst Emeka Egwuchukwu",
-        ]}
+        suggestionsList={ministerList}
         setValue={(value: string) => {
           setDetails({ ...details, minister: value });
         }}
@@ -300,14 +313,7 @@ const UploadDetailsForm: React.FC<IUploadDetailsFormProps> = ({
         title="Song Minister"
         sideNote="(Select 1 Minimum)"
         placeholder="Add song ministers..."
-        suggestionsList={[
-          "Bro Lanre Awosika",
-          "Sis Ola Oseni",
-          "Bro Yomi",
-          "Pst Alfred",
-          "Sis Maria",
-          "Sis Favour",
-        ]}
+        suggestionsList={songMinisterList}
         setValue={(value: string) => {
           setDetails({ ...details, songMinister: value });
         }}

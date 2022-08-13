@@ -37,7 +37,7 @@ const ImageDetailAutosuggestInput: React.FC<
 
     return lowerCasedSuggestionsList.filter((language) =>
       valueArray[valueArray.length - 1].trim() !== ""
-        ? language.startsWith(
+        ? language.includes(
             valueArray[valueArray.length - 1].trim().toUpperCase()
           )
         : null
@@ -115,7 +115,9 @@ const ImageDetailAutosuggestInput: React.FC<
         <Text fontSize="18px" mt="8px">
           Suggested:{" "}
           <Text as="span" color="text.primary">
-            {suggestionsList.join(", ")}
+            {suggestionsList.length > 5
+              ? suggestionsList.splice(0, 4).join(", ")
+              : suggestionsList.join(", ")}
           </Text>
         </Text>
       )}
