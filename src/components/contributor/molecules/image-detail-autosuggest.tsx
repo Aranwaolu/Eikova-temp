@@ -4,32 +4,47 @@ import ReactDOM from "react-dom";
 import AutoSuggest from "react-autosuggest";
 
 import "./autosuggest.css";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+
+import Tag from "../atoms/tag";
 
 interface IImageDetailAutosuggestInputProps {
   id: string;
   title: string;
   sideNote?: string;
+  type?: string;
   placeholder: string;
-  suggestionsList: string[];
+  suggestionsList?: string[];
   setValue: (v: string) => void;
 }
 
 const ImageDetailAutosuggestInput: React.FC<
   IImageDetailAutosuggestInputProps
-> = ({ id, title, sideNote, placeholder, suggestionsList, setValue }) => {
+> = ({ id, title, sideNote, placeholder, type, suggestionsList, setValue }) => {
   const [valueLocal, setValueLocal] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [selectedSuggestions, setSelectedSuggestions] = useState<string[]>([]);
 
   const getSuggestions = (value: string): string[] => {
-    const lowerCasedSuggestionsList = suggestionsList.map((language) =>
-      language.toUpperCase()
-    );
+    const lowerCasedSuggestionsList = suggestionsList
+      ? suggestionsList.map((language) => language.toUpperCase())
+      : [];
+
+    // convert value from string to array
+    let valueArray = value.split(/[,]/).map(function (item) {
+      return item.trim();
+    });
 
     return lowerCasedSuggestionsList.filter((language) =>
-      language.startsWith(value.trim().toUpperCase())
+      valueArray[valueArray.length - 1].trim() !== ""
+        ? language.startsWith(
+            valueArray[valueArray.length - 1].trim().toUpperCase()
+          )
+        : null
     );
   };
+
+  let valueArray;
 
   return (
     <Box mt="48px">
@@ -45,24 +60,58 @@ const ImageDetailAutosuggestInput: React.FC<
         suggestions={suggestions}
         onSuggestionsClearRequested={() => setSuggestions([])}
         onSuggestionsFetchRequested={({ value }) => {
-          setValueLocal(value);
           setSuggestions(getSuggestions(value));
         }}
-        onSuggestionSelected={(_, { suggestionValue }) => {}}
+        onSuggestionSelected={(e, { suggestionValue }) => {
+          valueArray = valueLocal.split(",");
+
+          if (valueArray.includes(suggestionValue)) {
+            valueArray.pop();
+            setValueLocal(valueArray.join());
+          } else {
+            valueArray[valueArray.length - 1] = suggestionValue;
+            setValueLocal(valueArray.join());
+          }
+
+          setSelectedSuggestions(valueArray);
+          setValue(valueArray.join());
+        }}
         getSuggestionValue={(suggestion) => suggestion}
         renderSuggestion={(suggestion) => <span>{suggestion}</span>}
         inputProps={{
           placeholder: placeholder,
           value: valueLocal,
           onChange: (_, { newValue, method }) => {
-            setValue(newValue);
             setValueLocal(newValue);
           },
         }}
         highlightFirstSuggestion={true}
       />
 
-      {title !== "Date" && (
+      {type !== "date" && title !== "Location" && (
+        <Flex flexWrap="wrap" gap="10px">
+          {selectedSuggestions && selectedSuggestions[0]
+            ? selectedSuggestions.map((tag, index) =>
+                tag && tag.replace(/\s/g, "").length ? (
+                  <Tag
+                    key={tag + index}
+                    tag={tag}
+                    onTagClick={() => {
+                      const newArray = selectedSuggestions;
+                      newArray.splice(index, 1);
+                      setValueLocal(newArray.join());
+                      setValue(newArray.join(","));
+                    }}
+                  />
+                ) : (
+                  ""
+                )
+              )
+            : ""}
+        </Flex>
+      )}
+
+      {suggestionsList && title !== "Date" && (
         <Text fontSize="18px" mt="8px">
           Suggested:{" "}
           <Text as="span" color="text.primary">
